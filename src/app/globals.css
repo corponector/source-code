@@ -1,10 +1,10 @@
 :root {
-  --nat-navbar-bg: #00001a;
-  --nat-navbar-color: #00001a;
+  --nat-navbar-bg: gray;
+  --nat-navbar-color: gray;
   --nat-navbar-text-highlight: white;
   --nat-navbar-highlight-text: var(--bs-gray-500);
   --nat-navbar-highlight-bg: gray;
-  --nat-navbar-bg-rgb: 0, 0, 26;
+  --nat-navbar-bg-rgb: 119, 136, 153;
   --nat-navbar-text-color: white;
 }
 
