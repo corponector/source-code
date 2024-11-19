@@ -76,5 +76,6 @@ model Student {
   id               Int      @id @default(autoincrement())
   name             String
   skills           String[]
+  location         String
   professionalPage String
 }
