@@ -22,7 +22,9 @@ const Home = () => (
           <h4>
             <strong>
               <a href="/auth/signin">Login </a>
-              or <a href="/auth/signup">Sign up</a> to join us now!
+              or
+              <a href="/auth/signup"> Sign up </a>
+              to join us now!
             </strong>
           </h4>
         </Col>
