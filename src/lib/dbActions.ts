@@ -45,8 +45,8 @@ export async function addCompany(company: {
   name: string;
   overview: string;
   location: string;
-  links: string[];
-  emails: string[];
+  links: string;
+  emails: string;
   owner: string;
 }) {
   await prisma.company.create({
@@ -54,8 +54,8 @@ export async function addCompany(company: {
       name: company.name,
       overview: company.overview,
       location: company.location,
-      links: company.links,
-      emails: company.emails,
+      links: company.links.split(','),
+      emails: company.emails.split(','),
       owner: company.owner,
     },
   });
