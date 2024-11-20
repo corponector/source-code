@@ -72,7 +72,6 @@ async function main() {
         name: data.name,
         overview: data.overview,
         location: data.location,
-        positions: data.positions,
         links: data.links,
         emails: data.emails,
         owner: data.owner,
