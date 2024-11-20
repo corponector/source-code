@@ -6,7 +6,9 @@ const Home = () => (
     <Container id="landing-page" fluid className="d-flex align-items-center justify-content-center py-5">
       <Row className="justify-content-center text-center">
         <Col xs={10} md={8} lg={6}>
-          <h1 style={{ fontFamily: "'Spicy Rice', cursive" }}>Welcome to Corponector!</h1>
+          <h1 style={{ fontFamily: "'Spicy Rice', cursive" }}>
+            <strong>Welcome to Corponector!</strong>
+          </h1>
           <p className="py-3">
             Corponector bridges the gap between UH computer science and engineering students and a wide range of
             companies seeking fresh talent. We provide a platform where local and global companies can share potential
@@ -22,7 +24,9 @@ const Home = () => (
           <h4>
             <strong>
               <a href="/auth/signin">Login </a>
-              or <a href="/auth/signup">Sign up</a> to join us now!
+              or
+              <a href="/auth/signup"> Sign up </a>
+              to join us now!
             </strong>
           </h4>
         </Col>
