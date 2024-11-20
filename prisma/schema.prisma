@@ -67,7 +67,7 @@ model Position {
   skills        String[]
   jobType       JobType[]
   numberOfHires Int
-  salarayRange  String
+  salaryRange  String
   company       Company   @relation(fields: [companyId], references: [id])
   companyId     Int
 }
@@ -76,5 +76,6 @@ model Student {
   id               Int      @id @default(autoincrement())
   name             String
   skills           String[]
+  location         String
   professionalPage String
 }

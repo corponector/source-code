@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
-import { Container} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
-import StuffItem from '@/components/StuffItem';
+import StudentInfo from '@/components/StudentInfo';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 
@@ -16,7 +16,7 @@ const StudentPage = async () => {
     } | null,
   );
   const owner = (session && session.user && session.user.email) || '';
-  const profile_info = await prisma.stuff.findMany({
+  const student = await prisma.student.findMany({
     where: {
       owner,
     },
@@ -24,8 +24,8 @@ const StudentPage = async () => {
   // console.log(stuff);
   return (
     <main>
-      <Container className="py-3">
-        <StuffItem />
+      <Container id="list" fluid className="py-3">
+        <StudentInfo key={StudentInfo.id} {...student} />
       </Container>
     </main>
   );
