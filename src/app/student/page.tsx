@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import StudentInfo from '@/components/StudentInfo';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
+import Link from 'next/link';
 
 /** Render a list of stuff for the logged in user. */
 const StudentPage = async () => {
@@ -23,10 +24,15 @@ const StudentPage = async () => {
   });
   // console.log(stuff);
   return (
-    <main>
-      <Container id="list" fluid className="py-3">
+    <main className="semi-transparent">
+      <Container className="py-3">
         {student.map((s) => (
-          <StudentInfo key={s.id} {...s} />
+          <>
+            <StudentInfo key={s.id} {...s} />
+            <Container className="my-5 bg-primary edit-container p-2">
+              <Link href={`/student/edit/${s.id}`} style={{ color: 'white' }}>Edit</Link>
+            </Container>
+          </>
         ))}
       </Container>
     </main>
