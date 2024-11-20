@@ -7,7 +7,7 @@ import { prisma } from './prisma';
 
 export async function addStudent(student: {
   name: string;
-  skills: string[];
+  skills: string;
   location: string;
   professionalPage: string;
   owner: string;
@@ -15,7 +15,7 @@ export async function addStudent(student: {
   await prisma.student.create({
     data: {
       name: student.name,
-      skills: student.skills,
+      skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
       owner: student.owner,
