@@ -25,7 +25,9 @@ const StudentPage = async () => {
   return (
     <main>
       <Container id="list" fluid className="py-3">
-        <StudentInfo key={StudentInfo.id} {...student} />
+        {student.map((s) => (
+          <StudentInfo key={s.id} {...s} />
+        ))}
       </Container>
     </main>
   );
