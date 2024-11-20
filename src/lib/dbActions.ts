@@ -7,7 +7,7 @@ import { prisma } from './prisma';
 
 export async function addStudent(student: {
   name: string;
-  skills: string[];
+  skills: string;
   location: string;
   professionalPage: string;
   owner: string;
@@ -15,7 +15,7 @@ export async function addStudent(student: {
   await prisma.student.create({
     data: {
       name: student.name,
-      skills: student.skills,
+      skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
       owner: student.owner,
@@ -45,8 +45,8 @@ export async function addCompany(company: {
   name: string;
   overview: string;
   location: string;
-  links: string[];
-  emails: string[];
+  links: string;
+  emails: string;
   owner: string;
 }) {
   await prisma.company.create({
@@ -54,8 +54,8 @@ export async function addCompany(company: {
       name: company.name,
       overview: company.overview,
       location: company.location,
-      links: company.links,
-      emails: company.emails,
+      links: company.links.split(','),
+      emails: company.emails.split(','),
       owner: company.owner,
     },
   });

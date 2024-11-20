@@ -18,11 +18,12 @@ export const EditStudentSchema = Yup.object({
 });
 
 export const AddCompanySchema = Yup.object({
-  name: Yup.string().required(),
-  overview: Yup.string().required(),
-  location: Yup.string().required(),
-  // links: company.links,
-  // emails: company.emails,
+  name: Yup.string().required('Company Name is required'),
+  overview: Yup.string().required('Overview is required'),
+  location: Yup.string().required('Location is required'),
+  positions: Yup.string().required('Positions are required'),
+  links: Yup.string().url('Must be a valid URL').required('Links are required'),
+  emails: Yup.string().email('Must be a valid email').required('Contact Email is required'),
   owner: Yup.string().required(),
 });
 
@@ -31,8 +32,9 @@ export const EditCompanySchema = Yup.object({
   name: Yup.string().required(),
   overview: Yup.string().required(),
   location: Yup.string().required(),
-  // links: company.links,
-  // emails: company.emails,
+  positions: Yup.string().required(),
+  links: Yup.string().required(),
+  emails: Yup.string().required(),
   owner: Yup.string().required(),
 });
 
