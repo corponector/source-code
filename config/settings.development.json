@@ -1,7 +1,9 @@
 {
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN" },
-    { "email": "john@foo.com", "password": "changeme" }
+    { "email": "john@foo.com", "password": "changeme" },
+    { "email": "jane@foo.com", "password": "changeme" },
+    { "email": "google@foo.com", "password": "changeme" }
   ],
 
   "defaultData": [
@@ -16,13 +18,15 @@
       "name": "John Doe",
       "skills": ["Java", "C++"],
       "location": "San Francisco",
-      "professionalPage": "https://drive.google.com/"
+      "professionalPage": "https://drive.google.com/",
+      "owner": "john@foo.com"
     },
     {
       "name": "Jane Doe",
       "skills": ["Java", "C++"],
       "location": "Honolulu",
-      "professionalPage": "https://myuh.hawaii.edu/"
+      "professionalPage": "https://myuh.hawaii.edu/",
+      "owner": "jane@foo.com"
     }
   ],
 
@@ -50,7 +54,8 @@
         }
       ],
       "links": ["https://careers.google.com/jobs"],
-      "emails": ["google@gmail.com"]
+      "emails": ["google@gmail.com"],
+      "owner": "google@foo.com"
     }
   ]
 }
