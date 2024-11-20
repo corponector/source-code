@@ -21,8 +21,9 @@ export const AddCompanySchema = Yup.object({
   name: Yup.string().required(),
   overview: Yup.string().required(),
   location: Yup.string().required(),
-  // links: company.links,
-  // emails: company.emails,
+  positions: Yup.string().required(),
+  links: Yup.string().required(),
+  emails: Yup.string().required(),
   owner: Yup.string().required(),
 });
 
@@ -31,8 +32,9 @@ export const EditCompanySchema = Yup.object({
   name: Yup.string().required(),
   overview: Yup.string().required(),
   location: Yup.string().required(),
-  // links: company.links,
-  // emails: company.emails,
+  positions: Yup.string().required(),
+  links: Yup.string().required(),
+  emails: Yup.string().required(),
   owner: Yup.string().required(),
 });
 

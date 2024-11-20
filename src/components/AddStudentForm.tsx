@@ -40,9 +40,9 @@ const AddStudentForm: React.FC = () => {
   if (status === 'loading') {
     return <LoadingSpinner />;
   }
-  // if (status === 'unauthenticated') {
-  //   redirect('/auth/signin');
-  // }
+  if (status === 'unauthenticated') {
+    redirect('/auth/signin');
+  }
 
   return (
     <Container className="mt-3">
