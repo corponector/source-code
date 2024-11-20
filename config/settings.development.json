@@ -9,5 +9,48 @@
     { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
     { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  ],
+
+  "students": [
+    {
+      "name": "John Doe",
+      "skills": ["Java", "C++"],
+      "location": "San Francisco",
+      "professionalPage": "https://drive.google.com/"
+    },
+    {
+      "name": "Jane Doe",
+      "skills": ["Java", "C++"],
+      "location": "Honolulu",
+      "professionalPage": "https://myuh.hawaii.edu/"
+    }
+  ],
+
+  "companies": [
+    {
+      "name": "Google",
+      "overview": "Google is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.",
+      "location": "Mountain View, California",
+      "positions": [
+        {
+          "title": "Software Engineer",
+          "description": "Design, develop, test, deploy, maintain and improve software.",
+          "skills": ["Java", "C++", "Python"],
+          "jobType": ["permanent", "internship"],
+          "numberOfHires": 10,
+          "salaryRange": 120000
+        },
+        {
+          "title": "Product Manager",
+          "description": "Lead a cross-functional team to develop and launch new products.",
+          "skills": ["Java", "C++", "Python"],
+          "jobType": ["permanent", "internship"],
+          "numberOfHires": 2,
+          "salaryRange": 150000
+        }
+      ],
+      "links": ["https://careers.google.com/jobs"],
+      "emails": ["google@gmail.com"]
+    }
   ]
 }
