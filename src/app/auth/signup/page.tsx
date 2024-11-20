@@ -1,21 +1,23 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { createUser } from '@/lib/dbActions';
+import { signIn } from 'next-auth/react';
 
 type SignUpForm = {
   email: string;
   password: string;
   confirmPassword: string;
-  // acceptTerms: boolean;
+  role: string;
 };
 
-/** The sign up page. */
 const SignUp = () => {
+  // const router = useRouter();
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
     password: Yup.string()
@@ -25,6 +27,7 @@ const SignUp = () => {
     confirmPassword: Yup.string()
       .required('Confirm Password is required')
       .oneOf([Yup.ref('password'), ''], 'Confirm Password does not match'),
+    role: Yup.string().required('Please select a role'),
   });
 
   const {
@@ -37,22 +40,39 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: SignUpForm) => {
+    // try {
+    //   if (data.role === 'student') {
+    //     router.push('/student');
+    //   } else if (data.role === 'company') {
+    //     router.push('/company');
+    //   }
+    // } catch (error) {
+    //   console.error('Error during role-specific navigation:', error);
+    // }
     // console.log(JSON.stringify(data, null, 2));
     await createUser(data);
     // After creating, signIn with redirect to the add page
-    await signIn('credentials', { callbackUrl: '/add', ...data });
+    if (data.role === 'student') {
+      await signIn('credentials', { callbackUrl: '/auth/student', ...data });
+    } else if (data.role === 'company') {
+      await signIn('credentials', { callbackUrl: '/auth/company', ...data });
+    } else {
+      console.error('Invalid role:');
+      redirect('/auth/signup');
+    }
   };
 
   return (
     <main>
-      <Container>
+      <Container className="py-5">
         <Row className="justify-content-center">
           <Col xs={5}>
             <h1 className="text-center">Sign Up</h1>
             <Card>
               <Card.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group className="form-group">
+                  {/* Email */}
+                  <Form.Group className="form-group mb-3">
                     <Form.Label>Email</Form.Label>
                     <input
                       type="text"
@@ -62,7 +82,8 @@ const SignUp = () => {
                     <div className="invalid-feedback">{errors.email?.message}</div>
                   </Form.Group>
 
-                  <Form.Group className="form-group">
+                  {/* Password */}
+                  <Form.Group className="form-group mb-3">
                     <Form.Label>Password</Form.Label>
                     <input
                       type="password"
@@ -71,7 +92,9 @@ const SignUp = () => {
                     />
                     <div className="invalid-feedback">{errors.password?.message}</div>
                   </Form.Group>
-                  <Form.Group className="form-group">
+
+                  {/* Confirm Password */}
+                  <Form.Group className="form-group mb-3">
                     <Form.Label>Confirm Password</Form.Label>
                     <input
                       type="password"
@@ -80,6 +103,18 @@ const SignUp = () => {
                     />
                     <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
                   </Form.Group>
+
+                  {/* Role Selection */}
+                  <Form.Group className="form-group mb-3">
+                    <Form.Label>Role</Form.Label>
+                    <select {...register('role')} className={`form-control ${errors.role ? 'is-invalid' : ''}`}>
+                      <option value="">Select Role</option>
+                      <option value="student">Student</option>
+                      <option value="company">Company</option>
+                    </select>
+                    <div className="invalid-feedback">{errors.role?.message}</div>
+                  </Form.Group>
+
                   <Form.Group className="form-group py-3">
                     <Row>
                       <Col>
