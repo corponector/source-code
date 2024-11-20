@@ -45,6 +45,40 @@ async function main() {
       },
     });
   });
+
+  config.students.forEach(async (data, index) => {
+    console.log('Adding student: ', data);
+
+    await prisma.student.upsert({
+      where: { id: index + 1 },
+      update: {},
+      create: {
+        name: data.name,
+        skills: data.skills,
+        location: data.location,
+        professionalPage: data.professionalPage,
+        owner: data.owner,
+      },
+    });
+  });
+
+  config.companies.forEach(async (data, index) => {
+    console.log('Adding company: ', data);
+
+    await prisma.company.upsert({
+      where: { id: index + 1 },
+      update: {},
+      create: {
+        name: data.name,
+        overview: data.overview,
+        location: data.location,
+        positions: data.positions,
+        links: data.links,
+        emails: data.emails,
+        owner: data.owner,
+      },
+    });
+  });
 }
 main()
   .then(() => prisma.$disconnect())

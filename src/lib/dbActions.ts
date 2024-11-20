@@ -1,9 +1,84 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
+import { Stuff, Condition, Student, Company } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
+
+export async function addStudent(student: {
+  name: string;
+  skills: string[];
+  location: string;
+  professionalPage: string;
+  owner: string;
+}) {
+  await prisma.student.create({
+    data: {
+      name: student.name,
+      skills: student.skills,
+      location: student.location,
+      professionalPage: student.professionalPage,
+      owner: student.owner,
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/student');
+}
+
+export async function editStudent(student: Student) {
+  // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
+  await prisma.student.update({
+    where: { id: student.id },
+    data: {
+      name: student.name,
+      skills: student.skills,
+      location: student.location,
+      professionalPage: student.professionalPage,
+      owner: student.owner,
+    },
+  });
+  // After updating, redirect to the list page
+  redirect('/list');
+}
+
+export async function addCompany(company: {
+  name: string;
+  overview: string;
+  location: string;
+  links: string[];
+  emails: string[];
+  owner: string;
+}) {
+  await prisma.company.create({
+    data: {
+      name: company.name,
+      overview: company.overview,
+      location: company.location,
+      links: company.links,
+      emails: company.emails,
+      owner: company.owner,
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/company');
+}
+
+export async function editCompany(company: Company) {
+  // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
+  await prisma.company.update({
+    where: { id: company.id },
+    data: {
+      name: company.name,
+      overview: company.overview,
+      location: company.location,
+      links: company.links,
+      emails: company.emails,
+      owner: company.owner,
+    },
+  });
+  // After updating, redirect to the list page
+  redirect('/company');
+}
 
 /**
  * Adds a new stuff to the database.
