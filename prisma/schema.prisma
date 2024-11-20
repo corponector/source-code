@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
   // for local development
   // url      = env("DATABASE_URL")
   // for Vercel
@@ -52,6 +52,7 @@ model Company {
   positions Position[]
   links     String[]
   emails    String[]
+  owner     String
 }
 
 enum JobType {
@@ -67,7 +68,7 @@ model Position {
   skills        String[]
   jobType       JobType[]
   numberOfHires Int
-  salaryRange  String
+  salaryRange   String
   company       Company   @relation(fields: [companyId], references: [id])
   companyId     Int
 }
@@ -78,4 +79,5 @@ model Student {
   skills           String[]
   location         String
   professionalPage String
+  owner            String
 }
