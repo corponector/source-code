@@ -92,3 +92,32 @@ export async function changePassword(credentials: { email: string; password: str
     },
   });
 }
+
+// Ensure this file exports the searchStuff function
+
+export const searchStuff = async (query: string) => {
+  try {
+    const results = await prisma.stuff.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            owner: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    });
+    return results;
+  } catch (error) {
+    console.error('Error searching stuff:', error);
+    throw new Error('Error searching stuff');
+  }
+};

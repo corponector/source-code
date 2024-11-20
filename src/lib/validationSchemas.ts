@@ -14,3 +14,7 @@ export const EditStuffSchema = Yup.object({
   condition: Yup.string().oneOf(['excellent', 'good', 'fair', 'poor']).required(),
   owner: Yup.string().required(),
 });
+
+export const searchSchema = Yup.object().shape({
+  query: Yup.string().required('Search query is required'),
+});
