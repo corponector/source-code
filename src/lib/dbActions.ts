@@ -96,28 +96,25 @@ export async function changePassword(credentials: { email: string; password: str
 // Ensure this file exports the searchStuff function
 
 export const searchStuff = async (query: string) => {
-  try {
-    const results = await prisma.stuff.findMany({
-      where: {
-        OR: [
-          {
-            name: {
-              contains: query,
-              mode: 'insensitive',
-            },
-          },
-          {
-            owner: {
-              contains: query,
-              mode: 'insensitive',
-            },
-          },
-        ],
-      },
-    });
-    return results;
-  } catch (error) {
-    console.error('Error searching stuff:', error);
-    throw new Error('Error searching stuff');
-  }
+  const companies = await prisma.company.findMany({
+    where: {
+      OR: [
+        { name: { contains: query, mode: 'insensitive' } },
+        { overview: { contains: query, mode: 'insensitive' } },
+        { location: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+  });
+
+  const students = await prisma.student.findMany({
+    where: {
+      OR: [
+        { name: { contains: query, mode: 'insensitive' } },
+        { skills: { hasSome: [query] } },
+        { professionalPage: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+  });
+
+  return { companies, students };
 };
