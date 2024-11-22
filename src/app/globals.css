@@ -2,7 +2,7 @@
   --nat-navbar-bg: gray;
   --nat-navbar-color: gray;
   --nat-navbar-text-highlight: white;
-  --nat-navbar-highlight-text: var(--bs-gray-500);
+  --nat-navbar-highlight-text: white;
   --nat-navbar-highlight-bg: gray;
   --nat-navbar-bg-rgb: 119, 136, 153;
   --nat-navbar-text-color: white;
@@ -34,13 +34,6 @@ footer a {
   color: var(--nat-navbar-text-color);
 }
 
-.wrapper {
-  box-sizing: border-box;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .semi-transparent {
   background-color: rgba(255, 255, 255, 0.25);
   height: 100%;
@@ -49,3 +42,4 @@ footer a {
 .edit-container {
   width: 50px !important;
 }
+

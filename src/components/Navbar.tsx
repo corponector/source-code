@@ -5,7 +5,7 @@
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown, Image } from 'react-bootstrap';
-import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
+import { BoxArrowRight, Lock, PersonFill, PersonPlusFill, Globe } from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
@@ -17,19 +17,19 @@ const NavBar: React.FC = () => {
     <Navbar bg="dark" expand="lg">
       <Container>
         <Navbar.Brand href="/">
-          <Image src="../corponector.png" alt="Corponector Logo" width="150" height="150" />
+          <Image src="../corponector.png" alt="Corponector Logo" width="100" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
             {currentUser
               ? [
-                  <Nav.Link id="add-stuff-nav" href="/add" key="add" active={pathName === '/add'}>
-                    Add Stuff
+                  <Nav.Link id="add-stuff-nav" href="/search" key="add" active={pathName === '/add'}>
+                    <Globe />
+{' '}
+Browse
                   </Nav.Link>,
-                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
-                    List Stuff
-                  </Nav.Link>,
+
                 ]
               : ''}
             {currentUser && role === 'ADMIN' ? (
