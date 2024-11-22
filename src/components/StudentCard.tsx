@@ -2,13 +2,10 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { Student } from './Interface';
 
 interface StudentCardProps {
-  student: {
-    name: string;
-    skills: string[];
-    professionalPage: string;
-  };
+  student: Student;
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({ student }) => (

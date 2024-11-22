@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable max-len */
 /* eslint-disable react/no-array-index-key */
-
-'use client';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,14 +8,15 @@ import swal from 'sweetalert';
 import { searchStuff } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { searchSchema } from '@/lib/validationSchemas';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Container, Form, Button, Alert, InputGroup, Row, Col } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 import StudentCard from '@/components/StudentCard';
 import CompanyCard from '@/components/CompanyCard';
+import { prisma } from '@/lib/prisma';
+import { Student, Company } from './Interface';
 
-// eslint-disable-next-line max-len
 const onSubmit = async (data: { query: string }, setResults: (results: any) => void, setSearchPerformed: (value: boolean) => void) => {
   try {
     const results = await searchStuff(data.query);
@@ -31,7 +32,7 @@ const onSubmit = async (data: { query: string }, setResults: (results: any) => v
 
 const SearchPage: React.FC = () => {
   const { status } = useSession();
-  const [results, setResults] = useState<{ companies: any[]; students: any[] }>({ companies: [], students: [] });
+  const [results, setResults] = useState<{ companies: Company[]; students: Student[] }>({ companies: [], students: [] });
   const [searchPerformed, setSearchPerformed] = useState(false);
   const {
     register,
@@ -40,6 +41,19 @@ const SearchPage: React.FC = () => {
   } = useForm({
     resolver: yupResolver(searchSchema),
   });
+
+  const [students, setStudents] = useState<Student[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const students = await prisma.student.findMany();
+      const companies = await prisma.company.findMany();
+      setStudents(students);
+      setCompanies(companies);
+    };
+    fetchData();
+  }, []);
 
   if (status === 'loading') {
     return <LoadingSpinner />;
@@ -62,23 +76,37 @@ const SearchPage: React.FC = () => {
         </Form.Group>
       </Form>
       <div className="w-100 mt-4">
+        <Row>
+          <Col md={6}>
+            <h2>Students</h2>
+            {students.map((student) => (
+              <StudentCard key={student.id} student={student} />
+            ))}
+          </Col>
+          <Col md={6}>
+            <h2>Companies</h2>
+            {companies.map((company) => (
+              <CompanyCard key={company.id} company={company} />
+            ))}
+          </Col>
+        </Row>
         {searchPerformed && (
-          <Row>
+          <Row className="mt-4">
             <Col md={6}>
-              <h2>Students</h2>
+              <h2>Search Results - Students</h2>
               {results.students.length > 0 ? (
-                results.students.map((student, index) => (
-                  <StudentCard key={index} student={student} />
+                results.students.map((student) => (
+                  <StudentCard key={student.id} student={student} />
                 ))
               ) : (
                 <Alert variant="info">No students found</Alert>
               )}
             </Col>
             <Col md={6}>
-              <h2>Companies</h2>
+              <h2>Search Results - Companies</h2>
               {results.companies.length > 0 ? (
-                results.companies.map((company, index) => (
-                  <CompanyCard key={index} company={company} />
+                results.companies.map((company) => (
+                  <CompanyCard key={company.id} company={company} />
                 ))
               ) : (
                 <Alert variant="info">No companies found</Alert>

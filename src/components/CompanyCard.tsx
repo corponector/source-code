@@ -2,14 +2,10 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { Company } from './Interface';
 
 interface CompanyCardProps {
-  company: {
-    name: string;
-    overview: string;
-    location: string;
-    links: string[];
-  };
+  company: Company;
 }
 
 const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
