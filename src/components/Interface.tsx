@@ -3,6 +3,8 @@ export interface Student {
   name: string;
   skills: string[];
   professionalPage: string;
+  location: string;
+  email: string;
 }
 
 export interface Company {
