@@ -92,3 +92,29 @@ export async function changePassword(credentials: { email: string; password: str
     },
   });
 }
+
+// Ensure this file exports the searchStuff function
+
+export const searchStuff = async (query: string) => {
+  const companies = await prisma.company.findMany({
+    where: {
+      OR: [
+        { name: { contains: query, mode: 'insensitive' } },
+        { overview: { contains: query, mode: 'insensitive' } },
+        { location: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+  });
+
+  const students = await prisma.student.findMany({
+    where: {
+      OR: [
+        { name: { contains: query, mode: 'insensitive' } },
+        { skills: { hasSome: [query] } },
+        { professionalPage: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+  });
+
+  return { companies, students };
+};

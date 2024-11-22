@@ -1,13 +1,3 @@
-:root {
-  --nat-navbar-bg: gray;
-  --nat-navbar-color: gray;
-  --nat-navbar-text-highlight: white;
-  --nat-navbar-highlight-text: var(--bs-gray-500);
-  --nat-navbar-highlight-bg: gray;
-  --nat-navbar-bg-rgb: 119, 136, 153;
-  --nat-navbar-text-color: white;
-}
-
 html,
 body {
   --bs-dark: var(--nat-navbar-bg);
@@ -17,35 +7,10 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  background: fixed center url('/corponector-background.png');
-  background-size: cover;
 }
-
-body .navbar {
-  --bs-navbar-active-color: var(--nat-navbar-highlight-text);
-  --bs-navbar-brand-color: var(--nat-navbar-text-color);
-  --bs-navbar-brand-hover-color: var(--nat-navbar-highlight-text);
-  --bs-navbar-color: var(--nat-navbar-text-color);
-  --bs-navbar-hover-color: var(--nat-navbar-highlight-text);
-}
-
-footer,
-footer a {
-  color: var(--nat-navbar-text-color);
-}
-
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.semi-transparent {
-  background-color: rgba(255, 255, 255, 0.25);
-  height: 100%;
-}
-
-.edit-container {
-  width: 50px !important;
 }
