@@ -8,7 +8,6 @@ import { Student } from './Interface';
 
 interface StudentCardProps {
   student: Student;
-  };
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
