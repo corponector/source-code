@@ -54,5 +54,5 @@ export const EditStuffSchema = Yup.object({
 });
 
 export const searchSchema = Yup.object().shape({
-  query: Yup.string().required('Search query is required'),
+  query: Yup.string().notRequired(),
 });

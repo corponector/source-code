@@ -24,9 +24,9 @@ const NavBar: React.FC = () => {
           <Nav className="me-auto justify-content-start">
             {currentUser
               ? [
-                  <Nav.Link id="add-stuff-nav" href="/search" key="search" active={pathName === '/search'}>
+                  <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
                     <Globe />
-                    Browse
+                     Browse
                   </Nav.Link>,
 
                 ]

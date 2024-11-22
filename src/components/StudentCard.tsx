@@ -4,14 +4,10 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { Student } from './Interface';
 
 interface StudentCardProps {
-  student: {
-    name: string;
-    skills: string[];
-    location: string;
-    professionalPage: string;
-  };
+  student: Student;
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
@@ -30,6 +26,11 @@ const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
             <li key={index}>{skill}</li>
           ))}
         </ul>
+      </Card.Text>
+      <Card.Text>
+        <strong>Location:</strong>
+        {' '}
+        {student.location}
       </Card.Text>
       <Card.Link href={student.professionalPage} target="_blank">
         Professional Page
