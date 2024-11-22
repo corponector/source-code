@@ -1,10 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
+import { createUser } from '@/lib/dbActions';
+import { signIn } from 'next-auth/react';
 
 type SignUpForm = {
   email: string;
@@ -14,7 +16,7 @@ type SignUpForm = {
 };
 
 const SignUp = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
@@ -38,14 +40,25 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: SignUpForm) => {
-    try {
-      if (data.role === 'student') {
-        router.push('/student');
-      } else if (data.role === 'company') {
-        router.push('/company');
-      }
-    } catch (error) {
-      console.error('Error during role-specific navigation:', error);
+    // try {
+    //   if (data.role === 'student') {
+    //     router.push('/student');
+    //   } else if (data.role === 'company') {
+    //     router.push('/company');
+    //   }
+    // } catch (error) {
+    //   console.error('Error during role-specific navigation:', error);
+    // }
+    // console.log(JSON.stringify(data, null, 2));
+    await createUser(data);
+    // After creating, signIn with redirect to the add page
+    if (data.role === 'student') {
+      await signIn('credentials', { callbackUrl: '/auth/student', ...data });
+    } else if (data.role === 'company') {
+      await signIn('credentials', { callbackUrl: '/auth/company', ...data });
+    } else {
+      console.error('Invalid role:');
+      redirect('/auth/signup');
     }
   };
 
