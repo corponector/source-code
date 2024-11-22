@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { Company } from './Interface';
 
 interface Position {
   title: string;
@@ -9,13 +10,7 @@ interface Position {
 }
 
 interface CompanyCardProps {
-  company: {
-    name: string;
-    overview: string;
-    location: string;
-    positions: Position[];
-    links: string[];
-    emails: string[];
+  company: Company;
   };
 }
 
