@@ -4,8 +4,14 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Company } from './Interface';
 
+interface Position {
+  title: string;
+  description: string;
+}
+
 interface CompanyCardProps {
   company: Company;
+  };
 }
 
 const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
@@ -21,6 +27,22 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
         <strong>Location:</strong>
         {' '}
         {company.location}
+      </Card.Text>
+      <Card.Text>
+        <strong>Positions:</strong>
+        <ul>
+          {company.positions.map((position, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              <strong>
+                {position.title}
+                :
+              </strong>
+              {' '}
+              {position.description}
+            </li>
+          ))}
+        </ul>
       </Card.Text>
       {company.links.map((link, index) => (
         // eslint-disable-next-line react/no-array-index-key
