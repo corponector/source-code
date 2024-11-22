@@ -16,9 +16,9 @@ const NavBar: React.FC = () => {
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">
+      <Navbar.Brand href="/">
           <Image src="../corponector.png" alt="Corponector Logo" width="100" />
-        </Navbar.Brand>
+      </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
