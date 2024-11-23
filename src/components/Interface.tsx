@@ -14,4 +14,17 @@ export interface Company {
   location: string;
   links: string[];
   emails: string[];
+  positions: Position[];
+}
+
+export interface Position {
+  id: number;
+  title: string;
+  description: string;
+  skills: string[];
+  jobType: string[];
+  numberOfHires: number;
+  salaryRange: string;
+  tagTitle: string;
+  companyId: number;
 }

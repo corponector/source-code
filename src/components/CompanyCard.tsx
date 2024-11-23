@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Company } from './Interface';
+import { Company, Position } from './Interface';
 
 interface CompanyCardProps {
   company: Company;
@@ -22,12 +22,24 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
         {' '}
         {company.location}
       </Card.Text>
-      {company.links.map((link, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Card.Link href={link} target="_blank" key={index}>
-          {link}
-        </Card.Link>
-      ))}
+      <Card.Text>
+        <strong>Emails:</strong>
+        {' '}
+        {company.emails.join(', ')}
+      </Card.Text>
+      <Card.Text>
+        <strong>Positions:</strong>
+      </Card.Text>
+      <ul>
+        {company.positions.map((position: Position) => (
+          <li key={position.id}>
+            <strong>{position.title}</strong>
+            {' '}
+            -
+            {position.tagTitle}
+          </li>
+        ))}
+      </ul>
     </Card.Body>
   </Card>
 );
