@@ -25,11 +25,9 @@ const SearchPage: React.FC = () => {
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
   const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
   const [, setSearchPerformed] = useState(false);
-  const [filterType, setFilterType] = useState<'students' | 'companies'>('students');
-  const [selectedSkills, setSelectedSkills] = useState<{ value: string; label: string }[]>([]);
-  const [selectedLocations, setSelectedLocations] = useState<{ value: string; label: string }[]>([]);
-  const [skillOptions, setSkillOptions] = useState<{ value: string; label: string }[]>([]);
-  const [locationOptions, setLocationOptions] = useState<{ value: string; label: string }[]>([]);
+  const [filterType, setFilterType] = useState<'students' | 'companies' | ''>('');
+  const [selectedTags, setSelectedTags] = useState<{ value: string; label: string }[]>([]);
+  const [tagOptions, setTagOptions] = useState<{ value: string; label: string }[]>([]);
 
   const {
     register,
@@ -84,47 +82,51 @@ const SearchPage: React.FC = () => {
     setFilteredStudents(exampleStudents);
     setFilteredCompanies(exampleCompanies);
 
-    // Generate skill options based on student data
-    const skills = new Set<string>();
+    // Generate tag options based on student and company data
+    const tags = new Set<{ value: string; label: string }>();
     exampleStudents.forEach(student => {
-      student.skills.forEach(skill => skills.add(skill));
+      student.skills.forEach(skill => tags.add({ value: skill, label: `Skill: ${skill}` }));
+      tags.add({ value: student.location, label: `Location: ${student.location}` });
     });
-    const skillOptions = Array.from(skills).map(skill => ({ value: skill, label: skill }));
-    setSkillOptions(skillOptions);
+    exampleCompanies.forEach(company => {
+      tags.add({ value: company.location, label: `Location: ${company.location}` });
+    });
 
-    // Generate location options based on student and company data
-    const locations = new Set<string>();
-    exampleStudents.forEach(student => locations.add(student.location));
-    exampleCompanies.forEach(company => locations.add(company.location));
-    const locationOptions = Array.from(locations).map(location => ({ value: location, label: location }));
-    setLocationOptions(locationOptions);
+    const sortedTags = Array.from(tags).sort((a, b) => a.label.localeCompare(b.label));
+    setTagOptions(sortedTags);
   }, []);
 
   const onSubmit: SubmitHandler<{ query?: string | null }> = (data) => {
     const query = data.query?.toLowerCase() || '';
-    if (query === '' && selectedSkills.length === 0 && selectedLocations.length === 0) {
+    if (query === '' && selectedTags.length === 0) {
       setFilteredStudents(students);
       setFilteredCompanies(companies);
-    } else if (filterType === 'students') {
+    } else {
       const filteredStudents = students.filter(student => {
         const matchesQuery = student.name.toLowerCase().includes(query)
             || student.skills.some((skill: string) => skill.toLowerCase().includes(query));
-        const matchesSkills = selectedSkills.length === 0 || selectedSkills.every(skill => student.skills.includes(skill.value));
-        const matchesLocations = selectedLocations.length === 0 || selectedLocations.some(location => student.location === location.value);
-        return matchesQuery && matchesSkills && matchesLocations;
+        const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => student.skills.includes(tag.value) || student.location === tag.value);
+        return matchesQuery && matchesTags;
       });
-      setFilteredStudents(filteredStudents);
-      setFilteredCompanies([]);
-    } else {
+
       const filteredCompanies = companies.filter(company => {
         const matchesQuery = company.name.toLowerCase().includes(query)
             || company.overview.toLowerCase().includes(query)
             || company.location.toLowerCase().includes(query);
-        const matchesLocations = selectedLocations.length === 0 || selectedLocations.some(location => company.location === location.value);
-        return matchesQuery && matchesLocations;
+        const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => company.location === tag.value);
+        return matchesQuery && matchesTags;
       });
-      setFilteredCompanies(filteredCompanies);
-      setFilteredStudents([]);
+
+      if (filterType === 'students') {
+        setFilteredStudents(filteredStudents);
+        setFilteredCompanies([]);
+      } else if (filterType === 'companies') {
+        setFilteredCompanies(filteredCompanies);
+        setFilteredStudents([]);
+      } else {
+        setFilteredStudents(filteredStudents);
+        setFilteredCompanies(filteredCompanies);
+      }
     }
     setSearchPerformed(true);
   };
@@ -139,44 +141,21 @@ const SearchPage: React.FC = () => {
       <Form onSubmit={handleSubmit(onSubmit)} className="w-50 mb-4">
         <Form.Group controlId="filterType" className="mb-3">
           <Form.Label>Filter By</Form.Label>
-          <Form.Control as="select" value={filterType} onChange={(e) => setFilterType(e.target.value as 'students' | 'companies')}>
-            <option value="students">Students</option>
-            <option value="companies">Companies</option>
+          <Form.Control as="select" value={filterType} onChange={(e) => setFilterType(e.target.value as 'students' | 'companies' | '')}>
+            <option value="">Students & Companies </option>
+            <option value="students">Students Only</option>
+            <option value="companies">Companies Only</option>
           </Form.Control>
         </Form.Group>
-        {filterType === 'students' && (
-          <>
-            <Form.Group controlId="skills" className="mb-3">
-              <Form.Label>Skills</Form.Label>
-              <Select
-                isMulti
-                options={skillOptions}
-                value={selectedSkills}
-                onChange={(selected) => setSelectedSkills(selected as { value: string; label: string }[])}
-              />
-            </Form.Group>
-            <Form.Group controlId="locations" className="mb-3">
-              <Form.Label>Location</Form.Label>
-              <Select
-                isMulti
-                options={locationOptions}
-                value={selectedLocations}
-                onChange={(selected) => setSelectedLocations(selected as { value: string; label: string }[])}
-              />
-            </Form.Group>
-          </>
-        )}
-        {filterType === 'companies' && (
-          <Form.Group controlId="locations" className="mb-3">
-            <Form.Label>Location</Form.Label>
-            <Select
-              isMulti
-              options={locationOptions}
-              value={selectedLocations}
-              onChange={(selected) => setSelectedLocations(selected as { value: string; label: string }[])}
-            />
-          </Form.Group>
-        )}
+        <Form.Group controlId="tags" className="mb-3">
+          <Form.Label>Tags</Form.Label>
+          <Select
+            isMulti
+            options={tagOptions}
+            value={selectedTags}
+            onChange={(selected) => setSelectedTags(selected as { value: string; label: string }[])}
+          />
+        </Form.Group>
         <Form.Group controlId="query" className="mb-3">
           <InputGroup>
             <Form.Control type="text" {...register('query')} isInvalid={!!errors.query} />
@@ -190,29 +169,41 @@ const SearchPage: React.FC = () => {
         </Form.Group>
       </Form>
       <div className="w-100 mt-4">
-        <Row>
-          {filterType === 'students' && (
-            <Col md={12}>
-              <h2>Students</h2>
-              {filteredStudents.length > 0 ? (
-                filteredStudents.map((student) => (
-                  <StudentCard key={student.id} student={student} />
-                ))
-              ) : (
-                <Alert variant="info">No students found</Alert>
-              )}
+        <Row className="justify-content-center">
+          {(filterType === 'students' || filterType === '') && (
+            <Col md={6}>
+              <h2 className={filterType === 'students' ? 'text-center' : 'text-right ml-5'}>Students</h2>
+              <Row className="justify-content-center">
+                {filteredStudents.length > 0 ? (
+                  filteredStudents.map((student) => (
+                    <Col md={6} key={student.id}>
+                      <StudentCard student={student} />
+                    </Col>
+                  ))
+                ) : (
+                  <Col>
+                    <Alert variant="info">No students found</Alert>
+                  </Col>
+                )}
+              </Row>
             </Col>
           )}
-          {filterType === 'companies' && (
-            <Col md={12}>
-              <h2>Companies</h2>
-              {filteredCompanies.length > 0 ? (
-                filteredCompanies.map((company) => (
-                  <CompanyCard key={company.id} company={company} />
-                ))
-              ) : (
-                <Alert variant="info">No companies found</Alert>
-              )}
+          {(filterType === 'companies' || filterType === '') && (
+            <Col md={6}>
+              <h2 className={filterType === 'companies' ? 'text-center' : 'text-right mr-5'}>Companies</h2>
+              <Row className="justify-content-center">
+                {filteredCompanies.length > 0 ? (
+                  filteredCompanies.map((company) => (
+                    <Col md={6} key={company.id}>
+                      <CompanyCard company={company} />
+                    </Col>
+                  ))
+                ) : (
+                  <Col>
+                    <Alert variant="info">No companies found</Alert>
+                  </Col>
+                )}
+              </Row>
             </Col>
           )}
         </Row>
