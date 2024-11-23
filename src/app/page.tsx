@@ -1,37 +1,62 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Button } from 'react-bootstrap';
 
 /** The Home page. */
 const Home = () => (
   <main>
-    <Container id="landing-page" fluid className="d-flex align-items-center justify-content-center py-5">
-      <Row className="justify-content-center text-center">
-        <Col xs={10} md={8} lg={6}>
-          <h1 style={{ fontFamily: "'Spicy Rice', cursive" }}>
-            <strong>Welcome to Corponector!</strong>
-          </h1>
-          <p className="py-3">
-            Corponector bridges the gap between UH computer science and engineering students and a wide range of
-            companies seeking fresh talent. We provide a platform where local and global companies can share potential
-            job and internship openings, making it easier for students to explore future career opportunities and
-            prepare for them today.
-          </p>
-          <p>
-            Whether you&apos;re a student eager to gain real-world experience or a company looking to connect with
-            skilled, motivated individuals, Corponector is here to make the connections happen. Discover tailored
-            matches, connect with companies aligned to your skills and interests, and build a meaningful path toward
-            your career goals.
-          </p>
-          <h4>
-            <strong>
-              <a href="/auth/signin">Login </a>
-              or
-              <a href="/auth/signup"> Sign up </a>
-              to join us now!
-            </strong>
-          </h4>
-        </Col>
-      </Row>
-    </Container>
+    {/* Welcome Section */}
+    <section id="welcome-section" className="custom-welcome-section d-flex align-items-center justify-content-center">
+      <Container>
+        <Row className="justify-content-center text-center">
+          <Col xs={10} md={8} lg={6}>
+            <h1 style={{ fontFamily: "'Spicy Rice', cursive", fontSize: '4rem' }}>
+              <strong>Welcome to Corponector!</strong>
+            </h1>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+
+    {/* About Us Section */}
+    <section id="about-us-section" className="bg-light py-3">
+      <Container>
+        <Row className="justify-content-center text-center">
+          <Col xs={10} md={8} lg={6}>
+            <h2 className="py-3" style={{ fontFamily: "'Spicy Rice', cursive", fontSize: '3rem' }}>
+              About Us
+            </h2>
+            <p>
+              Corponector is dedicated to fostering connections between talented students and forward-thinking
+              companies. Our mission is to provide a platform that simplifies the process of finding opportunities,
+              networking with industry professionals, and building successful careers.
+            </p>
+            <p>
+              Created with a vision to empower students and companies alike, Corponector continues to grow as a hub for
+              innovation, collaboration, and success. Join us on our journey to shape the future of talent and
+              opportunity.
+            </p>
+          </Col>
+        </Row>
+      </Container>
+      <hr />
+    </section>
+    {/* Get Started Section */}
+    <section id="get-started-section" className="bg-light" style={{ paddingBottom: '50px' }}>
+      <Container>
+        <Row className="justify-content-center text-center">
+          <Col xs={10} md={8} lg={6}>
+            <h2 style={{ fontFamily: "'Spicy Rice', cursive", fontSize: '3rem' }}>Get Started</h2>
+            <p className="py-3">
+              Just log in or signup to get started using Corponector. Fill out your email, password, and additional
+              information to create your account. Click on &apos;Join Now&apos; to begin exploring the platform and
+              connecting.
+            </p>
+            <Button href="/auth/signup" variant="primary" size="lg">
+              Join Now
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </section>
   </main>
 );
 
