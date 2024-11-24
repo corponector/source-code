@@ -27,11 +27,6 @@ const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
           ))}
         </ul>
       </Card.Text>
-      <Card.Text>
-        <strong>Location:</strong>
-        {' '}
-        {student.location}
-      </Card.Text>
       <Card.Link href={student.professionalPage} target="_blank">
         Professional Page
       </Card.Link>

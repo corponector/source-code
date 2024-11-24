@@ -4,13 +4,12 @@
 
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button, Alert, InputGroup } from 'react-bootstrap';
 import Select from 'react-select';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { searchSchema } from '@/lib/validationSchemas';
-import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import StudentCard from '@/components/StudentCard';
 import CompanyCard from '@/components/CompanyCard';
@@ -38,98 +37,48 @@ const SearchPage: React.FC = () => {
   });
 
   useEffect(() => {
-    // Example data for students and companies
-    const exampleStudents: Student[] = [
-      {
-        id: 1,
-        name: 'John Doe',
-        skills: ['JavaScript', 'React', 'Node.js'],
-        professionalPage: 'https://linkedin.com/in/johndoe',
-        location: 'San Francisco, CA',
-        email: 'johndoe@gmail.com',
-      },
-      {
-        id: 2,
-        name: 'Jane Smith',
-        skills: ['Python', 'Django', 'Machine Learning'],
-        professionalPage: 'https://linkedin.com/in/janesmith',
-        location: 'New York, NY',
-        email: 'jane@smith.com',
-      },
-    ];
+    const fetchData = async () => {
+      try {
+        const [studentsRes, companiesRes] = await Promise.all([
+          fetch('/api/students'),
+          fetch('/api/companies'),
+        ]);
 
-    const examplePositions: Position[] = [
-      {
-        id: 1,
-        title: 'Software Engineer',
-        description: 'Develop and maintain software applications.',
-        skills: ['JavaScript', 'React', 'Node.js'],
-        jobType: ['PERMANENT'],
-        numberOfHires: 2,
-        salaryRange: '$80,000 - $120,000',
-        tagTitle: 'Full-time',
-        companyId: 1,
-      },
-      {
-        id: 2,
-        title: 'Data Scientist',
-        description: 'Analyze and interpret complex data.',
-        skills: ['Python', 'Machine Learning', 'Data Analysis'],
-        jobType: ['PERMANENT'],
-        numberOfHires: 1,
-        salaryRange: '$90,000 - $130,000',
-        tagTitle: 'Full-time',
-        companyId: 2,
-      },
-    ];
+        const fetchedStudents = await studentsRes.json();
+        const fetchedCompanies = await companiesRes.json();
 
-    const exampleCompanies: Company[] = [
-      {
-        id: 1,
-        name: 'Tech Corp',
-        overview: 'A leading tech company specializing in software development.',
-        location: 'San Francisco, CA',
-        emails: ['contact@techcorp.com'],
-        positions: examplePositions.filter(position => position.companyId === 1),
-        links: [],
-      },
-      {
-        id: 2,
-        name: 'Innovate Ltd',
-        overview: 'Innovative solutions for modern problems.',
-        location: 'New York, NY',
-        emails: ['info@innovateltd.com'],
-        positions: examplePositions.filter(position => position.companyId === 2),
-        links: [],
-      },
-    ];
+        setStudents(fetchedStudents);
+        setCompanies(fetchedCompanies);
+        setFilteredStudents(fetchedStudents);
+        setFilteredCompanies(fetchedCompanies);
 
-    setStudents(exampleStudents);
-    setCompanies(exampleCompanies);
-    setFilteredStudents(exampleStudents);
-    setFilteredCompanies(exampleCompanies);
+        // Generate tag options based on student and company data
+        const generateTagOptions = (filterType: 'students' | 'companies' | '') => {
+          const tags = new Set<{ value: string; label: string }>();
+          if (filterType === 'students' || filterType === '') {
+            fetchedStudents.forEach((student: Student) => {
+              student.skills.forEach(skill => tags.add({ value: skill, label: `Skill: ${skill}` }));
+              tags.add({ value: student.location, label: `Location: ${student.location}` });
+            });
+          }
+          if (filterType === 'companies' || filterType === '') {
+            fetchedCompanies.forEach((company: Company) => {
+              tags.add({ value: company.location, label: `Location: ${company.location}` });
+              company.positions.forEach((position: Position) => {
+                tags.add({ value: position.title, label: `Position: ${position.title}` });
+              });
+            });
+          }
+          return Array.from(tags).sort((a, b) => a.label.localeCompare(b.label));
+        };
 
-    // Generate tag options based on student and company data
-    const generateTagOptions = (filterType: 'students' | 'companies' | '') => {
-      const tags = new Set<{ value: string; label: string }>();
-      if (filterType === 'students' || filterType === '') {
-        exampleStudents.forEach(student => {
-          student.skills.forEach(skill => tags.add({ value: skill, label: `Skill: ${skill}` }));
-          tags.add({ value: student.location, label: `Location: ${student.location}` });
-        });
+        setTagOptions(generateTagOptions(filterType));
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
       }
-      if (filterType === 'companies' || filterType === '') {
-        exampleCompanies.forEach(company => {
-          tags.add({ value: company.location, label: `Location: ${company.location}` });
-          company.positions.forEach(position => {
-            tags.add({ value: position.title, label: `Position: ${position.title}` });
-          });
-        });
-      }
-      return Array.from(tags).sort((a, b) => a.label.localeCompare(b.label));
     };
 
-    setTagOptions(generateTagOptions(filterType));
+    fetchData();
   }, [filterType]);
 
   const onSubmit: SubmitHandler<{ query?: string | null }> = (data) => {
@@ -178,9 +127,9 @@ const SearchPage: React.FC = () => {
         <Form.Group controlId="filterType" className="mb-3">
           <Form.Label>Filter By</Form.Label>
           <Form.Control as="select" value={filterType} onChange={(e) => setFilterType(e.target.value as 'students' | 'companies' | '')}>
-            <option value="">Companies & Students</option>
-            <option value="students">Students Only</option>
-            <option value="companies">Companies Only</option>
+            <option value="">Both</option>
+            <option value="students">Students</option>
+            <option value="companies">Companies</option>
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="tags" className="mb-3">
