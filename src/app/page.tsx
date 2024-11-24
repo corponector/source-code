@@ -5,12 +5,13 @@ const Home = () => (
   <main>
     {/* Welcome Section */}
     <section id="welcome-section" className="custom-welcome-section d-flex align-items-center justify-content-center">
-      <Container>
+      <Container fluid className="px-0">
         <Row className="justify-content-center text-center">
           <Col xs={10} md={8} lg={6}>
-            <h1 style={{ fontFamily: "'Spicy Rice', cursive", fontSize: '4rem' }}>
-              <strong>Welcome to Corponector!</strong>
+            <h1 style={{ fontFamily: "'Spicy Rice', cursive", fontSize: '6rem' }}>
+              <strong>Corponector</strong>
             </h1>
+            <h4 className="py-5">Your platform for connecting with companies and students</h4>
           </Col>
         </Row>
       </Container>
@@ -18,7 +19,7 @@ const Home = () => (
 
     {/* About Us Section */}
     <section id="about-us-section" className="bg-light py-3">
-      <Container>
+      <Container fluid className="px-0">
         <Row className="justify-content-center text-center">
           <Col xs={10} md={8} lg={6}>
             <h2 className="py-3" style={{ fontFamily: "'Spicy Rice', cursive", fontSize: '3rem' }}>
@@ -41,7 +42,7 @@ const Home = () => (
     </section>
     {/* Get Started Section */}
     <section id="get-started-section" className="bg-light" style={{ paddingBottom: '50px' }}>
-      <Container>
+      <Container fluid className="px-0">
         <Row className="justify-content-center text-center">
           <Col xs={10} md={8} lg={6}>
             <h2 style={{ fontFamily: "'Spicy Rice', cursive", fontSize: '3rem' }}>Get Started</h2>
