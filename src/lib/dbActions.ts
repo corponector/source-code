@@ -38,7 +38,7 @@ export async function editStudent(student: Student) {
     },
   });
   // After updating, redirect to the list page
-  redirect('/list');
+  redirect('/student');
 }
 
 export async function addCompany(company: {
@@ -79,6 +79,31 @@ export async function editCompany(company: Company) {
   // After updating, redirect to the list page
   redirect('/company');
 }
+
+/*
+export async function addPosition(position: {
+  title: string;
+  description: string;
+  skills: string;
+  jobType: string[]; // FIXME: Change to JobType[]
+  numberOfHires: number;
+  salaryRange: string;
+}) {
+  // let jobType: JobType[] = [];
+
+  await prisma.position.create({
+    data: {
+      title: position.title,
+      description: position.description,
+      skills: position.skills.split(','),
+      jobType: position.jobType, // FIXME: Change to JobType[]
+      numberOfHires: position.numberOfHires,
+      salaryRange: position.salaryRange,
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/company');
+} */
 
 /**
  * Adds a new stuff to the database.

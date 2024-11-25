@@ -56,9 +56,9 @@ model Company {
 }
 
 enum JobType {
-  PERMANENT
-  INTERNSHIP
-  TEMPORARY
+  permanent
+  internship
+  temporary
 }
 
 model Position {
