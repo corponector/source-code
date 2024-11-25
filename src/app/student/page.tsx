@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { Container } from 'react-bootstrap';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import StudentInfo from '@/components/StudentInfo';
 import { loggedInProtectedPage } from '@/lib/page-protection';
@@ -27,12 +27,19 @@ const StudentPage = async () => {
     <main className="semi-transparent">
       <Container className="py-3">
         {student.map((s) => (
-          <>
-            <StudentInfo key={s.id} {...s} />
-            <Container className="my-5 bg-primary edit-container p-2">
-              <Link href={`/student/edit/${s.id}`} style={{ color: 'white' }}>Edit</Link>
-            </Container>
-          </>
+          <Row>
+            <Col xs>
+              <StudentInfo key={s.id} {...s} />
+              <Container>
+                <Button className="my-5">
+                  <Link href={`/student/edit/${s.id}`} style={{ color: 'white' }}>Edit</Link>
+                </Button>
+              </Container>
+            </Col>
+            <Col md>
+              <h1>Recommended Companies</h1>
+            </Col>
+          </Row>
         ))}
       </Container>
     </main>

@@ -49,3 +49,7 @@ footer a {
 .edit-container {
   width: 50px !important;
 }
+
+.white-text {
+  color: white !important;
+}
