@@ -51,21 +51,20 @@ footer a {
 }
 
 .custom-welcome-section {
-  height: 82vh;
-}
-
-#about-us-section {
-  height: 400px;
-  overflow-y: auto;
-}
-
-.scrollable-container {
-  max-height: 400px;
-  overflow-y: auto;
+  height: 90vh;
 }
 
 #about-us-section,
 #get-started-section {
   background-color: rgb(119, 136, 153) !important;
   color: var(--nat-navbar-text-color);
+}
+
+.description-box {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+  margin-top: 20px;
+  color: black;
 }

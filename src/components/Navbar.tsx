@@ -13,6 +13,7 @@ const NavBar: React.FC = () => {
   const userWithRole = session?.user as { email: string; randomKey: string };
   const role = userWithRole?.randomKey;
   const pathName = usePathname();
+  const landingPage = pathName === '/';
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
@@ -21,7 +22,13 @@ const NavBar: React.FC = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto justify-content-start">
+          <Nav className="me-auto justify-content-center">
+            {landingPage
+              ? [
+                  <Nav.Link href="#about-us-section">About Us</Nav.Link>,
+                  <Nav.Link href="#get-started-section">Get Started</Nav.Link>,
+                ]
+              : ''}
             {currentUser
               ? [
                   <Nav.Link id="add-stuff-nav" href="/add" key="add" active={pathName === '/add'}>
