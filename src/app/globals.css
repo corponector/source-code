@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Spicy+Rice&family=Parkinsans&display=swap');
+
 :root {
   --nat-navbar-bg: gray;
   --nat-navbar-color: gray;
@@ -19,6 +21,7 @@ body {
   margin: 0;
   background: fixed center url('/corponector-background.png');
   background-size: cover;
+  overflow-x: hidden;
 }
 
 body .navbar {
@@ -41,4 +44,24 @@ footer a {
 
 .edit-container {
   width: 50px !important;
+}
+
+.custom-welcome-section {
+  height: 82vh;
+}
+
+#about-us-section {
+  height: 400px;
+  overflow-y: auto;
+}
+
+.scrollable-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#about-us-section,
+#get-started-section {
+  background-color: rgb(119, 136, 153) !important;
+  color: var(--nat-navbar-text-color);
 }

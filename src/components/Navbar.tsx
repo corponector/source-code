@@ -13,22 +13,32 @@ const NavBar: React.FC = () => {
   const userWithRole = session?.user as { email: string; randomKey: string };
   const role = userWithRole?.randomKey;
   const pathName = usePathname();
+  const landingPage = pathName === '/';
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
-      <Navbar.Brand href="/">
+        <Navbar.Brand href="/">
           <Image src="../corponector.png" alt="Corponector Logo" width="100" />
-      </Navbar.Brand>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto justify-content-start">
+          <Nav className="me-auto justify-content-center">
+            {landingPage
+              ? [
+                  <Nav.Link href="#about-us-section" key="about-us">
+                    About Us
+                  </Nav.Link>,
+                  <Nav.Link href="#get-started-section" key="get-started">
+                    Get Started
+                  </Nav.Link>,
+                ]
+              : ''}
             {currentUser
               ? [
                   <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
                     <Globe />
-                     Browse
+                    Browse
                   </Nav.Link>,
-
                 ]
               : ''}
             {currentUser && role === 'ADMIN' ? (
