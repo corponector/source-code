@@ -106,9 +106,9 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
         <Form.Group controlId="filterType" className="mb-3">
           <Form.Label>Filter By</Form.Label>
           <Form.Control as="select" value={filterType} onChange={(e) => setFilterType(e.target.value as 'students' | 'companies' | '')}>
-            <option value="">Both</option>
-            <option value="students">Students</option>
-            <option value="companies">Companies</option>
+            <option value="">Students & Companies</option>
+            <option value="students">Students Only</option>
+            <option value="companies">Companies Only</option>
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="tags" className="mb-3">
@@ -137,7 +137,6 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
           <Col md={8}>
             {filteredStudents.length > 0 && (
               <>
-                <h2>Students</h2>
                 {filteredStudents.map((student) => (
                   <StudentCard key={student.id} student={student} />
                 ))}
@@ -145,7 +144,6 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
             )}
             {filteredCompanies.length > 0 && (
               <>
-                <h2>Companies</h2>
                 {filteredCompanies.map((company) => (
                   <CompanyCard key={company.id} company={company} />
                 ))}
