@@ -9,7 +9,7 @@ const Footer = () => (
         <br />
         University of Hawaii at Manoa
         <br />
-        <a href="https://corponector.github.io/"> Corponector</a>™
+        <a href="https://corponector.github.io/"> Corponector</a>
       </Col>
     </Container>
   </footer>
