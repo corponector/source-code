@@ -25,8 +25,12 @@ const NavBar: React.FC = () => {
           <Nav className="me-auto justify-content-center">
             {landingPage
               ? [
-                  <Nav.Link href="#about-us-section">About Us</Nav.Link>,
-                  <Nav.Link href="#get-started-section">Get Started</Nav.Link>,
+                  <Nav.Link href="#about-us-section" key="about-us">
+                    About Us
+                  </Nav.Link>,
+                  <Nav.Link href="#get-started-section" key="get-started">
+                    Get Started
+                  </Nav.Link>,
                 ]
               : ''}
             {currentUser
