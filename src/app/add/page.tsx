@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import AddStuffForm from '@/app/search/page';
+import AddStuffForm from '@/components/SearchPage';
 
 const AddStuff = async () => {
   // Protect the page, only logged in users can access it.

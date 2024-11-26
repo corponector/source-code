@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Student } from './Interface';
+import { Student } from '@/lib/validationSchemas';
 
 interface StudentCardProps {
   student: Student;
@@ -21,12 +21,12 @@ const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
       </Card.Text>
       <Card.Text>
         <strong>Skills:</strong>
-        <ul>
-          {student.skills.map((skill, index) => (
-            <li key={index}>{skill}</li>
-          ))}
-        </ul>
       </Card.Text>
+      <ul>
+        {student.skills.map((skill, index) => (
+          <li key={index}>{skill}</li>
+        ))}
+      </ul>
       <Card.Link href={student.professionalPage} target="_blank">
         Professional Page
       </Card.Link>
