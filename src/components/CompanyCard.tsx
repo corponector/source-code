@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Company, Position } from './Interface';
+import { Company, Position } from '@/lib/validationSchemas';
 
 interface CompanyCardProps {
   company: Company;
@@ -34,9 +34,8 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
         {company.positions.map((position: Position) => (
           <li key={position.id}>
             <strong>{position.title}</strong>
-            {' '}
-            -
-            {position.tagTitle}
+            :
+            {position.description}
           </li>
         ))}
       </ul>
