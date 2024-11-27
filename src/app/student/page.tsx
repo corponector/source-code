@@ -6,7 +6,6 @@ import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 import Link from 'next/link';
 
-/** Render a list of stuff for the logged in user. */
 const StudentPage = async () => {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
@@ -22,7 +21,6 @@ const StudentPage = async () => {
       owner,
     },
   });
-  // console.log(stuff);
   return (
     <main className="semi-transparent">
       <Container className="py-3">
