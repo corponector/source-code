@@ -36,7 +36,7 @@ const NavBar: React.FC = () => {
             {currentUser
               ? [
                   <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
-                    <Globe />
+                    <Globe className="px-1" />
                     Browse
                   </Nav.Link>,
                 ]
