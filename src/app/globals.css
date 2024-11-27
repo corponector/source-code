@@ -4,7 +4,7 @@
   --nat-navbar-bg: gray;
   --nat-navbar-color: gray;
   --nat-navbar-text-highlight: white;
-  --nat-navbar-highlight-text: white;
+  --nat-navbar-highlight-text: var(--bs-gray-500);
   --nat-navbar-highlight-bg: gray;
   --nat-navbar-bg-rgb: 119, 136, 153;
   --nat-navbar-text-color: white;
@@ -37,6 +37,13 @@ footer a {
   color: var(--nat-navbar-text-color);
 }
 
+.wrapper {
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .semi-transparent {
   background-color: rgba(255, 255, 255, 0.25);
   height: 100%;
@@ -47,21 +54,80 @@ footer a {
 }
 
 .custom-welcome-section {
-  height: 82vh;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--nat-navbar-text-highlight);
+}
+
+.custom-welcome-section h1 {
+  font-family: 'Open-sans', cursive;
+  font-size: 6rem;
+  color: black;
+}
+
+.custom-welcome-section h4 {
+  font-family: 'Parkinsans', sans-serif;
+  font-size: 1.5rem;
+  margin-top: 25px;
+  color: black;
 }
 
 #about-us-section {
-  height: 400px;
-  overflow-y: auto;
+  background-color: rgb(119, 136, 153) !important;
+  color: var(--nat-navbar-text-color);
+  padding: 50px 0;
 }
 
-.scrollable-container {
-  max-height: 400px;
-  overflow-y: auto;
+#about-us-section .section-title {
+  font-family: 'Parkinsans', sans-serif;
+  font-size: 3rem;
+  color: var(--nat-navbar-text-highlight);
+  margin-bottom: 20px;
+}
+
+.description-box {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+  margin-top: 30px;
+  color: black;
+  text-align: center;
+  line-height: 1.6;
+  height: 200px;
+}
+
+#get-started-section {
+  background-color: rgb(119, 136, 153) !important;
+  color: var(--nat-navbar-text-color);
+  padding: 50px 0;
+  text-align: center;
+}
+
+#get-started-section .section-title {
+  font-family: 'Parkinsans', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+#get-started-section p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+#get-started-section .btn {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 5px;
 }
 
 #about-us-section,
 #get-started-section {
-  background-color: rgb(119, 136, 153) !important;
-  color: var(--nat-navbar-text-color);
+  background: rgba(0, 0, 0, 0.6) !important;
+  padding: 40px;
+  border-radius: 15px;
+  margin: 20px;
 }
