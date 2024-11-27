@@ -5,6 +5,7 @@ import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 import { Container } from 'react-bootstrap';
+import EditStudentForm from '@/components/EditStudentForm';
 
 export default async function EditStuffPage({ params }: { params: { id: string | string[] } }) {
   // Protect the page, only logged in users can access it.
@@ -27,8 +28,7 @@ export default async function EditStuffPage({ params }: { params: { id: string |
   return (
     <main>
       <Container>
-        <p>Student Edit</p>
-        {/* <EditStudentForm student={student} /> */}
+        <EditStudentForm student={student} />
       </Container>
     </main>
   );
