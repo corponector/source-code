@@ -52,3 +52,35 @@ export const EditStuffSchema = Yup.object({
   condition: Yup.string().oneOf(['excellent', 'good', 'fair', 'poor']).required(),
   owner: Yup.string().required(),
 });
+
+export const searchSchema = Yup.object().shape({
+  query: Yup.string().notRequired(),
+});
+
+export interface Student {
+  id: number;
+  name: string;
+  skills: string[];
+  professionalPage: string;
+  location: string;
+}
+
+export interface Company {
+  id: number;
+  name: string;
+  overview: string;
+  location: string;
+  links: string[];
+  emails: string[];
+  positions: Position[];
+}
+
+export interface Position {
+  id: number;
+  title: string;
+  description: string;
+  skills: string[];
+  jobType: string[];
+  numberOfHires: number;
+  salaryRange: number;
+}

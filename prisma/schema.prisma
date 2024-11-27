@@ -11,10 +11,10 @@ generator client {
 datasource db {
   provider  = "postgresql"
   // for local development
-  // url      = env("DATABASE_URL")
+   url      = env("DATABASE_URL")
   // for Vercel
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  // url       = env("POSTGRES_PRISMA_URL")
+  // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 enum Role {
@@ -44,6 +44,15 @@ model Stuff {
   owner     String
 }
 
+model Student {
+  id               Int      @id @default(autoincrement())
+  name             String
+  skills           String[]
+  location         String
+  professionalPage String
+  owner            String
+}
+
 model Company {
   id        Int        @id @default(autoincrement())
   name      String
@@ -68,16 +77,8 @@ model Position {
   skills        String[]
   jobType       JobType[]
   numberOfHires Int
-  salaryRange   String
+  salaryRange   Int
   company       Company   @relation(fields: [companyId], references: [id])
   companyId     Int
 }
 
-model Student {
-  id               Int      @id @default(autoincrement())
-  name             String
-  skills           String[]
-  location         String
-  professionalPage String
-  owner            String
-}
