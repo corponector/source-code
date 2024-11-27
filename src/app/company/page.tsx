@@ -3,8 +3,8 @@ import Image from 'next/image';
 import CandidateProfile from '@/components/CandidateProfile';
 import JobListing from '@/components/JobListing';
 import Footer from '@/components/Footer';
-import NavBar from '@/components/NavBar';
-import styles from '../styles/Home.module.css';
+import NavBar from '@/components/Navbar';
+import styles from '@/styles/Home.module.css';
 
 /** The Company Homepage. */
 const CompanyPage = () => {

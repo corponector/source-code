@@ -91,8 +91,8 @@ const AdminPage = async () => {
           </div>
           <div className="p-3">
             <div>
-              {recentActivities.map((activity, index) => (
-                <div key={index} className="d-flex align-items-center mb-3">
+              {recentActivities.map((activity) => (
+                <div key={activity.text} className="d-flex align-items-center mb-3">
                   <div>
                     <p>{activity.text}</p>
                     <span className="text-muted">{activity.timestamp}</span>
@@ -374,7 +374,8 @@ const AdminPage = async () => {
             <section className="p-3">
               {/* Notification Content Input Field */}
               <div className="mb-3">
-                <label htmlFor="notificationMessage" className="form-label">Notification Message</label>
+                {/* <label htmlFor="notificationMessage" className="form-label">Notification Message</label> */}
+                <p>Notification Message</p>
                 <textarea
                   id="notificationMessage"
                   className="form-control"
