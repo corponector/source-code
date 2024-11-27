@@ -167,3 +167,14 @@ export async function changePassword(credentials: { email: string; password: str
     },
   });
 }
+
+// Ensure this file exports the searchStuff function
+
+export const searchStuff = async (query: string) => prisma.stuff.findMany({
+  where: {
+    name: {
+      contains: query,
+      mode: 'insensitive',
+    },
+  },
+});
