@@ -1,6 +1,6 @@
 'use server';
 
-import { Stuff, Condition, Student, Company } from '@prisma/client';
+import { Stuff, Condition, Company } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
@@ -25,13 +25,20 @@ export async function addStudent(student: {
   redirect('/student');
 }
 
-export async function editStudent(student: Student) {
+export async function editStudent(student: {
+  id: number;
+  name: string;
+  skills: string;
+  location: string;
+  professionalPage: string;
+  owner: string;
+}) {
   // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
   await prisma.student.update({
     where: { id: student.id },
     data: {
       name: student.name,
-      skills: student.skills,
+      skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
       owner: student.owner,
