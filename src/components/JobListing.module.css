@@ -1,0 +1,46 @@
+/* JobListing.module.css */
+.jobCard {
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.jobTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.jobDescription {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.jobDetails {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.jobDetails span {
+  margin-right: 15px;
+}
+
+.applyButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.applyButton:hover {
+  background-color: #0056b3;
+}

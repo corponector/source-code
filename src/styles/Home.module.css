@@ -1,0 +1,30 @@
+.hero {
+  background-color: #f8f9fa;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.jobListings {
+  background-color: #e9ecef;
+  padding: 40px 0;
+}
+
+.candidateProfiles {
+  background-color: #f8f9fa;
+  padding: 40px 0;
+}
+
+.applyButton {
+  /* Renamed class for button */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.applyButton:hover {
+  /* Hover effect for button */
+  background-color: #0056b3;
+}
