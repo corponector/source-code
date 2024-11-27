@@ -120,6 +120,7 @@ footer a {
 #get-started-section {
   background-color: rgb(119, 136, 153) !important;
   color: var(--nat-navbar-text-color);
+}
 .white-text {
   color: white !important;
 }
