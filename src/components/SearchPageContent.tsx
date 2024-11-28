@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable max-len */
@@ -44,17 +45,34 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
   // Generate tag options based on student and company data
   const generateTagOptions = (filterType: 'students' | 'companies' | '') => {
     const tags = new Set<{ value: string; label: string }>();
+    const skillSet = new Set<string>();
+    const locationSet = new Set<string>();
+
     if (filterType === 'students' || filterType === '') {
       students.forEach((student: Student) => {
-        student.skills.forEach(skill => tags.add({ value: skill, label: `Skill: ${skill}` }));
-        tags.add({ value: student.location, label: `Location: ${student.location}` });
+        student.skills.forEach(skill => {
+          if (!skillSet.has(skill)) {
+            skillSet.add(skill);
+            tags.add({ value: skill, label: `Skill: ${skill}` });
+          }
+        });
+        if (!locationSet.has(student.location)) {
+          locationSet.add(student.location);
+          tags.add({ value: student.location, label: `Location: ${student.location}` });
+        }
       });
     }
     if (filterType === 'companies' || filterType === '') {
       companies.forEach((company: Company) => {
-        tags.add({ value: company.location, label: `Location: ${company.location}` });
+        if (!locationSet.has(company.location)) {
+          locationSet.add(company.location);
+          tags.add({ value: company.location, label: `Location: ${company.location}` });
+        }
         company.positions.forEach((position: Position) => {
-          tags.add({ value: position.title, label: `Position: ${position.title}` });
+          if (!skillSet.has(position.title)) {
+            skillSet.add(position.title);
+            tags.add({ value: position.title, label: `Position: ${position.title}` });
+          }
         });
       });
     }
@@ -64,15 +82,15 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
   const onSubmit: SubmitHandler<{ query?: string | null }> = (data) => {
     const query = data.query?.toLowerCase() || '';
     if (query === '' && selectedTags.length === 0) {
-      setFilteredStudents(students);
-      setFilteredCompanies(companies);
+      setFilteredStudents(students.sort((a, b) => a.name.localeCompare(b.name)));
+      setFilteredCompanies(companies.sort((a, b) => a.name.localeCompare(b.name)));
     } else {
       const filteredStudents = students.filter(student => {
         const matchesQuery = student.name.toLowerCase().includes(query)
             || student.skills.some((skill: string) => skill.toLowerCase().includes(query));
         const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => student.skills.includes(tag.value) || student.location === tag.value);
         return matchesQuery && matchesTags;
-      });
+      }).sort((a, b) => a.name.localeCompare(b.name));
 
       const filteredCompanies = companies.filter(company => {
         const matchesQuery = company.name.toLowerCase().includes(query)
@@ -80,7 +98,7 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
             || company.location.toLowerCase().includes(query);
         const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => company.location === tag.value || company.positions.some(position => position.title === tag.value));
         return matchesQuery && matchesTags;
-      });
+      }).sort((a, b) => a.name.localeCompare(b.name));
 
       if (filterType === 'students') {
         setFilteredStudents(filteredStudents);
