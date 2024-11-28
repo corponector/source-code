@@ -1,11 +1,9 @@
-/* eslint-disable react/jsx-indent, @typescript-eslint/indent */
-
 'use client';
 
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown, Image } from 'react-bootstrap';
-import { BoxArrowRight, Lock, PersonFill, PersonPlusFill, Search } from 'react-bootstrap-icons';
+import { BoxArrowRight, House, Lock, PersonFill, PersonPlusFill, Search } from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
@@ -23,19 +21,29 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-center">
+            {landingPage ? (
+              <>
+                <Nav.Link href="/#about-us-section" key="about-us">
+                  About Us
+                </Nav.Link>
+                <Nav.Link href="/#get-started-section" key="get-started">
+                  Get Started
+                </Nav.Link>
+              </>
+            ) : null}
             {landingPage || currentUser || role === 'ADMIN'
               ? [
-                  <Nav.Link href="/#about-us-section" key="about-us">
-                    About Us
-                  </Nav.Link>,
-                  <Nav.Link href="/#get-started-section" key="get-started">
-                    Get Started
-                  </Nav.Link>,
+                <>
+                  <Nav.Link id="home-nav" href="/" key="home" active={pathName === '/'}>
+                    <House />
+                    Home
+                  </Nav.Link>
                   <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
                     <Search />
                     Browse
-                  </Nav.Link>,
-                ]
+                  </Nav.Link>
+                </>,
+              ]
               : ''}
             {currentUser && role === 'ADMIN' ? (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
