@@ -34,8 +34,28 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
         {company.positions.map((position: Position) => (
           <li key={position.id}>
             <strong>{position.title}</strong>
-            :
-            {position.description}
+            <p>{position.description}</p>
+            <p>
+              <strong>Skills:</strong>
+              {' '}
+              {position.skills.join(', ')}
+            </p>
+            <p>
+              <strong>Job Type:</strong>
+              {' '}
+              {position.jobType.join(', ')}
+            </p>
+            <p>
+              <strong>Number of Hires:</strong>
+              {' '}
+              {position.numberOfHires}
+            </p>
+            <p>
+              <strong>Salary Range:</strong>
+              {' '}
+              $
+              {position.salaryRange}
+            </p>
           </li>
         ))}
       </ul>

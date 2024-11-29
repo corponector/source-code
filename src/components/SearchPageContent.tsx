@@ -140,7 +140,7 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
         </Form.Group>
         <Form.Group controlId="query" className="mb-3">
           <InputGroup>
-            <Form.Control type="text" {...register('query')} isInvalid={!!errors.query} />
+            <Form.Control type="text" placeholder="Search" {...register('query')} isInvalid={!!errors.query} />
             <Button type="submit" variant="primary">
               <Search />
             </Button>
