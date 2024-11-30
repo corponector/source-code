@@ -39,6 +39,7 @@ model Student {
 }
 
 model Position {
+  id            Int      @id @default(autoincrement()) // Add this line
   title         String
   description   String
   skills        String[]
@@ -54,8 +55,8 @@ model Company {
   name      String
   overview  String
   location  String
-  links     String
-  emails    String
+  links     String[]
+  emails    String[]
   owner     String
   positions Position[]
 

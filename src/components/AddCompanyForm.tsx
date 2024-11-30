@@ -26,8 +26,8 @@ const onSubmit = async (data: {
     ...data,
     positions: (data.positions ?? []).map(position => ({
       ...position,
-      skills: Array.isArray(position.skills) ? position.skills : (String(position.skills ?? '')).split(',').map(skill => skill.trim()),
-      jobType: Array.isArray(position.jobType) ? position.jobType : (String(position.jobType ?? '')).split(',').map(type => type.trim()),
+      skills: Array.isArray(position.skills) ? position.skills : (position.skills ?? '' as string).split(',').map(skill => skill.trim()),
+      jobType: Array.isArray(position.jobType) ? position.jobType : (position.jobType ?? '').split(',').map(type => type.trim()),
     })),
   };
 

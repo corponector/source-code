@@ -45,7 +45,14 @@ const fetchStudentsAndCompanies = async (): Promise<SearchPageProps> => {
     },
   });
 
-  return { students, companies };
+  // Convert links and emails from arrays to strings
+  const formattedCompanies = companies.map(company => ({
+    ...company,
+    links: Array.isArray(company.links) ? company.links.join(', ') : company.links,
+    emails: Array.isArray(company.emails) ? company.emails.join(', ') : company.emails,
+  }));
+
+  return { students, companies: formattedCompanies };
 };
 
 const SearchPage = async () => {

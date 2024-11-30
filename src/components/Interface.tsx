@@ -11,8 +11,8 @@ export interface Company {
   name: string;
   overview: string;
   location: string;
-  links: string;
-  emails: string;
+  links: string | string[];
+  emails: string | string[];
   positions: Position[];
 }
 
@@ -20,8 +20,8 @@ export interface Position {
   id: number;
   title: string;
   description: string;
-  skills: string[];
-  jobType: string;
+  skills: string | string[];
+  jobType: string | string[];
   numberOfHires: number;
   salaryRange: number;
 }
