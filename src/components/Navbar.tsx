@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
                 </Nav.Link>
               </>
             ) : null}
-            {landingPage || currentUser || role === 'ADMIN'
+            {currentUser || role === 'ADMIN'
               ? [
                 <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
                   <Search />
