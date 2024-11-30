@@ -68,8 +68,8 @@ export async function addCompany(company: {
       name: company.name,
       overview: company.overview,
       location: company.location,
-      links: company.links,
-      emails: company.emails,
+      links: company.links.split(','),
+      emails: company.emails.split(','),
       owner: company.owner,
       positions: {
         create: company.positions.map(position => ({
