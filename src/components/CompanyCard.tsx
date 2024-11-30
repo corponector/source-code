@@ -38,7 +38,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
             <p>
               <strong>Skills:</strong>
               {' '}
-              {position.skills.join(', ')}
+              {Array.isArray(position.skills) ? position.skills.join(', ') : position.skills}
             </p>
             <p>
               <strong>Job Type:</strong>
