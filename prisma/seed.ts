@@ -36,7 +36,7 @@ async function main() {
         skills: data.skills,
         location: data.location,
         professionalPage: data.professionalPage,
-        owner: data.owner,
+        owner: Array.isArray(data.owner) ? data.owner.join(', ') : data.owner,
       },
     });
   });
@@ -53,7 +53,7 @@ async function main() {
         location: data.location,
         links: data.links,
         emails: data.emails,
-        owner: data.owner,
+        owner: Array.isArray(data.owner) ? data.owner.join(', ') : data.owner,
       },
     });
   });

@@ -53,9 +53,9 @@
           "salaryRange": 150000
         }
       ],
-      "links": "https://careers.google.com/jobs",
-      "emails": "google@gmail.com",
-      "owner": "google@foo.com"
+      "links": ["https://careers.google.com/jobs"],
+      "emails": ["google@gmail.com"],
+      "owner": ["google@foo.com"]
     }
   ]
 }
