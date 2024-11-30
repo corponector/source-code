@@ -10,6 +10,7 @@ export async function addStudent(student: {
   skills: string;
   location: string;
   professionalPage: string;
+  profileImage: string;
   owner: string;
 }) {
   await prisma.student.create({
@@ -18,6 +19,7 @@ export async function addStudent(student: {
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
+      profileImage: student.profileImage,
       owner: student.owner,
     },
   });
@@ -31,6 +33,7 @@ export async function editStudent(student: {
   skills: string;
   location: string;
   professionalPage: string;
+  profileImage: string;
   owner: string;
 }) {
   await prisma.student.update({
@@ -40,6 +43,7 @@ export async function editStudent(student: {
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
+      profileImage: student.profileImage,
       owner: student.owner,
     },
   });
@@ -72,7 +76,7 @@ export async function addCompany(company: {
       emails: company.emails.split(','),
       owner: company.owner,
       positions: {
-        create: company.positions.map(position => ({
+        create: company.positions.map((position) => ({
           title: position.title,
           description: position.description,
           skills: position.skills,

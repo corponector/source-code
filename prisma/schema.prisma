@@ -35,6 +35,7 @@ model Student {
   skills           String[]
   location         String
   professionalPage String
+  profileImage     String
   owner            String
 }
 

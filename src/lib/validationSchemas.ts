@@ -6,6 +6,7 @@ export const AddStudentSchema = Yup.object({
   skills: Yup.string().required(),
   location: Yup.string().required(),
   professionalPage: Yup.string().required(),
+  profileImage: Yup.string().required(),
   owner: Yup.string().required(),
 });
 
@@ -15,6 +16,7 @@ export const EditStudentSchema = Yup.object({
   skills: Yup.string().required(),
   location: Yup.string().required(),
   professionalPage: Yup.string().required(),
+  profileImage: Yup.string().required(),
   owner: Yup.string().required(),
 });
 
