@@ -38,31 +38,25 @@ model Student {
   owner            String
 }
 
+model Position {
+  title         String
+  description   String
+  skills        String[]
+  jobType       String[]
+  numberOfHires Int
+  salaryRange   Int
+  company       Company   @relation(fields: [companyId], references: [id])
+  companyId     Int
+}
+
 model Company {
   id        Int        @id @default(autoincrement())
   name      String
   overview  String
   location  String
-  positions Position[]
-  links     String[]
-  emails    String[]
+  links     String
+  emails    String
   owner     String
-}
+  positions Position[]
 
-enum JobType {
-  PERMANENT
-  INTERNSHIP
-  TEMPORARY
-}
-
-model Position {
-  id            Int       @id @default(autoincrement())
-  title         String
-  description   String
-  skills        String[]
-  jobType       JobType[]
-  numberOfHires Int
-  salaryRange   Int
-  company       Company   @relation(fields: [companyId], references: [id])
-  companyId     Int
 }

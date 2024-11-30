@@ -54,6 +54,14 @@ export async function addCompany(company: {
   links: string;
   emails: string;
   owner: string;
+  positions: {
+    title: string;
+    description: string;
+    skills: string[];
+    jobType: string[];
+    numberOfHires: number;
+    salaryRange: number;
+  }[];
 }) {
   await prisma.company.create({
     data: {
@@ -63,9 +71,18 @@ export async function addCompany(company: {
       links: company.links.split(','),
       emails: company.emails.split(','),
       owner: company.owner,
+      positions: {
+        create: company.positions.map(position => ({
+          title: position.title,
+          description: position.description,
+          skills: position.skills,
+          jobType: position.jobType,
+          numberOfHires: position.numberOfHires,
+          salaryRange: position.salaryRange,
+        })),
+      },
     },
   });
-  // After adding, redirect to the list page
   redirect('/company');
 }
 
@@ -81,7 +98,6 @@ export async function editCompany(company: Company) {
       owner: company.owner,
     },
   });
-  // After updating, redirect to the list page
   redirect('/company');
 }
 
@@ -90,7 +106,6 @@ export async function editCompany(company: Company) {
  * @param credentials, an object with the following properties: email, password.
  */
 export async function createUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
   const password = await hash(credentials.password, 10);
   await prisma.user.create({
     data: {
@@ -105,7 +120,6 @@ export async function createUser(credentials: { email: string; password: string 
  * @param credentials, an object with the following properties: email, password.
  */
 export async function changePassword(credentials: { email: string; password: string }) {
-  // console.log(`changePassword data: ${JSON.stringify(credentials, null, 2)}`);
   const password = await hash(credentials.password, 10);
   await prisma.user.update({
     where: { email: credentials.email },

@@ -10,12 +10,13 @@ import { Container, Row, Col, Form, Button, Alert, InputGroup } from 'react-boot
 import Select from 'react-select';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { searchSchema, Student, Company, Position } from '@/lib/validationSchemas';
 import { useSession } from 'next-auth/react';
 import StudentCard from '@/components/StudentCard';
 import CompanyCard from '@/components/CompanyCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Search } from 'react-bootstrap-icons';
+import { searchSchema } from '@/lib/validationSchemas';
+import { Student, Company, Position } from './Interface';
 
 interface SearchPageProps {
   students: Student[];

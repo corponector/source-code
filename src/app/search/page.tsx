@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { Student, Company } from '@/lib/validationSchemas';
+import { Student, Company } from '@/components/Interface';
 import SearchPageContent from '@/components/SearchPageContent';
 import Link from 'next/link';
 import { Container, Row, Col } from 'react-bootstrap';

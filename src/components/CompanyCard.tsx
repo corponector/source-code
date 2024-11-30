@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Company, Position } from '@/lib/validationSchemas';
+import { Company, Position } from './Interface';
 
 interface CompanyCardProps {
   company: Company;
@@ -25,7 +25,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
       <Card.Text>
         <strong>Emails:</strong>
         {' '}
-        {company.emails.join(', ')}
+        {company.emails}
       </Card.Text>
       <Card.Text>
         <strong>Positions:</strong>
@@ -43,7 +43,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
             <p>
               <strong>Job Type:</strong>
               {' '}
-              {position.jobType.join(', ')}
+              {position.jobType}
             </p>
             <p>
               <strong>Number of Hires:</strong>
