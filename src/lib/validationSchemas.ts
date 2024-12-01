@@ -27,6 +27,7 @@ export const AddCompanySchema = Yup.object().shape({
   overview: Yup.string().required('Overview is required'),
   links: Yup.string().required('Links are required'),
   emails: Yup.string().required('Emails are required'),
+  profileImage: Yup.string().required('Profile image is required'),
   positions: Yup.array().of(
     Yup.object().shape({
       title: Yup.string().required('Title is required'),
@@ -47,6 +48,7 @@ export const EditCompanySchema = Yup.object({
   positions: Yup.string().required(),
   links: Yup.string().required(),
   emails: Yup.string().required(),
+  profileImage: Yup.string().required(),
   owner: Yup.string().required(),
 });
 

@@ -52,13 +52,14 @@ model Position {
 }
 
 model Company {
-  id        Int        @id @default(autoincrement())
-  name      String
-  overview  String
-  location  String
-  links     String[]
-  emails    String[]
-  owner     String
-  positions Position[]
+  id           Int        @id @default(autoincrement())
+  name         String
+  overview     String
+  location     String
+  links        String[]
+  emails       String[]
+  owner        String
+  profileImage String
+  positions    Position[]
 
 }

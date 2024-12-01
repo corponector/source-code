@@ -20,14 +20,19 @@ const onSubmit = async (data: {
   positions: Position[] | undefined;
   links: string;
   emails: string;
+  profileImage: string;
   owner: string;
 }) => {
   const formattedData = {
     ...data,
-    positions: (data.positions ?? []).map(position => ({
+    positions: (data.positions ?? []).map((position) => ({
       ...position,
-      skills: Array.isArray(position.skills) ? position.skills : (position.skills ?? '' as string).split(',').map(skill => skill.trim()),
-      jobType: Array.isArray(position.jobType) ? position.jobType : (position.jobType ?? '').split(',').map(type => type.trim()),
+      skills: Array.isArray(position.skills)
+        ? position.skills
+        : (position.skills ?? ('' as string)).split(',').map((skill) => skill.trim()),
+      jobType: Array.isArray(position.jobType)
+        ? position.jobType
+        : (position.jobType ?? '').split(',').map((type) => type.trim()),
     })),
   };
 
@@ -57,6 +62,7 @@ const AddCompanyForm: React.FC = () => {
     positions: Position[];
     links: string;
     emails: string;
+    profileImage: string;
     owner: string;
   }>({
     resolver: yupResolver(AddCompanySchema) as any,
@@ -107,15 +113,27 @@ const AddCompanyForm: React.FC = () => {
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Title</Form.Label>
-                  <Form.Control type="text" {...register(`positions.${index}.title`)} isInvalid={!!errors.positions?.[index]?.title} />
-                  <Form.Control.Feedback type="invalid">{errors.positions?.[index]?.title?.message}</Form.Control.Feedback>
+                  <Form.Control
+                    type="text"
+                    {...register(`positions.${index}.title`)}
+                    isInvalid={!!errors.positions?.[index]?.title}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.positions?.[index]?.title?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Description</Form.Label>
-                  <Form.Control type="text" {...register(`positions.${index}.description`)} isInvalid={!!errors.positions?.[index]?.description} />
-                  <Form.Control.Feedback type="invalid">{errors.positions?.[index]?.description?.message}</Form.Control.Feedback>
+                  <Form.Control
+                    type="text"
+                    {...register(`positions.${index}.description`)}
+                    isInvalid={!!errors.positions?.[index]?.description}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.positions?.[index]?.description?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
             </Row>
@@ -123,15 +141,27 @@ const AddCompanyForm: React.FC = () => {
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Skills</Form.Label>
-                  <Form.Control type="text" {...register(`positions.${index}.skills`)} isInvalid={!!errors.positions?.[index]?.skills} />
-                  <Form.Control.Feedback type="invalid">{errors.positions?.[index]?.skills?.message}</Form.Control.Feedback>
+                  <Form.Control
+                    type="text"
+                    {...register(`positions.${index}.skills`)}
+                    isInvalid={!!errors.positions?.[index]?.skills}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.positions?.[index]?.skills?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Job Type</Form.Label>
-                  <Form.Control type="text" {...register(`positions.${index}.jobType`)} isInvalid={!!errors.positions?.[index]?.jobType} />
-                  <Form.Control.Feedback type="invalid">{errors.positions?.[index]?.jobType?.message}</Form.Control.Feedback>
+                  <Form.Control
+                    type="text"
+                    {...register(`positions.${index}.jobType`)}
+                    isInvalid={!!errors.positions?.[index]?.jobType}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.positions?.[index]?.jobType?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
             </Row>
@@ -139,15 +169,27 @@ const AddCompanyForm: React.FC = () => {
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Number of Hires</Form.Label>
-                  <Form.Control type="number" {...register(`positions.${index}.numberOfHires`)} isInvalid={!!errors.positions?.[index]?.numberOfHires} />
-                  <Form.Control.Feedback type="invalid">{errors.positions?.[index]?.numberOfHires?.message}</Form.Control.Feedback>
+                  <Form.Control
+                    type="number"
+                    {...register(`positions.${index}.numberOfHires`)}
+                    isInvalid={!!errors.positions?.[index]?.numberOfHires}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.positions?.[index]?.numberOfHires?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Salary Range</Form.Label>
-                  <Form.Control type="number" {...register(`positions.${index}.salaryRange`)} isInvalid={!!errors.positions?.[index]?.salaryRange} />
-                  <Form.Control.Feedback type="invalid">{errors.positions?.[index]?.salaryRange?.message}</Form.Control.Feedback>
+                  <Form.Control
+                    type="number"
+                    {...register(`positions.${index}.salaryRange`)}
+                    isInvalid={!!errors.positions?.[index]?.salaryRange}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.positions?.[index]?.salaryRange?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
             </Row>
@@ -156,7 +198,20 @@ const AddCompanyForm: React.FC = () => {
             </Button>
           </div>
         ))}
-        <Button variant="secondary" onClick={() => append({ id: fields.length + 1, title: '', description: '', skills: [], jobType: '', numberOfHires: 0, salaryRange: 0 })}>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            append({
+              id: fields.length + 1,
+              title: '',
+              description: '',
+              skills: [],
+              jobType: '',
+              numberOfHires: 0,
+              salaryRange: 0,
+            })
+          }
+        >
           Add Position
         </Button>
         <Form.Group className="mb-3">
@@ -168,6 +223,11 @@ const AddCompanyForm: React.FC = () => {
           <Form.Label>Contact Email</Form.Label>
           <Form.Control type="email" {...register('emails')} isInvalid={!!errors.emails} />
           <Form.Control.Feedback type="invalid">{errors.emails?.message}</Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Profile Image URL</Form.Label>
+          <Form.Control type="url" {...register('profileImage')} isInvalid={!!errors.profileImage} />
+          <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
         </Form.Group>
         <input type="hidden" {...register('owner')} value={currentUser} />
         <Button type="submit" variant="primary">
