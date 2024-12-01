@@ -37,11 +37,11 @@ const NavBar: React.FC = () => {
             ) : null}
             {currentUser || role === 'ADMIN'
               ? [
-                <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
-                  <Search />
-                  Search
-                </Nav.Link>,
-              ]
+                  <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
+                    <Search />
+                    Search
+                  </Nav.Link>,
+                ]
               : ''}
             {currentUser && role === 'ADMIN' ? (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>

@@ -15,6 +15,7 @@ const onSubmit = async (data: {
   location: string;
   skills: string;
   professionalPage: string;
+  profileImage: string;
   owner: string;
 }) => {
   console.log(data);
@@ -48,7 +49,6 @@ const AddStudentForm: React.FC = () => {
       <h1>Student Additional Information</h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* Name & Location Input */}
-
         <Row>
           <Col>
             <Form.Group className="mb-3">
@@ -81,9 +81,16 @@ const AddStudentForm: React.FC = () => {
           <Form.Control.Feedback type="invalid">{errors.professionalPage?.message}</Form.Control.Feedback>
         </Form.Group>
 
+        {/* Profile Image URL Input */}
+        <Form.Group className="mb-3">
+          <Form.Label>Profile Image URL</Form.Label>
+          <Form.Control type="url" {...register('profileImage')} isInvalid={!!errors.profileImage} />
+          <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
+        </Form.Group>
+
         <input type="hidden" {...register('owner')} value={currentUser} />
 
-        {/* Brings Student to Student Page */}
+        {/* Submit Button */}
         <Button type="submit" variant="primary">
           Submit
         </Button>
