@@ -17,30 +17,41 @@ const NavBar: React.FC = () => {
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">
-          <Image src="../corponector.png" alt="Corponector Logo" width="100" />
-        </Navbar.Brand>
+
+        {currentUser ? (
+          <Navbar.Brand href="/search">
+            <Image src="../corponector.png" alt="Corponector Logo" width="100" />
+          </Navbar.Brand>
+        ) : (
+          <Navbar.Brand href="/">
+            <Image src="../corponector.png" alt="Corponector Logo" width="100" />
+          </Navbar.Brand>
+        )}
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+
           <Nav className="me-auto justify-content-center">
             {landingPage
               ? [
-                  <Nav.Link href="#about-us-section" key="about-us">
-                    About Us
-                  </Nav.Link>,
-                  <Nav.Link href="#get-started-section" key="get-started">
-                    Get Started
-                  </Nav.Link>,
-                ]
+                <Nav.Link href="#about-us-section" key="about-us">
+                  About Us
+                </Nav.Link>,
+                <Nav.Link href="#get-started-section" key="get-started">
+                  Get Started
+                </Nav.Link>,
+              ]
               : ''}
+
             {currentUser
               ? [
-                  <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
-                    <Globe className="px-1" />
-                    Browse
-                  </Nav.Link>,
-                ]
+                <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
+                  <Globe className="px-1" />
+                  Browse
+                </Nav.Link>,
+              ]
               : ''}
+
             {currentUser && role === 'ADMIN' ? (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 Admin
@@ -49,6 +60,7 @@ const NavBar: React.FC = () => {
               ''
             )}
           </Nav>
+
           <Nav>
             {session ? (
               <NavDropdown id="login-dropdown" title={currentUser}>
@@ -74,6 +86,7 @@ const NavBar: React.FC = () => {
               </NavDropdown>
             )}
           </Nav>
+
         </Navbar.Collapse>
       </Container>
     </Navbar>
