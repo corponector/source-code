@@ -19,6 +19,7 @@
       "skills": ["Java", "C++"],
       "location": "San Francisco",
       "professionalPage": "https://drive.google.com/",
+      "profileImage": "profile.png",
       "owner": "john@foo.com"
     },
     {
@@ -26,6 +27,7 @@
       "skills": ["Java", "C++"],
       "location": "Honolulu",
       "professionalPage": "https://myuh.hawaii.edu/",
+      "profileImage": "profile.png",
       "owner": "jane@foo.com"
     }
   ],

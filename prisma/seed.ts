@@ -36,6 +36,7 @@ async function main() {
         skills: data.skills,
         location: data.location,
         professionalPage: data.professionalPage,
+        profileImage: data.profileImage,
         owner: Array.isArray(data.owner) ? data.owner.join(', ') : data.owner,
       },
     });
@@ -51,6 +52,16 @@ async function main() {
         name: data.name,
         overview: data.overview,
         location: data.location,
+        positions: {
+          create: data.positions.map((position) => ({
+            title: position.title,
+            description: position.description,
+            skills: position.skills,
+            jobType: position.jobType,
+            numberOfHires: position.numberOfHires,
+            salaryRange: position.salaryRange,
+          })),
+        },
         links: data.links,
         emails: data.emails,
         owner: Array.isArray(data.owner) ? data.owner.join(', ') : data.owner,
@@ -58,6 +69,7 @@ async function main() {
     });
   });
 }
+
 main()
   .then(() => prisma.$disconnect())
   .catch(async (e) => {

@@ -2,8 +2,6 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import Image from 'next/image';
 import CandidateProfile from '@/components/CandidateProfile';
 import JobListing from '@/components/JobListing';
-import Footer from '@/components/Footer';
-import NavBar from '@/components/Navbar';
 import styles from '@/styles/Home.module.css';
 
 /** The Company Homepage. */
@@ -33,8 +31,6 @@ const CompanyPage = () => {
 
   return (
     <div>
-      <NavBar />
-
       <main>
         {/* Hero Section */}
         <section className={styles.hero}>
@@ -83,7 +79,6 @@ const CompanyPage = () => {
         </section>
       </main>
 
-      <Footer />
     </div>
   );
 };
