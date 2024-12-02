@@ -136,11 +136,21 @@ export async function addPosition(position: {
  */
 export async function createUser(credentials: { email: string; password: string; role: string }) {
   const password = await hash(credentials.password, 10);
+  let role1: Role = 'USER';
+
+  if (credentials.role === 'STUDENT') {
+    role1 = 'STUDENT';
+  } else if (credentials.role === 'COMPANY') {
+    role1 = 'COMPANY';
+  } else if (credentials.role === 'ADMIN') {
+    role1 = 'ADMIN';
+  }
+
   await prisma.user.create({
     data: {
       email: credentials.email,
       password,
-      role: credentials.role as Role,
+      role: role1,
     },
   });
 }
