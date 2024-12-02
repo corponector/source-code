@@ -55,7 +55,7 @@ const NavBar: React.FC = () => {
             {currentUser && role === 'STUDENT'
               ? [
                 <Nav.Link id="search-nav" href="/student" active={pathName === '/student'}>
-                  <Search className="px-1" size={25} />
+                  <PersonFill className="px-1" size={25} />
                   Student
                 </Nav.Link>,
               ]
@@ -64,7 +64,7 @@ const NavBar: React.FC = () => {
             {currentUser && role === 'COMPANY'
               ? [
                 <Nav.Link id="search-nav" href="/company" active={pathName === '/company'}>
-                  <Search className="px-1" size={25} />
+                  <PersonFill className="px-1" size={25} />
                   Company
                 </Nav.Link>,
               ]
