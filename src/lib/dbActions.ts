@@ -1,6 +1,6 @@
 'use server';
 
-import { Company } from '@prisma/client';
+import { Company, Role } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
@@ -134,12 +134,13 @@ export async function addPosition(position: {
  * Creates a new user in the database.
  * @param credentials, an object with the following properties: email, password.
  */
-export async function createUser(credentials: { email: string; password: string }) {
+export async function createUser(credentials: { email: string; password: string; role: string }) {
   const password = await hash(credentials.password, 10);
   await prisma.user.create({
     data: {
       email: credentials.email,
       password,
+      role: credentials.role as Role,
     },
   });
 }

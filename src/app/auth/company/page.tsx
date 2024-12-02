@@ -12,7 +12,7 @@ const AddCompany = async () => {
     } | null,
   );
   return (
-    <main className="semi-transparent pb-3">
+    <main className="semi-transparent pt-2">
       <AddCompanyForm />
     </main>
   );

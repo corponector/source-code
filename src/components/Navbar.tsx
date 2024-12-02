@@ -11,21 +11,29 @@ const NavBar: React.FC = () => {
   const userWithRole = session?.user as { email: string; randomKey: string };
   const role = userWithRole?.randomKey;
   const pathName = usePathname();
-  const landingPage = pathName === '/';
+  // const landingPage = pathName === '/';
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">
-          <Image src="../corponector.png" alt="Corponector Logo" width="100" />
-        </Navbar.Brand>
+        {currentUser ? (
+          <Navbar.Brand href="/search">
+            <Image src="../corponector.png" alt="Corponector Logo" width="100" />
+          </Navbar.Brand>
+        ) : (
+          <Navbar.Brand href="/">
+            <Image src="../corponector.png" alt="Corponector Logo" width="100" />
+          </Navbar.Brand>
+        )}
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+
           <Nav className="me-auto justify-content-center">
             <Nav.Link id="home-nav" href="/" key="home" active={pathName === '/'}>
-              <House />
+              <House className="px-1" size={25} />
               Home
             </Nav.Link>
-            {landingPage ? (
+            {/* {landingPage ? (
               <>
                 <Nav.Link href="/#about-us-section" key="about-us">
                   About Us
@@ -34,15 +42,34 @@ const NavBar: React.FC = () => {
                   Get Started
                 </Nav.Link>
               </>
-            ) : null}
+            ) : null} */}
             {currentUser || role === 'ADMIN'
               ? [
                 <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
-                  <Search />
+                  <Search className="px-1" size={25} />
                   Search
                 </Nav.Link>,
               ]
               : ''}
+
+            {currentUser && role === 'STUDENT'
+              ? [
+                <Nav.Link id="search-nav" href="/student" active={pathName === '/student'}>
+                  <PersonFill className="px-1" size={25} />
+                  Student
+                </Nav.Link>,
+              ]
+              : ''}
+
+            {currentUser && role === 'COMPANY'
+              ? [
+                <Nav.Link id="search-nav" href="/company" active={pathName === '/company'}>
+                  <PersonFill className="px-1" size={25} />
+                  Company
+                </Nav.Link>,
+              ]
+              : ''}
+
             {currentUser && role === 'ADMIN' ? (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 Admin
