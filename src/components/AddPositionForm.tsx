@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
-import { addCompany } from '@/lib/dbActions';
+// import { addCompany } from '@/lib/dbActions';
 import { AddCompanySchema } from '@/lib/validationSchemas';
 import swal from 'sweetalert';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -14,14 +14,14 @@ const onSubmit = async (data: {
   name: string;
   overview: string;
   location: string;
-  positions: string;
+  // positions: string;
   links: string;
   emails: string;
   owner: string;
 }) => {
   // Handle form submission here
   console.log(data);
-  await addCompany(data);
+  // await addCompany(data);
   swal('Success', 'Your item has been added', 'success', {
     timer: 2000,
   });
