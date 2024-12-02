@@ -12,7 +12,7 @@ const AddStudent = async () => {
     } | null,
   );
   return (
-    <main className="semi-transparent">
+    <main className="semi-transparent pt-2">
       <AddStudentForm />
     </main>
   );

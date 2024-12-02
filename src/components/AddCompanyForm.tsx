@@ -76,7 +76,7 @@ const AddCompanyForm: React.FC = () => {
   }
 
   return (
-    <Container className="mt-3">
+    <Container className="mt-3 mb-3">
       <h1>Company Additional Information</h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
@@ -100,7 +100,7 @@ const AddCompanyForm: React.FC = () => {
           <Form.Control as="textarea" rows={3} {...register('overview')} isInvalid={!!errors.overview} />
           <Form.Control.Feedback type="invalid">{errors.overview?.message}</Form.Control.Feedback>
         </Form.Group>
-        <Form.Label>Job Positions</Form.Label>
+        <Form.Label><p className="fs-3">Job Positions</p></Form.Label>
         {fields.map((field, index) => (
           <div key={field.id} className="mb-3">
             <Row>
