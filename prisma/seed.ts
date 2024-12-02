@@ -33,6 +33,7 @@ async function main() {
       update: {},
       create: {
         name: data.name,
+        profileImage: data.profileImage,
         skills: data.skills,
         location: data.location,
         professionalPage: data.professionalPage,
