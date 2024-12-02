@@ -105,6 +105,31 @@ export async function editCompany(company: Company) {
   redirect('/company');
 }
 
+/*
+export async function addPosition(position: {
+  title: string;
+  description: string;
+  skills: string;
+  jobType: string[]; // FIXME: Change to JobType[]
+  numberOfHires: number;
+  salaryRange: string;
+}) {
+  // let jobType: JobType[] = [];
+
+  await prisma.position.create({
+    data: {
+      title: position.title,
+      description: position.description,
+      skills: position.skills.split(','),
+      jobType: position.jobType, // FIXME: Change to JobType[]
+      numberOfHires: position.numberOfHires,
+      salaryRange: position.salaryRange,
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/company');
+} */
+
 /**
  * Creates a new user in the database.
  * @param credentials, an object with the following properties: email, password.

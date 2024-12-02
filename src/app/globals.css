@@ -81,6 +81,11 @@ footer a {
   padding: 50px 0;
 }
 
+.scrollable-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
 #about-us-section .section-title {
   font-family: 'Parkinsans', sans-serif;
   font-size: 3rem;
@@ -130,4 +135,7 @@ footer a {
   padding: 40px;
   border-radius: 15px;
   margin: 20px;
+}
+.white-text {
+  color: white !important;
 }

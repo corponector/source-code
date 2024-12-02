@@ -91,7 +91,12 @@ const EditStudentForm = ({ student }: { student: Student }) => {
         {/* Profile Image URL Input */}
         <Form.Group className="mb-3">
           <Form.Label>Profile Image URL</Form.Label>
-          <Form.Control type="url" {...register('profileImage')} isInvalid={!!errors.profileImage} />
+          <Form.Control
+            type="url"
+            {...register('profileImage')}
+            isInvalid={!!errors.profileImage}
+            defaultValue={student.profileImage}
+          />
           <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
         </Form.Group>
 

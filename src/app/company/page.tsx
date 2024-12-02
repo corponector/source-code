@@ -13,14 +13,14 @@ const CompanyPage = () => {
       title: 'Software Engineer',
       location: 'San Francisco',
       description: 'Develop and maintain web applications.',
-      salary: '$120,000 - $140,000', // Add salary field here
+      salary: '$120,000 - $140,000', // Add salary field
     },
     {
       id: 2,
       title: 'Product Manager',
       location: 'New York',
       description: 'Oversee product development and lead cross-functional teams.',
-      salary: '$110,000 - $130,000', // Add salary field here
+      salary: '$110,000 - $130,000', // Add salary field
     },
   ];
 
@@ -78,7 +78,6 @@ const CompanyPage = () => {
           </Container>
         </section>
       </main>
-
     </div>
   );
 };
