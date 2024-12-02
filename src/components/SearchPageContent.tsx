@@ -10,12 +10,13 @@ import { Container, Row, Col, Form, Button, Alert, InputGroup } from 'react-boot
 import Select from 'react-select';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { searchSchema, Student, Company, Position } from '@/lib/validationSchemas';
 import { useSession } from 'next-auth/react';
 import StudentCard from '@/components/StudentCard';
 import CompanyCard from '@/components/CompanyCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Search } from 'react-bootstrap-icons';
+import { searchSchema } from '@/lib/validationSchemas';
+import { Student, Company, Position } from './Interface';
 
 interface SearchPageProps {
   students: Student[];
@@ -140,7 +141,7 @@ const SearchPageContent: React.FC<SearchPageProps> = ({ students, companies }) =
         </Form.Group>
         <Form.Group controlId="query" className="mb-3">
           <InputGroup>
-            <Form.Control type="text" {...register('query')} isInvalid={!!errors.query} />
+            <Form.Control type="text" placeholder="Search" {...register('query')} isInvalid={!!errors.query} />
             <Button type="submit" variant="primary">
               <Search />
             </Button>

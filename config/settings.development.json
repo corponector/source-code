@@ -55,7 +55,7 @@
       ],
       "links": ["https://careers.google.com/jobs"],
       "emails": ["google@gmail.com"],
-      "owner": "google@foo.com"
+      "owner": ["google@foo.com"]
     }
   ]
 }

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Student } from '@/lib/validationSchemas';
+import { Student } from './Interface';
 
 interface StudentCardProps {
   student: Student;
