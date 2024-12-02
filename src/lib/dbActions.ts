@@ -132,15 +132,27 @@ export async function addPosition(position: {
 
 /**
  * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * @param credentials, an object with the following properties: email, password, role.
  */
 export async function createUser(credentials: { email: string; password: string; role: string }) {
   const password = await hash(credentials.password, 10);
+
+  let role: Role = Role.STUDENT;
+  if (credentials.role === 'student') {
+    role = Role.STUDENT;
+  } else if (credentials.role === 'company') {
+    role = Role.COMPANY;
+  } else if (credentials.role === 'admin') {
+    role = Role.ADMIN;
+  } else {
+    role = Role.USER;
+  }
+
   await prisma.user.create({
     data: {
       email: credentials.email,
       password,
-      role: credentials.role as Role,
+      role,
     },
   });
 }
