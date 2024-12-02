@@ -51,7 +51,6 @@ const SignUp = () => {
     // }
     // console.log(JSON.stringify(data, null, 2));
     await createUser(data);
-    console.log("User created");
     // After creating, signIn with redirect to the add page
     if (data.role === 'student') {
       await signIn('credentials', { callbackUrl: '/auth/student', ...data });

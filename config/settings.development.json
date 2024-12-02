@@ -18,7 +18,6 @@
       "name": "John Doe",
       "skills": ["Java", "C++"],
       "location": "San Francisco",
-      "profileImage": "https://placehold.co/800x800?text=John",
       "professionalPage": "https://drive.google.com/",
       "profileImage": "profile.png",
       "owner": "john@foo.com"
@@ -27,7 +26,6 @@
       "name": "Jane Doe",
       "skills": ["Java", "C++"],
       "location": "Honolulu",
-      "profileImage": "https://placehold.co/800x800?text=Jane",
       "professionalPage": "https://myuh.hawaii.edu/",
       "profileImage": "profile.png",
       "owner": "jane@foo.com"
