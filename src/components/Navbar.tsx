@@ -11,7 +11,7 @@ const NavBar: React.FC = () => {
   const userWithRole = session?.user as { email: string; randomKey: string };
   const role = userWithRole?.randomKey;
   const pathName = usePathname();
-  // const landingPage = pathName === '/';
+
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
@@ -27,55 +27,33 @@ const NavBar: React.FC = () => {
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-
           <Nav className="me-auto justify-content-center">
             <Nav.Link id="home-nav" href="/" key="home" active={pathName === '/'}>
               <House className="px-1" size={25} />
               Home
             </Nav.Link>
-            {/* {landingPage ? (
-              <>
-                <Nav.Link href="/#about-us-section" key="about-us">
-                  About Us
-                </Nav.Link>
-                <Nav.Link href="/#get-started-section" key="get-started">
-                  Get Started
-                </Nav.Link>
-              </>
-            ) : null} */}
-            {currentUser || role === 'ADMIN'
-              ? [
-                <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
-                  <Search className="px-1" size={25} />
-                  Search
-                </Nav.Link>,
-              ]
-              : ''}
-
-            {currentUser && role === 'STUDENT'
-              ? [
-                <Nav.Link id="search-nav" href="/student" active={pathName === '/student'}>
-                  <PersonFill className="px-1" size={25} />
-                  Student
-                </Nav.Link>,
-              ]
-              : ''}
-
-            {currentUser && role === 'COMPANY'
-              ? [
-                <Nav.Link id="search-nav" href="/company" active={pathName === '/company'}>
-                  <PersonFill className="px-1" size={25} />
-                  Company
-                </Nav.Link>,
-              ]
-              : ''}
-
-            {currentUser && role === 'ADMIN' ? (
-              <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
+            {(currentUser || role === 'ADMIN' || role === 'USER') && (
+              <Nav.Link id="search-nav" href="/search" key="search" active={pathName === '/search'}>
+                <Search className="px-1" size={25} />
+                Search
+              </Nav.Link>
+            )}
+            {currentUser && role === 'STUDENT' && (
+              <Nav.Link id="student-nav" href="/student" active={pathName === '/student'}>
+                <PersonFill className="px-1" size={25} />
+                Student
+              </Nav.Link>
+            )}
+            {currentUser && role === 'COMPANY' && (
+              <Nav.Link id="company-nav" href="/company" active={pathName === '/company'}>
+                <PersonFill className="px-1" size={25} />
+                Company
+              </Nav.Link>
+            )}
+            {currentUser && role === 'ADMIN' && (
+              <Nav.Link id="admin-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 Admin
               </Nav.Link>
-            ) : (
-              ''
             )}
           </Nav>
           <Nav>
