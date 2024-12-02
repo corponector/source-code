@@ -1,10 +1,11 @@
 import { getServerSession } from 'next-auth';
-import { Container, Col, Row, Button, Card } from 'react-bootstrap';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import StudentInfo from '@/components/StudentInfo';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 import Link from 'next/link';
+import { Company } from '@prisma/client';
 // import CompanyCard from '@/components/CompanyCard';
 
 const StudentPage = async () => {
@@ -22,7 +23,11 @@ const StudentPage = async () => {
       owner,
     },
   });
-  const companies = await prisma.company.findMany({});
+  const companies = await prisma.company.findMany({
+    include: {
+      positions: true,
+    },
+  });
   return (
     <main className="semi-transparent">
       <Container className="py-3">
@@ -38,59 +43,46 @@ const StudentPage = async () => {
             </Col>
             <Col md>
               <h1>Recommended Companies</h1>
-              {companies.map((company) => (
-                <Card className="mb-3">
-                  <Card.Body>
-                    <Card.Title>{company.name}</Card.Title>
-                    <Card.Text>
-                      <strong>Overview:</strong>
-                      {' '}
-                      {company.overview}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Location:</strong>
-                      {' '}
-                      {company.location}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Emails:</strong>
-                      {' '}
-                      {company.emails}
-                    </Card.Text>
-                    {/* <Card.Text>
-                      <strong>Positions:</strong>
-                    </Card.Text>
-                    <ul>
-                      {company.positions.map((position: Position) => (
-                        <li key={position.id}>
-                          <strong>{position.title}</strong>
-                          <p>{position.description}</p>
-                          <p>
-                            <strong>Skills:</strong>
-                            {' '}
-                            {Array.isArray(position.skills) ? position.skills.join(', ') : position.skills}
-                          </p>
-                          <p>
-                            <strong>Job Type:</strong>
-                            {' '}
-                            {position.jobType}
-                          </p>
-                          <p>
-                            <strong>Number of Hires:</strong>
-                            {' '}
-                            {position.numberOfHires}
-                          </p>
-                          <p>
-                            <strong>Salary Range:</strong>
-                            {' '}
-                            $
-                            {position.salaryRange}
-                          </p>
-                        </li>
-                      ))}
-                    </ul> */}
-                  </Card.Body>
-                </Card>
+              {companies.map((company: Company) => (
+                <Container>
+                  <h1>{company.name}</h1>
+                  <h1>
+                    Location:
+                    {company.location}
+                  </h1>
+                  <h1>Overview: </h1>
+                  <p>{company.overview}</p>
+                  <h1>Emails: </h1>
+                  <p>{Array.isArray(company.emails) ? company.emails.join(', ') : company.emails}</p>
+                  <h1>Links: </h1>
+                  <p>{Array.isArray(company.links) ? company.links.join(', ') : company.links}</p>
+                  {/* <h1>Positions: </h1>
+                  <ul>
+                    {company.positions.map((position: Position) => (
+                      <li key={position.title}>
+                        <h1>{position.title}</h1>
+                        <p>{position.description}</p>
+                        <p>
+                          Skills:
+                          {Array.isArray(position.skills) ? position.skills.join(', ') : position.skills}
+                        </p>
+                        <p>
+                          Job Type:
+                          {position.jobType}
+                        </p>
+                        <p>
+                          Number of Hires:
+                          {position.numberOfHires}
+                        </p>
+                        <p>
+                          Salary Range:
+                          $
+                          {position.salaryRange}
+                        </p>
+                      </li>
+                    ))}
+                  </ul> */}
+                </Container>
               ))}
             </Col>
           </Row>
