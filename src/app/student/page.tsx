@@ -5,6 +5,7 @@ import StudentInfo from '@/components/StudentInfo';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 import Link from 'next/link';
+import CompanyCard from '@/components/CompanyCard';
 
 const StudentPage = async () => {
   // Protect the page, only logged in users can access it.
@@ -21,6 +22,7 @@ const StudentPage = async () => {
       owner,
     },
   });
+  const companies = await prisma.company.findMany();
   return (
     <main className="semi-transparent">
       <Container className="py-3">
@@ -36,6 +38,9 @@ const StudentPage = async () => {
             </Col>
             <Col md>
               <h1>Recommended Companies</h1>
+              {companies.map((c) => (
+                <CompanyCard key={c.id} company={c} />
+              ))}
             </Col>
           </Row>
         ))}
