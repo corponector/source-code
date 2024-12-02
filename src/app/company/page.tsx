@@ -33,8 +33,6 @@ const CompanyPage = () => {
 
   return (
     <div>
-      <NavBar />
-
       <main>
         {/* Hero Section */}
         <section className={styles.hero}>
@@ -82,8 +80,6 @@ const CompanyPage = () => {
           </Container>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 };
