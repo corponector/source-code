@@ -22,7 +22,7 @@ const StudentPage = async () => {
       owner,
     },
   });
-  const companies = await prisma.company.findMany();
+  const companies = await prisma.company.findMany({});
   return (
     <main className="semi-transparent">
       <Container className="py-3">
