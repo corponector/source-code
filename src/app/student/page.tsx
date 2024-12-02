@@ -45,22 +45,22 @@ const StudentPage = async () => {
               <h1>Recommended Companies</h1>
               {companies.map((company: Company) => (
                 <Container>
-                  <h1>{company.name}</h1>
-                  <h1>
+                  <h3>{company.name}</h3>
+                  <h3>
                     Location:
                     {company.location}
-                  </h1>
-                  <h1>Overview: </h1>
+                  </h3>
+                  <h3>Overview: </h3>
                   <p>{company.overview}</p>
-                  <h1>Emails: </h1>
+                  <h3>Emails: </h3>
                   <p>{Array.isArray(company.emails) ? company.emails.join(', ') : company.emails}</p>
-                  <h1>Links: </h1>
+                  <h3>Links: </h3>
                   <p>{Array.isArray(company.links) ? company.links.join(', ') : company.links}</p>
-                  {/* <h1>Positions: </h1>
+                  {/* <h3>Positions: </h3>
                   <ul>
                     {company.positions.map((position: Position) => (
                       <li key={position.title}>
-                        <h1>{position.title}</h1>
+                        <h3>{position.title}</h3>
                         <p>{position.description}</p>
                         <p>
                           Skills:
