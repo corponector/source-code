@@ -9,7 +9,7 @@ interface CompanyCardProps {
 }
 
 const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
-  <Card className="mb-3">
+  <Card className="mb-3" style={{ backgroundColor: 'silver' }}>
     <Card.Body>
       <Card.Title>{company.name}</Card.Title>
       <Card.Text>
