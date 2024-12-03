@@ -7,7 +7,13 @@ import { useRouter } from 'next/router';
 import { Card, Image, Row, Col, Spinner } from 'react-bootstrap';
 import { Student } from './Interface';
 
-const ProfilePage: React.FC = () => {
+interface ProfilePageProps {
+
+  student: Student;
+
+}
+
+const ProfilePage: React.FC<ProfilePageProps> = () => {
   const router = useRouter();
   const { id } = router.query;
   const [student, setStudent] = useState<Student | null>(null);
