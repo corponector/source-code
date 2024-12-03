@@ -52,7 +52,7 @@ async function main() {
         name: data.name,
         overview: data.overview,
         location: data.location,
-        profileImage: data.profileImage || 'default.png',
+        profileImage: data.profileImage,
         positions: {
           create: data.positions.map((position) => ({
             title: position.title,
