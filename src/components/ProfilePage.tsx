@@ -1,19 +1,40 @@
 /* eslint-disable react/no-array-index-key */
-
-'use client';
-
-import React from 'react';
-import { Card, Image, Row, Col } from 'react-bootstrap';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { Card, Image, Row, Col, Spinner } from 'react-bootstrap';
 import { Student } from './Interface';
 
-interface StudentCardProps {
-  student: Student;
-}
+const ProfilePage: React.FC = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [student, setStudent] = useState<Student | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
-  <Link href={`/students/profile/${student.id}`} passHref>
-    <Card className="mb-3" style={{ backgroundColor: 'silver', cursor: 'pointer' }}>
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/students/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setStudent(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching student data:', error);
+          setLoading(false);
+        });
+    }
+  }, [id]);
+
+  if (loading) {
+    return <Spinner animation="border" />;
+  }
+
+  if (!student) {
+    return <p>Student not found</p>;
+  }
+
+  return (
+    <Card className="mb-3" style={{ backgroundColor: 'silver' }}>
       <Card.Body>
         <Row>
           <Col md={4}>
@@ -49,7 +70,7 @@ const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
         </Row>
       </Card.Body>
     </Card>
-  </Link>
-);
+  );
+};
 
-export default StudentCard;
+export default ProfilePage;
