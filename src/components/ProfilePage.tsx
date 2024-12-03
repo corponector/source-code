@@ -1,4 +1,7 @@
 /* eslint-disable react/no-array-index-key */
+
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Card, Image, Row, Col, Spinner } from 'react-bootstrap';
