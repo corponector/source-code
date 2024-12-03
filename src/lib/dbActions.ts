@@ -57,6 +57,7 @@ export async function addCompany(company: {
   location: string;
   links: string;
   emails: string;
+  profileImage: string;
   owner: string;
   positions: {
     title: string;
@@ -74,6 +75,7 @@ export async function addCompany(company: {
       location: company.location,
       links: company.links.split(','),
       emails: company.emails.split(','),
+      profileImage: company.profileImage,
       owner: company.owner,
       positions: {
         create: company.positions.map((position) => ({
@@ -99,6 +101,7 @@ export async function editCompany(company: Company) {
       location: company.location,
       links: company.links,
       emails: company.emails,
+      profileImage: company.profileImage,
       owner: company.owner,
     },
   });
