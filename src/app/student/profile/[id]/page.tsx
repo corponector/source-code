@@ -1,4 +1,3 @@
-/* eslint-disable import/export */
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { Student } from '@prisma/client';
@@ -9,19 +8,18 @@ import { Container } from 'react-bootstrap';
 import ProfilePage from '@/components/ProfilePage';
 
 export default async function StudentProfilePage({ params }: { params: { id: string | string[] } }) {
-  // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
     session as {
       user: { email: string; id: string; randomKey: string };
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
+
   const id = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
-  // console.log(id);
   const student: Student | null = await prisma.student.findUnique({
     where: { id },
   });
+
   if (!student) {
     return notFound();
   }
@@ -29,7 +27,7 @@ export default async function StudentProfilePage({ params }: { params: { id: str
   return (
     <main>
       <Container>
-        <ProfilePage student={student} />
+        <ProfilePage id={student.id} />
       </Container>
     </main>
   );

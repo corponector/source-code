@@ -1,34 +1,39 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-array-index-key */
 
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Card, Image, Row, Col, Spinner } from 'react-bootstrap';
 import { Student } from './Interface';
 
 interface ProfilePageProps {
-
-  student: Student;
-
+  id: number;
 }
 
-const ProfilePage: React.FC<ProfilePageProps> = () => {
-  const router = useRouter();
-  const { id } = router.query;
+const ProfilePage: React.FC<ProfilePageProps> = ({ id }) => {
   const [student, setStudent] = useState<Student | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) {
+      console.log(`Fetching student data for ID: ${id}`);
       fetch(`/api/students/${id}`)
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Student not found');
+          }
+          return response.json();
+        })
         .then((data) => {
+          console.log('Student data:', data);
           setStudent(data);
           setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching student data:', error);
+          setError(error.message);
           setLoading(false);
         });
     }
@@ -36,6 +41,10 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
 
   if (loading) {
     return <Spinner animation="border" />;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
   if (!student) {

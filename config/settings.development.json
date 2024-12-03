@@ -15,6 +15,7 @@
 
   "students": [
     {
+      "id": 1,
       "name": "John Doe",
       "skills": ["Java", "C++"],
       "location": "San Francisco",
@@ -23,6 +24,7 @@
       "owner": "john@foo.com"
     },
     {
+      "id": 2,
       "name": "Jane Doe",
       "skills": ["Java", "C++"],
       "location": "Honolulu",

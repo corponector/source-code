@@ -12,7 +12,7 @@ interface StudentCardProps {
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
-  <Link href={`/students/profile/${student.id}`} passHref>
+  <Link href={`/student/profile/${student.id}`} passHref>
     <Card className="mb-3" style={{ backgroundColor: 'silver', cursor: 'pointer' }}>
       <Card.Body>
         <Row>
