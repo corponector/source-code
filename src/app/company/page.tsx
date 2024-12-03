@@ -3,24 +3,36 @@ import Image from 'next/image';
 import CandidateProfile from '@/components/CandidateProfile';
 import JobListing from '@/components/JobListing';
 import styles from '@/styles/Home.module.css';
+import Link from 'next/link'; // Corrected import for Next.js Link component
 
 /** The Company Homepage. */
 const CompanyPage = () => {
-  // Example data for job postings and candidates
+  // Example company data
+  const company: Company = {
+    id: 1,
+    name: 'XYZ Corp',
+    location: 'San Francisco, CA',
+    overview: 'A leading tech company in AI.',
+    links: 'https://xyz-corp.com',
+    emails: 'contact@xyz-corp.com',
+    owner: 'John Doe',
+  };
+
+  // Example job postings and candidate profiles
   const jobs = [
     {
       id: 1,
       title: 'Software Engineer',
       location: 'San Francisco',
       description: 'Develop and maintain web applications.',
-      salary: '$120,000 - $140,000', // Add salary field
+      salary: '$120,000 - $140,000',
     },
     {
       id: 2,
       title: 'Product Manager',
       location: 'New York',
       description: 'Oversee product development and lead cross-functional teams.',
-      salary: '$110,000 - $130,000', // Add salary field
+      salary: '$110,000 - $130,000',
     },
   ];
 
@@ -35,16 +47,27 @@ const CompanyPage = () => {
         {/* Hero Section */}
         <section className={styles.hero}>
           <Container fluid className="py-5 text-center">
-            <Row>
-              <Col xs={12} md={6} className="d-flex flex-column justify-content-center">
-                <h1>Welcome to Our Company</h1>
+            <Row className="d-flex align-items-center">
+              <Col xs={12} md={6}>
+                <h1>Welcome to Google</h1>
+                <p>
+                  Google is an American-based multinational corporation and technology company focusing on online
+                  advertising, search engine technology, cloud computing, computer software, quantum computing,
+                  e-commerce, consumer electronics, and artificial intelligence (AI)
+                </p>
                 <p>Find top talent, post job openings, and manage your team.</p>
-                <Button variant="primary" size="lg" className="mt-3">
-                  Post a Job
+
+                {/* Edit Button */}
+                <Button className="my-5">
+                  <Link href={`/company/edit/${company.id}`} passHref>
+                    <Button variant="link" style={{ color: 'white' }}>
+                      Edit Company Info
+                    </Button>
+                  </Link>
                 </Button>
               </Col>
-              <Col xs={12} md={6}>
-                <Image src="/company-logo.png" width={300} height={300} alt="Company Logo" />
+              <Col xs={12} md={6} className="d-flex justify-content-center">
+                <Image src="/google.png" width={300} height={300} alt="Google Company Logo" />
               </Col>
             </Row>
           </Container>
