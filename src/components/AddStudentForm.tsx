@@ -13,6 +13,7 @@ import { AddStudentSchema } from '@/lib/validationSchemas';
 const onSubmit = async (data: {
   name: string;
   location: string;
+  aboutMe: string;
   skills: string;
   professionalPage: string;
   profileImage: string;
@@ -66,6 +67,13 @@ const AddStudentForm: React.FC = () => {
             </Form.Group>
           </Col>
         </Row>
+
+        {/* About Me Input */}
+        <Form.Group className="mb-3">
+          <Form.Label>About Me</Form.Label>
+          <Form.Control type="text" {...register('aboutMe')} isInvalid={!!errors.aboutMe} />
+          <Form.Control.Feedback type="invalid">{errors.aboutMe?.message}</Form.Control.Feedback>
+        </Form.Group>
 
         {/* Skills Input */}
         <Form.Group className="mb-3">
