@@ -22,7 +22,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
           onError={(e) => {
             e.currentTarget.src = '/profile.png';
           }}
-          style={{ width: '100%', height: 'auto' }}
+          style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
         />
       </Col>
       <Col md={8}>

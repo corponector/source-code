@@ -4,6 +4,7 @@ import CandidateProfile from '@/components/CandidateProfile';
 import JobListing from '@/components/JobListing';
 import styles from '@/styles/Home.module.css';
 import Link from 'next/link'; // Corrected import for Next.js Link component
+import { Company } from '@prisma/client';
 
 /** The Company Homepage. */
 const CompanyPage = () => {
@@ -13,8 +14,9 @@ const CompanyPage = () => {
     name: 'XYZ Corp',
     location: 'San Francisco, CA',
     overview: 'A leading tech company in AI.',
-    links: 'https://xyz-corp.com',
-    emails: 'contact@xyz-corp.com',
+    links: ['https://xyz-corp.com'],
+    emails: ['contact@xyz-corp.com'],
+    profileImage: '/company-logo.png',
     owner: 'John Doe',
   };
 

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import ProfilePage from '@/components/ProfilePage';
+import ProfilePage from '@/components/StudentProfile';
 import { Student } from '@/components/Interface';
 
 interface Params {

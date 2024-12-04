@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown, Image } from 'react-bootstrap';
-import { BoxArrowRight, House, Lock, PersonFill, PersonPlusFill, Search } from 'react-bootstrap-icons';
+import { BoxArrowRight, House, Lock, PersonFill, PersonPlusFill, Search, Building } from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
             )}
             {currentUser && role === 'COMPANY' && (
               <Nav.Link id="company-nav" href="/company" active={pathName === '/company'}>
-                <PersonFill className="px-1" size={25} />
+                <Building className="px-1" size={25} />
                 Company
               </Nav.Link>
             )}
