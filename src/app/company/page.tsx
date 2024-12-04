@@ -4,18 +4,27 @@ import CandidateProfile from '@/components/CandidateProfile';
 import JobListing from '@/components/JobListing';
 import styles from '@/styles/Home.module.css';
 import Link from 'next/link'; // Corrected import for Next.js Link component
+import { getServerSession } from 'next-auth';
+import authOptions from '@/lib/authOptions';
+import { loggedInProtectedPage } from '@/lib/page-protection';
 
-/** The Company Homepage. */
-const CompanyPage = () => {
-  // Example company data
-  const company: Company = {
+const CompanyPage = async () => {
+  // Protect the page, only logged in users can access it.
+  const session = await getServerSession(authOptions);
+  loggedInProtectedPage(
+    session as {
+      user: { email: string; id: string; randomKey: string };
+      // eslint-disable-next-line @typescript-eslint/comma-dangle
+    } | null,
+  );
+
+  const company = {
     id: 1,
-    name: 'XYZ Corp',
-    location: 'San Francisco, CA',
-    overview: 'A leading tech company in AI.',
-    links: 'https://xyz-corp.com',
-    emails: 'contact@xyz-corp.com',
-    owner: 'John Doe',
+    name: 'Google',
+    location: 'Mountain View, CA',
+    overview:
+      'Google is an American-based multinational corporation and technology company focusing on online advertising, search engine technology, cloud computing, computer software, quantum computing, e-commerce, consumer electronics, and artificial intelligence (AI)',
+    emails: ['contact@google.com'],
   };
 
   // Example job postings and candidate profiles
@@ -67,7 +76,7 @@ const CompanyPage = () => {
                 </Button>
               </Col>
               <Col xs={12} md={6} className="d-flex justify-content-center">
-                <Image src="/google.png" width={300} height={300} alt="Google Company Logo" />
+                <Image src="/google.jpeg" width={300} height={300} alt="Google Company Logo" />
               </Col>
             </Row>
           </Container>
