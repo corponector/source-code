@@ -1,34 +1,25 @@
-import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { Student } from '@prisma/client';
-import authOptions from '@/lib/authOptions';
-import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import { Container } from 'react-bootstrap';
 import ProfilePage from '@/components/ProfilePage';
+import { Student } from '@/components/Interface';
 
-export default async function StudentProfilePage({ params }: { params: { id: string | string[] } }) {
-  const session = await getServerSession(authOptions);
-  loggedInProtectedPage(
-    session as {
-      user: { email: string; id: string; randomKey: string };
-    } | null,
-  );
+interface Params {
+  id: string;
+}
 
-  const id = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
-  const student: Student | null = await prisma.student.findUnique({
+async function getStudent(id: number): Promise<Student | null> {
+  const student = await prisma.student.findUnique({
     where: { id },
   });
+  return student;
+}
+
+export default async function StudentProfilePage({ params }: { params: Params }) {
+  const student = await getStudent(Number(params.id));
 
   if (!student) {
     return notFound();
   }
 
-  return (
-    <main>
-      <Container>
-        <ProfilePage id={student.id} />
-      </Container>
-    </main>
-  );
+  return <ProfilePage student={student} />;
 }
