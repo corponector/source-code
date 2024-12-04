@@ -16,8 +16,8 @@
   "students": [
     {
       "name": "John Doe",
-      "aboutMe": "I am a software engineer.",
       "skills": ["Java", "C++"],
+      "aboutMe": "John Doe is a software engineer with 10 years of experience.",
       "location": "San Francisco",
       "professionalPage": "https://drive.google.com/",
       "profileImage": "profile.png",
@@ -25,8 +25,8 @@
     },
     {
       "name": "Jane Doe",
-      "aboutMe": "I am a software engineer.",
       "skills": ["Java", "C++"],
+      "aboutMe": "Jane Doe is a software engineer with 10 years of experience.",
       "location": "Honolulu",
       "professionalPage": "https://myuh.hawaii.edu/",
       "profileImage": "profile.png",
@@ -39,7 +39,7 @@
       "name": "Google",
       "overview": "Google is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.",
       "location": "Mountain View, California",
-      "profileImage": "profile.png",
+      "profileImage": "default-company.svg",
       "positions": [
         {
           "title": "Software Engineer",

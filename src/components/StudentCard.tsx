@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/no-array-index-key */
 
 'use client';
@@ -13,7 +14,7 @@ interface StudentCardProps {
 
 const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
   <Link href={`/student/profile/${student.id}`} style={{ textDecoration: 'none' }} passHref>
-    <Card className="mb-3" style={{ backgroundColor: 'silver', cursor: 'pointer' }}>
+    <Card className="mb-3" style={{ backgroundColor: 'rgba(128, 128, 128, 0.5)', border: 'none', cursor: 'pointer' }}>
       <Card.Body>
         <Row>
           <Col md={4}>
@@ -42,9 +43,6 @@ const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
                 <li key={index}>{skill}</li>
               ))}
             </ul>
-            <Card.Link href={student.professionalPage} target="_blank">
-              Personal Link
-            </Card.Link>
           </Col>
         </Row>
       </Card.Body>

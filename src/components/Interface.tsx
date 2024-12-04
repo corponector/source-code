@@ -1,6 +1,7 @@
 export interface Student {
   id: number;
   name: string;
+  aboutMe: string;
   skills: string[];
   professionalPage: string;
   profileImage: string;
@@ -8,9 +9,9 @@ export interface Student {
 }
 
 export interface Company {
-  profileImage: string;
   id: number;
   name: string;
+  profileImage: string;
   overview: string;
   location: string;
   links: string | string[];
