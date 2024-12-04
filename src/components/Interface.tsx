@@ -8,6 +8,7 @@ export interface Student {
 }
 
 export interface Company {
+  profileImage: string;
   id: number;
   name: string;
   overview: string;
