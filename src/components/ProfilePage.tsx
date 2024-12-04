@@ -16,11 +16,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
     <Row className="mb-3">
       <Col md={4}>
         <Image
-          src={student.profileImage || 'profile.png'}
+          src={student.profileImage || '/profile.png'}
           alt={student.name}
           fluid
           onError={(e) => {
-            e.currentTarget.src = 'profile.png';
+            e.currentTarget.src = '/profile.png';
           }}
           style={{ width: '100%', height: 'auto' }}
         />

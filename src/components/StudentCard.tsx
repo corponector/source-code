@@ -12,7 +12,7 @@ interface StudentCardProps {
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
-  <Link href={`/student/profile/${student.id}`} passHref>
+  <Link href={`/student/profile/${student.id}`} style={{ textDecoration: 'none' }} passHref>
     <Card className="mb-3" style={{ backgroundColor: 'silver', cursor: 'pointer' }}>
       <Card.Body>
         <Row>
@@ -24,7 +24,7 @@ const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
               onError={(e) => {
                 e.currentTarget.src = 'profile.png';
               }}
-              style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
+              style={{ maxHeight: '200px', objectFit: 'contain', width: '100%' }}
             />
           </Col>
           <Col md={8}>
@@ -43,7 +43,7 @@ const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
               ))}
             </ul>
             <Card.Link href={student.professionalPage} target="_blank">
-              Professional Page
+              Personal Link
             </Card.Link>
           </Col>
         </Row>

@@ -15,7 +15,12 @@ async function getStudent(id: number): Promise<Student | null> {
 }
 
 export default async function StudentProfilePage({ params }: { params: Params }) {
-  const student = await getStudent(Number(params.id));
+  const id = parseInt(params.id, 10);
+  if (Number.isNaN(id)) {
+    return notFound();
+  }
+
+  const student = await getStudent(id);
 
   if (!student) {
     return notFound();
