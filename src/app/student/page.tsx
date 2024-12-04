@@ -1,11 +1,11 @@
 import { getServerSession } from 'next-auth';
 import { Container, Col, Row, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
-import StudentCard from '@/components/StudentCard';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 import Link from 'next/link';
 import { Company } from '@prisma/client';
+import StudentInfo from '@/components/StudentInfo';
 
 const StudentPage = async () => {
   // Protect the page, only logged in users can access it.
@@ -32,7 +32,7 @@ const StudentPage = async () => {
         {students.map((student) => (
           <Row key={student.id}>
             <Col xs>
-              <StudentCard student={student} />
+              <StudentInfo {...student} />
               <Container>
                 <Button className="my-5">
                   <Link href={`/student/edit/${student.id}`} style={{ color: 'white' }}>Edit</Link>
