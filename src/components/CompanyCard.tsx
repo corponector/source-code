@@ -11,7 +11,7 @@ interface CompanyCardProps {
 
 const CompanyCard: React.FC<CompanyCardProps> = ({ company }) => (
   <Link href={`/company/profile/${company.id}`} style={{ textDecoration: 'none' }} passHref>
-    <Card className="mb-3" style={{ backgroundColor: 'rgba(128, 128, 128, 0.5)', border: 'none', cursor: 'pointer' }}>
+    <Card className="mb-3" style={{ backgroundColor: 'rgba(999, 999, 999, 0.5)', border: 'none', cursor: 'pointer' }}>
       <Card.Body>
         <Row>
           <Col md={4} className="d-flex justify-content-center align-items-center">

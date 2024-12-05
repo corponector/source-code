@@ -14,7 +14,7 @@ interface ProfilePageProps {
 
 const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
   <Container fluid className="d-flex justify-content-center align-items-center vh-100">
-    <Card className="w-75 h-75" style={{ backgroundColor: 'rgba(128, 128, 128, 0.5)', border: 'none' }}>
+    <Card className="w-75 h-75" style={{ backgroundColor: 'rgba(999, 999, 999, 0.5)', border: 'none' }}>
       <Card.Body>
         <Row className="h-100">
           <Col md={3} className="d-flex flex-column justify-content-center align-items-center">
@@ -34,10 +34,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
           <Col md={6} className="d-flex flex-column justify-content-center">
             <h1 className="display-4">{student.name}</h1>
             <p className="lead" />
-            <strong>
-              About Me:
-            </strong>
-            {student.aboutMe}
+            <strong>About Me:</strong>
+            <p>{student.aboutMe}</p>
             <p>
               <strong>Location:</strong>
               {' '}
@@ -48,7 +46,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
             </p>
             <ul className="list-unstyled">
               {student.skills.map((skill, index) => (
-                <li key={index} className="mb-3">{skill}</li>
+                <li key={index} className="mb-3">
+                  •
+                  {skill}
+                  {' '}
+                </li>
               ))}
             </ul>
           </Col>
