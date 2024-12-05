@@ -177,3 +177,21 @@ export async function changePassword(credentials: { email: string; password: str
     },
   });
 }
+
+/**
+ * Counts the number of users in the database
+ * @returns The total number of users
+ */
+export async function getUserCount(): Promise<number> {
+  const count = await prisma.user.count();
+  return count;
+}
+
+/**
+ * Counts the number of positions posted by the company or admin
+ * @returns the total number of job positions
+ */
+export async function getJobPostingCount(): Promise<number> {
+  const count = await prisma.position.count();
+  return count;
+}
