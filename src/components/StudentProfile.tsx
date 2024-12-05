@@ -41,18 +41,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
               {' '}
               {student.location}
             </p>
-            <p className="lead">
+            <p>
               <strong>Skills:</strong>
+              {' '}
+              {student.skills.join(', ')}
             </p>
-            <ul className="list-unstyled">
-              {student.skills.map((skill, index) => (
-                <li key={index} className="mb-3">
-                  •
-                  {skill}
-                  {' '}
-                </li>
-              ))}
-            </ul>
           </Col>
         </Row>
       </Card.Body>
