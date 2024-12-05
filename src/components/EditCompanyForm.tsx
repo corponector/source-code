@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 'use client';
 
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
@@ -18,7 +20,11 @@ const onSubmit = async (data: {
   emails: string;
   owner: string;
 }) => {
-  await editCompany(data);
+  await editCompany({
+    ...data,
+    links: data.links.split(',').map(link => link.trim()),
+    emails: data.emails.split(',').map(email => email.trim()),
+  });
   swal('Success', 'Your company has been updated', 'success', {
     timer: 2000,
   });
