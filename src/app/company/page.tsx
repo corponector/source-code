@@ -42,7 +42,7 @@ const CompanyPage = async () => {
               </Container>
             </Col>
             <Col md>
-              <h1>Recommended Companies</h1>
+              <h1>Recommended Students</h1>
               {companies.map((company: Company) => (
                 <Container key={company.id}>
                   <h3>{company.name}</h3>
