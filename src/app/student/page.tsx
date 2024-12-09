@@ -7,7 +7,7 @@ import Link from 'next/link';
 // import { Company } from '@prisma/client';
 import { Company } from '@/components/Interface';
 import StudentInfo from '@/components/StudentInfo';
-import CompanyProfile from '@/components/CompanyProfile';
+import CompanyCard from '@/components/CompanyCard';
 
 const StudentPage = async () => {
   // Protect the page, only logged in users can access it.
@@ -44,8 +44,8 @@ const StudentPage = async () => {
             <Col>
               <h1>Recommended Companies</h1>
               {companies.map((company: Company) => (
-                <Container key={company.id}>
-                  <CompanyProfile company={company} />
+                <Container key={company.id} fluid>
+                  <CompanyCard company={company} />
                 </Container>
               ))}
             </Col>
