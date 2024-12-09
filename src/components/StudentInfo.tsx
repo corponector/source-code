@@ -1,18 +1,15 @@
 'use client';
 
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Student } from '@prisma/client';
 import SkillItem from '@/components/SkillItem';
 
 const StudentInfo = ({ name, skills, location, professionalPage, profileImage }: Student) => (
   <Container className="justify-content-center">
-
-    <Row>
-      <Image src={profileImage} roundedCircle className="px-2" />
-      <h1 className="my-2">{name}</h1>
-    </Row>
-
-    <Button variant="primary"><a href={professionalPage} className="white-text">Professional Page</a></Button>
+    <h1 className="text-center">{name}</h1>
+    <p className="text-center">
+      <a href={professionalPage}>Professional Page</a>
+    </p>
 
     <h3 className="mt-3">
       Preferred Location:

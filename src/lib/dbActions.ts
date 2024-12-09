@@ -7,6 +7,7 @@ import { prisma } from './prisma';
 
 export async function addStudent(student: {
   name: string;
+  aboutMe: string;
   skills: string;
   location: string;
   professionalPage: string;
@@ -16,6 +17,7 @@ export async function addStudent(student: {
   await prisma.student.create({
     data: {
       name: student.name,
+      aboutMe: student.aboutMe,
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
@@ -30,6 +32,7 @@ export async function addStudent(student: {
 export async function editStudent(student: {
   id: number;
   name: string;
+  aboutMe: string;
   skills: string;
   location: string;
   professionalPage: string;
@@ -40,6 +43,7 @@ export async function editStudent(student: {
     where: { id: student.id },
     data: {
       name: student.name,
+      aboutMe: student.aboutMe,
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
@@ -172,4 +176,22 @@ export async function changePassword(credentials: { email: string; password: str
       password,
     },
   });
+}
+
+/**
+ * Counts the number of users in the database
+ * @returns The total number of users
+ */
+export async function getUserCount(): Promise<number> {
+  const count = await prisma.user.count();
+  return count;
+}
+
+/**
+ * Counts the number of positions posted by the company or admin
+ * @returns the total number of job positions
+ */
+export async function getJobPostingCount(): Promise<number> {
+  const count = await prisma.position.count();
+  return count;
 }

@@ -5,7 +5,7 @@ import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 import { Container } from 'react-bootstrap';
-import EditCompanyForm from '@/components/EditStudentForm';
+import EditCompanyForm from '@/components/EditCompanyForm';
 
 export default async function EditStuffPage({ params }: { params: { id: string | string[] } }) {
   // Protect the page, only logged in users can access it.
