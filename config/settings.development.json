@@ -22,6 +22,7 @@
       "professionalPage": "https://drive.google.com/",
       "profileImage": "profile.png",
       "education": "BS in Computer Science, University of Hawaii at Manoa",
+      "email": "john@foo.com",
       "owner": "john@foo.com"
     },
     {
@@ -32,6 +33,7 @@
       "professionalPage": "https://myuh.hawaii.edu/",
       "profileImage": "profile.png",
       "education": "BS in Mathematics, University of Hawaii at Manoa",
+      "email": "jane@foo.com",
       "owner": "jane@foo.com"
     }
   ],

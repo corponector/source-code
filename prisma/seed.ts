@@ -39,6 +39,7 @@ async function main() {
         name: data.name,
         aboutMe: data.aboutMe,
         education: data.education,
+        email: data.email,
         skills: data.skills,
         location: data.location,
         professionalPage: data.professionalPage,

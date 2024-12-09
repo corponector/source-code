@@ -14,6 +14,7 @@ const onSubmit = async (data: {
   location: string;
   aboutMe: string;
   education: string;
+  email: string;
   skills: string;
   professionalPage: string;
   profileImage: string;
@@ -102,17 +103,30 @@ const EditStudentForm = ({ student }: { student: Student }) => {
           <Form.Control.Feedback type="invalid">{errors.skills?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        {/* Professional Page URL Input */}
-        <Form.Group className="mb-3">
-          <Form.Label>Professional Page</Form.Label>
-          <Form.Control
-            type="url"
-            {...register('professionalPage')}
-            isInvalid={!!errors.professionalPage}
-            defaultValue={student.professionalPage}
-          />
-          <Form.Control.Feedback type="invalid">{errors.professionalPage?.message}</Form.Control.Feedback>
-        </Form.Group>
+        <Row>
+          {/* Professional Page URL Input */}
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Professional Page</Form.Label>
+              <Form.Control
+                type="url"
+                {...register('professionalPage')}
+                isInvalid={!!errors.professionalPage}
+                defaultValue={student.professionalPage}
+              />
+              <Form.Control.Feedback type="invalid">{errors.professionalPage?.message}</Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+
+          {/* Email Input */}
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Contact Email</Form.Label>
+              <Form.Control type="url" {...register('email')} isInvalid={!!errors.email} defaultValue={student.email} />
+              <Form.Control.Feedback type="invalid">{errors.email?.message}</Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
 
         {/* Profile Image URL Input */}
         <Form.Group className="mb-3">

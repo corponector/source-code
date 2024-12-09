@@ -36,6 +36,7 @@ model Student {
   name             String
   aboutMe          String
   education        String
+  email            String
   skills           String[]
   location         String
   professionalPage String

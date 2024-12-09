@@ -3,6 +3,7 @@ export interface Student {
   name: string;
   aboutMe: string;
   education: string;
+  email: string;
   skills: string[];
   professionalPage: string;
   profileImage: string;
