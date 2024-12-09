@@ -21,6 +21,7 @@
       "location": "San Francisco",
       "professionalPage": "https://drive.google.com/",
       "profileImage": "profile.png",
+      "education": "BS in Computer Science, University of Hawaii at Manoa",
       "owner": "john@foo.com"
     },
     {
@@ -30,6 +31,7 @@
       "location": "Honolulu",
       "professionalPage": "https://myuh.hawaii.edu/",
       "profileImage": "profile.png",
+      "education": "BS in Mathematics, University of Hawaii at Manoa",
       "owner": "jane@foo.com"
     }
   ],

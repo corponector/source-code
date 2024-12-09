@@ -13,6 +13,7 @@ const onSubmit = async (data: {
   name: string;
   location: string;
   aboutMe: string;
+  education: string;
   skills: string;
   professionalPage: string;
   profileImage: string;
@@ -75,6 +76,18 @@ const EditStudentForm = ({ student }: { student: Student }) => {
             defaultValue={student.aboutMe}
           />
           <Form.Control.Feedback type="invalid">{errors.aboutMe?.message}</Form.Control.Feedback>
+        </Form.Group>
+
+        {/* Education Input */}
+        <Form.Group className="mb-3">
+          <Form.Label>Education</Form.Label>
+          <Form.Control
+            type="text"
+            {...register('education')}
+            isInvalid={!!errors.education}
+            defaultValue={student.education}
+          />
+          <Form.Control.Feedback type="invalid">{errors.education?.message}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Skills Input */}
