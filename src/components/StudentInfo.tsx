@@ -10,7 +10,7 @@ const StudentInfo = ({
 
       <Image src={profileImage} alt={name} roundedCircle className="d-block mx-auto px-2" style={{ width: '150px' }} />
       <h1 className="text-center">{name}</h1>
-      <h1 className="text-center">{email}</h1>
+      <p className="fs-5 text-center">{email}</p>
 
       <p className="text-center">
         <a href={professionalPage}>Professional Page</a>
