@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 'use client';
 
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
@@ -14,10 +16,15 @@ const onSubmit = async (data: {
   location: string;
   overview: string;
   links: string;
+  profileImage: string;
   emails: string;
   owner: string;
 }) => {
-  await editCompany(data);
+  await editCompany({
+    ...data,
+    links: data.links.split(',').map(link => link.trim()),
+    emails: data.emails.split(',').map(email => email.trim()),
+  });
   swal('Success', 'Your company has been updated', 'success', {
     timer: 2000,
   });
@@ -93,6 +100,13 @@ const EditCompanyForm = ({ company }: { company: Company }) => {
             defaultValue={company.emails}
           />
           <Form.Control.Feedback type="invalid">{errors.emails?.message}</Form.Control.Feedback>
+        </Form.Group>
+
+        {/* Profile Image URL Input */}
+        <Form.Group className="mb-3">
+          <Form.Label>Profile Image URL</Form.Label>
+          <Form.Control type="url" {...register('profileImage')} isInvalid={!!errors.profileImage} defaultValue={company.profileImage} />
+          <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
         </Form.Group>
 
         <input type="hidden" {...register('owner')} value={company.owner} />
