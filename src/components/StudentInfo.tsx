@@ -7,10 +7,9 @@ import SkillItem from '@/components/SkillItem';
 const StudentInfo = ({ name, skills, location, professionalPage, profileImage }: Student) => (
   <Container className="justify-content-center">
 
-    <Row>
-      <Image src={profileImage} alt={name} roundedCircle className="px-2" style={{ width: '150px' }} />
-      <h1 className="text-center">{name}</h1>
-    </Row>
+    <Image src={profileImage} alt={name} roundedCircle className="d-block mx-auto px-2" style={{ width: '150px' }} />
+    <h1 className="text-center">{name}</h1>
+
     <p className="text-center">
       <a href={professionalPage}>Professional Page</a>
     </p>

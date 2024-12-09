@@ -41,7 +41,7 @@ const StudentPage = async () => {
                 </Button>
               </Container>
             </Col>
-            <Col md>
+            <Col>
               <h1>Recommended Companies</h1>
               {companies.map((company: Company) => (
                 <Container key={company.id}>
