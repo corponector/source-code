@@ -110,7 +110,7 @@ const AddStudentForm: React.FC = () => {
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Contact Email</Form.Label>
-              <Form.Control type="url" {...register('email')} isInvalid={!!errors.email} />
+              <Form.Control type="email" {...register('email')} isInvalid={!!errors.email} />
               <Form.Control.Feedback type="invalid">{errors.email?.message}</Form.Control.Feedback>
             </Form.Group>
           </Col>
