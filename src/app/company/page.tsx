@@ -3,41 +3,45 @@ import Image from 'next/image';
 import CandidateProfile from '@/components/CandidateProfile';
 import JobListing from '@/components/JobListing';
 import styles from '@/styles/Home.module.css';
-import Link from 'next/link'; // Corrected import for Next.js Link component
-import { Company } from '@prisma/client';
+import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import authOptions from '@/lib/authOptions';
+import { loggedInProtectedPage } from '@/lib/page-protection';
+import { prisma } from '@/lib/prisma';
+import { Company, Position } from '@prisma/client';
 
-/** The Company Homepage. */
-const CompanyPage = () => {
-  // Example company data
-  const company: Company = {
-    id: 1,
-    name: 'XYZ Corp',
-    location: 'San Francisco, CA',
-    overview: 'A leading tech company in AI.',
-    links: ['https://xyz-corp.com'],
-    emails: ['contact@xyz-corp.com'],
-    profileImage: '/company-logo.png',
-    owner: 'John Doe',
-  };
+const CompanyPage = async ({ params }: { params: { id: string | string[] } }) => {
+  // Protect the page, only logged-in users can access it.
+  const session = await getServerSession(authOptions);
+  loggedInProtectedPage(
+    session as {
+      user: { email: string; id: string; randomKey: string };
+    } | null,
+  );
 
-  // Example job postings and candidate profiles
-  const jobs = [
-    {
-      id: 1,
-      title: 'Software Engineer',
-      location: 'San Francisco',
-      description: 'Develop and maintain web applications.',
-      salary: '$120,000 - $140,000',
-    },
-    {
-      id: 2,
-      title: 'Product Manager',
-      location: 'New York',
-      description: 'Oversee product development and lead cross-functional teams.',
-      salary: '$110,000 - $130,000',
-    },
-  ];
+  // Ensure the companyId is correctly parsed as a number
+  const companyId = Array.isArray(params?.id) ? Number(params?.id[0]) : Number(params?.id);
 
+  // Check if companyId is valid
+  if (isNaN(companyId) || companyId <= 0) {
+    return <div>Invalid company ID</div>;
+  }
+
+  // Fetch company data from the database
+  const company = await prisma.company.findUnique({
+    where: { id: companyId },
+    include: { positions: true }, // Include positions (jobs) for this company
+  });
+
+  // Handle case where the company doesn't exist
+  if (!company) {
+    return <div>Company not found</div>;
+  }
+
+  // Fetch job listings and candidates (just as an example, modify as per your requirements)
+  const jobs = company.positions;
+
+  // Example candidates data (this can be fetched from the database as well)
   const candidates = [
     { id: 1, name: 'John Doe', skills: ['JavaScript', 'React', 'Node.js'], location: 'San Francisco' },
     { id: 2, name: 'Jane Smith', skills: ['Python', 'Django'], location: 'New York' },
@@ -51,12 +55,11 @@ const CompanyPage = () => {
           <Container fluid className="py-5 text-center">
             <Row className="d-flex align-items-center">
               <Col xs={12} md={6}>
-                <h1>Welcome to Google</h1>
-                <p>
-                  Google is an American-based multinational corporation and technology company focusing on online
-                  advertising, search engine technology, cloud computing, computer software, quantum computing,
-                  e-commerce, consumer electronics, and artificial intelligence (AI)
-                </p>
+                <h1>
+                  Welcome to
+                  {company.name}
+                </h1>
+                <p>{company.overview}</p>
                 <p>Find top talent, post job openings, and manage your team.</p>
 
                 {/* Edit Button */}
@@ -69,7 +72,7 @@ const CompanyPage = () => {
                 </Button>
               </Col>
               <Col xs={12} md={6} className="d-flex justify-content-center">
-                <Image src="/google.png" width={300} height={300} alt="Google Company Logo" />
+                <Image src="/google.jpeg" width={300} height={300} alt="Google Company Logo" />
               </Col>
             </Row>
           </Container>
