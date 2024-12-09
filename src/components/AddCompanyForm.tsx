@@ -200,17 +200,15 @@ const AddCompanyForm: React.FC = () => {
         ))}
         <Button
           variant="secondary"
-          onClick={() =>
-            append({
-              id: fields.length + 1,
-              title: '',
-              description: '',
-              skills: [],
-              jobType: '',
-              numberOfHires: 0,
-              salaryRange: 0,
-            })
-          }
+          onClick={() => append({
+            id: fields.length + 1,
+            title: '',
+            description: '',
+            skills: [],
+            jobType: '',
+            numberOfHires: 0,
+            salaryRange: 0,
+          })}
         >
           Add Position
         </Button>
