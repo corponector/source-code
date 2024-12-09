@@ -9,6 +9,7 @@ export async function addStudent(student: {
   name: string;
   aboutMe: string;
   education: string;
+  email: string;
   skills: string;
   location: string;
   professionalPage: string;
@@ -20,6 +21,7 @@ export async function addStudent(student: {
       name: student.name,
       aboutMe: student.aboutMe,
       education: student.education,
+      email: student.email,
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
@@ -36,6 +38,7 @@ export async function editStudent(student: {
   name: string;
   aboutMe: string;
   education: string;
+  email: string;
   skills: string;
   location: string;
   professionalPage: string;
@@ -48,6 +51,7 @@ export async function editStudent(student: {
       name: student.name,
       aboutMe: student.aboutMe,
       education: student.education,
+      email: student.email,
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
