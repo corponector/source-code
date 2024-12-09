@@ -1,11 +1,10 @@
 import { getServerSession } from 'next-auth';
-import { Container, Col, Row, Button } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
+import StudentCard from '@/components/StudentCard';
 import CompanyCard from '@/components/CompanyCard';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import Link from 'next/link';
-import { Company } from '@prisma/client';
 
 const CompanyPage = async () => {
   // Protect the page, only logged in users can access it.
@@ -16,16 +15,28 @@ const CompanyPage = async () => {
     } | null,
   );
   const owner = (session && session.user && session.user.email) || '';
-  const students = await prisma.student.findMany({
+  const companies = await prisma.company.findMany({
     where: {
       owner,
     },
-  });
-  const companies = await prisma.company.findMany({
     include: {
       positions: true,
     },
   });
+
+  // Fetch students
+  const students = await prisma.student.findMany({
+    select: {
+      id: true,
+      name: true,
+      aboutMe: true,
+      skills: true,
+      professionalPage: true,
+      profileImage: true,
+      location: true,
+    },
+  });
+
   return (
     <main className="semi-transparent">
       <Container className="py-3">
@@ -33,30 +44,11 @@ const CompanyPage = async () => {
           <Row key={company.id}>
             <Col xs>
               <CompanyCard company={company} />
-              <Container>
-                <Button className="my-5">
-                  <Link href={`/company/edit/${company.id}`} style={{ color: 'white' }}>
-                    Edit
-                  </Link>
-                </Button>
-              </Container>
             </Col>
-            <Col md>
+            <Col xs>
               <h1>Recommended Students</h1>
-              {companies.map((company: Company) => (
-                <Container key={company.id}>
-                  <h3>{company.name}</h3>
-                  <h3>
-                    Location:
-                    {company.location}
-                  </h3>
-                  <h3>Overview: </h3>
-                  <p>{company.overview}</p>
-                  <h3>Emails: </h3>
-                  <p>{Array.isArray(company.emails) ? company.emails.join(', ') : company.emails}</p>
-                  <h3>Links: </h3>
-                  <p>{Array.isArray(company.links) ? company.links.join(', ') : company.links}</p>
-                </Container>
+              {students.map((student) => (
+                <StudentCard key={student.id} student={student} />
               ))}
             </Col>
           </Row>
