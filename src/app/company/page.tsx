@@ -15,12 +15,12 @@ const CompanyPage = async () => {
       user: { email: string; id: string; randomKey: string };
     } | null,
   );
-  const owner = (session && session.user && session.user.email) || '';
-  const students = await prisma.student.findMany({
-    where: {
-      owner,
-    },
-  });
+  // const owner = (session && session.user && session.user.email) || '';
+  // const students = await prisma.student.findMany({
+  //   where: {
+  //     owner,
+  //   },
+  // });
   const companies = await prisma.company.findMany({
     include: {
       positions: true,
@@ -43,19 +43,19 @@ const CompanyPage = async () => {
             </Col>
             <Col md>
               <h1>Recommended Students</h1>
-              {companies.map((company: Company) => (
-                <Container key={company.id}>
-                  <h3>{company.name}</h3>
+              {companies.map((comp: Company) => (
+                <Container key={comp.id}>
+                  <h3>{comp.name}</h3>
                   <h3>
                     Location:
-                    {company.location}
+                    {comp.location}
                   </h3>
                   <h3>Overview: </h3>
-                  <p>{company.overview}</p>
+                  <p>{comp.overview}</p>
                   <h3>Emails: </h3>
-                  <p>{Array.isArray(company.emails) ? company.emails.join(', ') : company.emails}</p>
+                  <p>{Array.isArray(comp.emails) ? comp.emails.join(', ') : comp.emails}</p>
                   <h3>Links: </h3>
-                  <p>{Array.isArray(company.links) ? company.links.join(', ') : company.links}</p>
+                  <p>{Array.isArray(comp.links) ? comp.links.join(', ') : comp.links}</p>
                 </Container>
               ))}
             </Col>
