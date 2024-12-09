@@ -8,6 +8,7 @@ import { prisma } from './prisma';
 export async function addStudent(student: {
   name: string;
   aboutMe: string;
+  education: string;
   skills: string;
   location: string;
   professionalPage: string;
@@ -18,6 +19,7 @@ export async function addStudent(student: {
     data: {
       name: student.name,
       aboutMe: student.aboutMe,
+      education: student.education,
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,
@@ -33,6 +35,7 @@ export async function editStudent(student: {
   id: number;
   name: string;
   aboutMe: string;
+  education: string;
   skills: string;
   location: string;
   professionalPage: string;
@@ -44,6 +47,7 @@ export async function editStudent(student: {
     data: {
       name: student.name,
       aboutMe: student.aboutMe,
+      education: student.education,
       skills: student.skills.split(','),
       location: student.location,
       professionalPage: student.professionalPage,

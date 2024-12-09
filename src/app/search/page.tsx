@@ -20,6 +20,7 @@ const fetchStudentsAndCompanies = async (): Promise<SearchPageProps> => {
       skills: true,
       location: true,
       aboutMe: true,
+      education: true,
       profileImage: true,
       professionalPage: true,
     },

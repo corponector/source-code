@@ -14,6 +14,7 @@ const onSubmit = async (data: {
   name: string;
   location: string;
   aboutMe: string;
+  education: string;
   skills: string;
   professionalPage: string;
   profileImage: string;
@@ -73,6 +74,18 @@ const AddStudentForm: React.FC = () => {
           <Form.Label>About Me</Form.Label>
           <Form.Control type="text" {...register('aboutMe')} isInvalid={!!errors.aboutMe} />
           <Form.Control.Feedback type="invalid">{errors.aboutMe?.message}</Form.Control.Feedback>
+        </Form.Group>
+
+        {/* Education Input */}
+        <Form.Group className="mb-3">
+          <Form.Label>Education</Form.Label>
+          <Form.Control
+            type="text"
+            {...register('education')}
+            isInvalid={!!errors.education}
+            placeholder="BS in Computer Science, University of Hawaii at Manoa"
+          />
+          <Form.Control.Feedback type="invalid">{errors.education?.message}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Skills Input */}

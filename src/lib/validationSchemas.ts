@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 export const AddStudentSchema = Yup.object({
   name: Yup.string().required(),
   aboutMe: Yup.string().required(),
+  education: Yup.string().required(),
   skills: Yup.string().required(),
   location: Yup.string().required(),
   professionalPage: Yup.string().required(),
@@ -15,6 +16,7 @@ export const EditStudentSchema = Yup.object({
   id: Yup.number().required(),
   name: Yup.string().required(),
   aboutMe: Yup.string().required(),
+  education: Yup.string().required(),
   skills: Yup.string().required(),
   location: Yup.string().required(),
   professionalPage: Yup.string().required(),

@@ -36,6 +36,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
             <p className="lead" />
             <strong>About Me:</strong>
             <p>{student.aboutMe}</p>
+            <strong>Education:</strong>
+            <p>{student.education}</p>
             <p>
               <strong>Location:</strong>
               {' '}
