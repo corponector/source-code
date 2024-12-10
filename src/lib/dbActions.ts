@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+
 'use server';
 
-import { Company, Role } from '@prisma/client';
+import { Role, Position } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
@@ -104,21 +106,33 @@ export async function addCompany(company: {
   redirect('/company');
 }
 
-export async function editCompany(company: Company) {
+export const editCompany = async (data: {
+  id: number;
+  name: string;
+  location: string;
+  overview: string;
+  links: string[];
+  profileImage: string;
+  emails: string[];
+  owner: string;
+  positions: Position[];
+}) => {
+  const { id, positions, ...companyData } = data;
+
   await prisma.company.update({
-    where: { id: company.id },
+    where: { id },
     data: {
-      name: company.name,
-      overview: company.overview,
-      location: company.location,
-      links: company.links,
-      emails: company.emails,
-      profileImage: company.profileImage,
-      owner: company.owner,
+      ...companyData,
+      positions: {
+        deleteMany: { companyId: id },
+        create: positions.map(({ id, ...position }) => ({
+          ...position,
+          companyId: id,
+        })),
+      },
     },
   });
-  redirect('/company');
-}
+};
 
 /*
 export async function addPosition(position: {

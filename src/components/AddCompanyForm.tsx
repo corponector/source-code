@@ -106,6 +106,21 @@ const AddCompanyForm: React.FC = () => {
           <Form.Control as="textarea" rows={3} {...register('overview')} isInvalid={!!errors.overview} />
           <Form.Control.Feedback type="invalid">{errors.overview?.message}</Form.Control.Feedback>
         </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Links (Website or Social Media)</Form.Label>
+          <Form.Control type="url" {...register('links')} isInvalid={!!errors.links} />
+          <Form.Control.Feedback type="invalid">{errors.links?.message}</Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Contact Email</Form.Label>
+          <Form.Control type="email" {...register('emails')} isInvalid={!!errors.emails} />
+          <Form.Control.Feedback type="invalid">{errors.emails?.message}</Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Profile Image URL</Form.Label>
+          <Form.Control type="url" {...register('profileImage')} isInvalid={!!errors.profileImage} />
+          <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
+        </Form.Group>
         <Form.Label><p className="fs-3">Job Positions</p></Form.Label>
         {fields.map((field, index) => (
           <div key={field.id} className="mb-3">
@@ -212,21 +227,6 @@ const AddCompanyForm: React.FC = () => {
         >
           Add Position
         </Button>
-        <Form.Group className="mb-3">
-          <Form.Label>Links (Website or Social Media)</Form.Label>
-          <Form.Control type="url" {...register('links')} isInvalid={!!errors.links} />
-          <Form.Control.Feedback type="invalid">{errors.links?.message}</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Contact Email</Form.Label>
-          <Form.Control type="email" {...register('emails')} isInvalid={!!errors.emails} />
-          <Form.Control.Feedback type="invalid">{errors.emails?.message}</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Profile Image URL</Form.Label>
-          <Form.Control type="url" {...register('profileImage')} isInvalid={!!errors.profileImage} />
-          <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
-        </Form.Group>
         <input type="hidden" {...register('owner')} value={currentUser} />
         <Button type="submit" variant="primary">
           Submit

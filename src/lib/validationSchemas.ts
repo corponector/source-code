@@ -49,13 +49,23 @@ export const AddCompanySchema = Yup.object().shape({
 export const EditCompanySchema = Yup.object({
   id: Yup.number().required(),
   name: Yup.string().required(),
-  overview: Yup.string().required(),
   location: Yup.string().required(),
-  positions: Yup.string().required(),
+  overview: Yup.string().required(),
   links: Yup.string().required(),
-  emails: Yup.string().required(),
   profileImage: Yup.string().required(),
+  emails: Yup.string().required(),
   owner: Yup.string().required(),
+  positions: Yup.array().of(
+    Yup.object({
+      id: Yup.number().required(),
+      title: Yup.string().required(),
+      description: Yup.string().required(),
+      skills: Yup.string().required(),
+      jobType: Yup.string().required(),
+      numberOfHires: Yup.number().required(),
+      salaryRange: Yup.number().required(),
+    }),
+  ).required(),
 });
 
 export const searchSchema = Yup.object().shape({
