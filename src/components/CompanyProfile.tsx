@@ -47,11 +47,6 @@ const CompanyProfile: React.FC<CompanyProfileProps> = ({ company }) => (
               {' '}
               {Array.isArray(company.emails) ? company.emails.join(', ') : company.emails}
             </p>
-            <p>
-              <strong>Links:</strong>
-              {' '}
-              {Array.isArray(company.links) ? company.links.join(', ') : company.links}
-            </p>
           </Col>
         </Row>
         <Row className="mt-4">

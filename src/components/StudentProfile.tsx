@@ -31,7 +31,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
               Personal Link
             </a>
           </Col>
-          <Col md={6} className="d-flex flex-column justify-content-center">
+          <Col md={9} className="d-flex flex-column justify-content-center" style={{ marginTop: '-2rem' }}>
             <h1 className="display-4">{student.name}</h1>
             <p className="lead" />
             <strong>About Me:</strong>

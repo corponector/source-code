@@ -45,7 +45,7 @@ const CompanyPage = async () => {
   }
 
   const students = await prisma.student.findMany();
-  const recommendedStudents = getRandomStudents(students, company.positions.length); // Use the number of positions
+  const recommendedStudents = getRandomStudents(students, company.positions.length);
 
   return (
     <main className="semi-transparent">
