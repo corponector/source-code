@@ -158,6 +158,8 @@ const EditCompanyForm: React.FC<EditCompanyFormProps> = ({ company }) => {
           <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
         </Form.Group>
 
+        <input type="hidden" {...register('owner')} value={company.owner} />
+
         {/* Positions Input */}
         <h3 className="mt-5">Edit Positions</h3>
         {fields.map((field, index) => (

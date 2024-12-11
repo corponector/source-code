@@ -125,39 +125,13 @@ export const editCompany = async (data: {
       ...companyData,
       positions: {
         deleteMany: { companyId: id },
-        create: positions.map(({ id, ...position }) => ({
+        create: positions.map(({ companyId, ...position }) => ({
           ...position,
-          companyId: id,
         })),
       },
     },
   });
 };
-
-/*
-export async function addPosition(position: {
-  title: string;
-  description: string;
-  skills: string;
-  jobType: string[]; // FIXME: Change to JobType[]
-  numberOfHires: number;
-  salaryRange: string;
-}) {
-  // let jobType: JobType[] = [];
-
-  await prisma.position.create({
-    data: {
-      title: position.title,
-      description: position.description,
-      skills: position.skills.split(','),
-      jobType: position.jobType, // FIXME: Change to JobType[]
-      numberOfHires: position.numberOfHires,
-      salaryRange: position.salaryRange,
-    },
-  });
-  // After adding, redirect to the list page
-  redirect('/company');
-} */
 
 /**
  * Creates a new user in the database.

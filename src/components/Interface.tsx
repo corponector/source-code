@@ -19,6 +19,7 @@ export interface Company {
   links: string | string[];
   emails: string | string[];
   positions: Position[];
+  owner: string;
 }
 
 export interface Position {
