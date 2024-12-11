@@ -128,20 +128,52 @@ export async function editCompany(company: {
       profileImage: company.profileImage,
       owner: company.owner,
       positions: {
-        create: company.positions.map((position) => ({
-          title: position.title,
-          description: position.description,
-          skills: position.skills,
-          jobType: position.jobType,
-          numberOfHires: position.numberOfHires,
-          salaryRange: position.salaryRange,
+        upsert: company.positions.map((position) => ({
+          where: { id: position.id },
+          update: {
+            title: position.title,
+            description: position.description,
+            skills: position.skills,
+            jobType: position.jobType,
+            numberOfHires: position.numberOfHires,
+            salaryRange: position.salaryRange,
+          },
+          create: {
+            title: position.title,
+            description: position.description,
+            skills: position.skills,
+            jobType: position.jobType,
+            numberOfHires: position.numberOfHires,
+            salaryRange: position.salaryRange,
+          },
         })),
       },
+      // positions: {
+      //   deleteMany: {},
+      //   create: company.positions.map((position) => ({
+      //     title: position.title,
+      //     description: position.description,
+      //     skills: position.skills,
+      //     jobType: position.jobType,
+      //     numberOfHires: position.numberOfHires,
+      //     salaryRange: position.salaryRange,
+      //   })),
+      // },
+      // positions: {
+      //   create: company.positions.map((position) => ({
+      //     title: position.title,
+      //     description: position.description,
+      //     skills: position.skills,
+      //     jobType: position.jobType,
+      //     numberOfHires: position.numberOfHires,
+      //     salaryRange: position.salaryRange,
+      //   })),
+      // },
     },
   });
 
   // After updating, redirect to the list page
-  redirect('/student');
+  redirect('/company');
 }
 /**
  * Creates a new user in the database.
