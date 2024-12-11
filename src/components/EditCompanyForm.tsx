@@ -53,8 +53,8 @@ const EditCompanyForm: React.FC<EditCompanyFormProps> = ({ company }) => {
   }) => {
     const formattedData = {
       ...data,
-      links: data.links.split(',').map((link) => link.trim()),
-      emails: data.emails.split(',').map((email) => email.trim()),
+      links: Array.isArray(data.links) ? data.links.join(', ') : data.links,
+      emails: Array.isArray(data.emails) ? data.emails.join(', ') : data.emails,
       positions: data.positions.map((position) => ({
         ...position,
         skills: typeof position.skills === 'string' ? position.skills.split(',').map((skill) => skill.trim()) : position.skills,

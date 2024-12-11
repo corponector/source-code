@@ -106,33 +106,43 @@ export async function addCompany(company: {
   redirect('/company');
 }
 
-export const editCompany = async (data: {
+export async function editCompany(company: {
   id: number;
   name: string;
   location: string;
   overview: string;
-  links: string[];
+  links: string;
   profileImage: string;
-  emails: string[];
+  emails: string;
   owner: string;
   positions: Position[];
-}) => {
-  const { id, positions, ...companyData } = data;
-
+}) {
   await prisma.company.update({
-    where: { id },
+    where: { id: company.id },
     data: {
-      ...companyData,
+      name: company.name,
+      overview: company.overview,
+      location: company.location,
+      links: company.links.split(','),
+      emails: company.emails.split(','),
+      profileImage: company.profileImage,
+      owner: company.owner,
       positions: {
-        deleteMany: { companyId: id },
-        create: positions.map(({ companyId, ...position }) => ({
-          ...position,
+        create: company.positions.map((position) => ({
+          title: position.title,
+          description: position.description,
+          skills: position.skills,
+          jobType: position.jobType,
+          numberOfHires: position.numberOfHires,
+          salaryRange: position.salaryRange,
         })),
       },
     },
   });
-};
 
+  // After updating, redirect to the list page
+  redirect('/student');
+}
 /**
  * Creates a new user in the database.
  * @param credentials, an object with the following properties: email, password, role.
