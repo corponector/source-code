@@ -1,12 +1,13 @@
 import { getServerSession } from 'next-auth';
-import { Col, Row, Table, Button } from 'react-bootstrap';
+import { Col, Row, Table } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { getUserCount, getJobPostingCount, getJobListings} from '@/lib/dbActions';
+import { getUserCount, getJobPostingCount, getJobListings } from '@/lib/dbActions';
 import EditRoleButton from '@/components/RoleEditButton';
 import DeleteUserButton from '@/components/DeleteUserButton';
 import DeleteJobButton from '@/components/DeleteJobButton';
+import NotificationForm from '@/components/NotificationForm';
 
 const AdminPage = async () => {
   const session = await getServerSession(authOptions);
@@ -19,8 +20,23 @@ const AdminPage = async () => {
   const users = await prisma.user.findMany({});
   const activeUsers = await getUserCount();
   const jobs = await getJobPostingCount();
-  const jobListings = await getJobListings();  
-  
+  const jobListings = await getJobListings();
+
+  const sendNotification = async (message: string) => {
+    const response = await fetch('/api/notifications', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
+    });
+
+    if (response.ok) {
+      alert('Notification sent!');
+    } else {
+      alert('Failed to send notification');
+    }
+  };
 
   return (
     <main>
@@ -118,9 +134,9 @@ const AdminPage = async () => {
                       <td>{listing.title}</td>
                       <td>{listing.company.name}</td>
                       <td>{listing.company.location}</td>
-                      <td>{listing.company.emails}</td> 
+                      <td>{listing.company.emails}</td>
                       <td>
-                        <DeleteJobButton jobId={listing.id}/>
+                        <DeleteJobButton jobId={listing.id} />
                       </td>
                     </tr>
                   ))}
@@ -130,31 +146,12 @@ const AdminPage = async () => {
           </div>
         </Col>
       </Row>
-      
+
       {/* Notifications Section */}
       <Row className="mb-4">
         <Col>
           <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-danger text-white p-3 rounded">
-              <h3>Send Notifications</h3>
-            </header>
-            <section className="p-3">
-              {/* Notification Content Input Field */}
-              <div className="mb-3">
-                {/* <label htmlFor="notificationMessage" className="form-label">Notification Message</label> */}
-                <p>Notification Message</p>
-                <textarea
-                  id="notificationMessage"
-                  className="form-control"
-                  placeholder="Enter your notification message here"
-                />
-              </div>
-
-              {/* Send Notification Button */}
-              <Button className="mt-3" variant="danger">
-                Send Site-Wide Notification
-              </Button>
-            </section>
+            <NotificationForm />
           </div>
         </Col>
       </Row>

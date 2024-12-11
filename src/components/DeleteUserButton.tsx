@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-// DeleteUserButton.tsx
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { deleteUser } from '@/lib/dbActions';
@@ -11,19 +10,19 @@ import { deleteUser } from '@/lib/dbActions';
  */
 const DeleteUserButton: React.FC<{ userId: number }> = ({ userId }) => {
   const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+    if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         await deleteUser(userId);
         // Optional: You can trigger a page reload or refetch the data to show the updated user list
         window.location.reload(); // This will refresh the page
       } catch (error) {
-        console.error("Error deleting user:", error);
+        console.error('Error deleting user:', error);
       }
     }
   };
 
   return (
-    <Button variant="danger" onClick={handleDelete}>
+    <Button variant='danger' onClick={handleDelete}>
       Delete
     </Button>
   );

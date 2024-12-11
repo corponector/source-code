@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-// DeleteJobButton.tsx
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { deleteJobPosting } from '@/lib/dbActions'; // Ensure this function is properly implemented
@@ -11,13 +10,13 @@ import { deleteJobPosting } from '@/lib/dbActions'; // Ensure this function is p
  */
 const DeleteJobButton: React.FC<{ jobId: number }> = ({ jobId }) => {
   const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this job posting?")) {
+    if (window.confirm('Are you sure you want to delete this job posting?')) {
       try {
         await deleteJobPosting(jobId);
         // Trigger a page reload or refetch the data to show the updated list
         window.location.reload();
       } catch (error) {
-        console.error("Error deleting job posting:", error);
+        console.error('Error deleting job posting:', error);
       }
     }
   };
@@ -30,4 +29,3 @@ const DeleteJobButton: React.FC<{ jobId: number }> = ({ jobId }) => {
 };
 
 export default DeleteJobButton;
-

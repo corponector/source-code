@@ -260,7 +260,7 @@ export async function editUserRole(userId: number, newRole: string): Promise<voi
     console.log('User role updated successfully');
   } catch (error) {
     console.error('Error updating user role:', error);
-    throw error;  // Rethrow the error if necessary or handle it according to your application's needs
+    throw error;
   }
 }
 
@@ -276,7 +276,7 @@ export async function deleteUser(userId: number): Promise<void> {
     console.log(`User with ID ${userId} deleted successfully.`);
   } catch (error) {
     console.error('Error deleting user:', error);
-    throw error;  // Handle errors appropriately
+    throw error;
   }
 }
 
@@ -284,8 +284,8 @@ export async function deleteUser(userId: number): Promise<void> {
 export async function getJobListings() {
   return await prisma.position.findMany({
     include: {
-      company: true,  // Assuming there's a relation to a 'company' table
-    }
+      company: true,
+    },
   });
 }
 

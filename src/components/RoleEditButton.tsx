@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { editUserRole } from "@/lib/dbActions";
+import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { editUserRole } from '@/lib/dbActions';
 
 interface User {
   id: number;
   role: string;
 }
 
-const roles = ["user", "admin", "company", "student"];
+const roles = ['user', 'admin', 'company', 'student'];
 
 const EditRoleButton: React.FC<{ user: User }> = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -18,11 +18,11 @@ const EditRoleButton: React.FC<{ user: User }> = ({ user }) => {
   const handleSave = async () => {
     try {
       await editUserRole(user.id, selectedRole);
-      alert("Role updated successfully!");
+      alert('Role updated successfully!');
       window.location.reload(); // Add this line to reload the page
     } catch (error) {
-      console.error("Error updating role:", error);
-      alert("Failed to update role");
+      console.error('Error updating role:', error);
+      alert('Failed to update role');
     } finally {
       setIsEditing(false);
     }
@@ -37,7 +37,12 @@ const EditRoleButton: React.FC<{ user: User }> = ({ user }) => {
     <div>
       {isEditing ? (
         <>
-          <Form.Control as="select" value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)} className="mb-3">
+          <Form.Control
+            as="select"
+            value={selectedRole}
+            onChange={(e) => setSelectedRole(e.target.value)}
+            className="mb-3"
+          >
             {roles.map((role) => (
               <option key={role} value={role}>
                 {role}
