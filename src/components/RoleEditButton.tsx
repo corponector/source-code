@@ -19,6 +19,7 @@ const EditRoleButton: React.FC<{ user: User }> = ({ user }) => {
     try {
       await editUserRole(user.id, selectedRole);
       alert("Role updated successfully!");
+      window.location.reload(); // Add this line to reload the page
     } catch (error) {
       console.error("Error updating role:", error);
       alert("Failed to update role");

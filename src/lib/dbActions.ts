@@ -288,3 +288,15 @@ export async function getJobListings() {
     }
   });
 }
+
+export async function deleteJobPosting(jobId: number): Promise<void> {
+  try {
+    await prisma.position.delete({
+      where: { id: jobId },
+    });
+    console.log(`Job posting with ID ${jobId} deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting job posting:', error);
+    throw error;
+  }
+}

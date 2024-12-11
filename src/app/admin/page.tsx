@@ -3,11 +3,10 @@ import { Col, Row, Table, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { getUserCount, getJobPostingCount} from '@/lib/dbActions';
+import { getUserCount, getJobPostingCount, getJobListings} from '@/lib/dbActions';
 import EditRoleButton from '@/components/RoleEditButton';
 import DeleteUserButton from '@/components/DeleteUserButton';
-import { getJobListings } from '@/lib/dbActions'; 
-
+import DeleteJobButton from '@/components/DeleteJobButton';
 
 const AdminPage = async () => {
   const session = await getServerSession(authOptions);
@@ -121,54 +120,16 @@ const AdminPage = async () => {
                       <td>{listing.company.location}</td>
                       <td>{listing.company.emails}</td> 
                       <td>
-                        <Button variant="danger">Delete</Button>
+                        <DeleteJobButton jobId={listing.id}/>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
-              <Button className="mt-3" variant="success">
-                Add New Job Listing
-              </Button>
             </section>
           </div>
         </Col>
       </Row>
-
-      {/* Content Moderation Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-warning text-white p-3 rounded">
-              <h3>Content Moderation</h3>
-            </header>
-            <section className="p-3">
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Content</th>
-                    <th>Flagged By</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Example Post 1</td>
-                    <td>User1</td>
-                    <td><Button variant="danger">Delete</Button></td>
-                  </tr>
-                  <tr>
-                    <td>Example Post 2</td>
-                    <td>User2</td>
-                    <td><Button variant="danger">Delete</Button></td>
-                  </tr>
-                </tbody>
-              </Table>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
       
       {/* Notifications Section */}
       <Row className="mb-4">
