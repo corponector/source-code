@@ -35,6 +35,8 @@ model Student {
   id               Int      @id @default(autoincrement())
   name             String
   aboutMe          String
+  education        String
+  email            String
   skills           String[]
   location         String
   professionalPage String
@@ -66,3 +68,5 @@ model Company {
   positions    Position[]
 
 }
+
+

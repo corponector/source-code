@@ -10,6 +10,18 @@ interface Params {
 async function getStudent(id: number): Promise<Student | null> {
   const student = await prisma.student.findUnique({
     where: { id },
+    select: {
+      id: true,
+      name: true,
+      aboutMe: true,
+      skills: true,
+      location: true,
+      professionalPage: true,
+      profileImage: true,
+      education: true,
+      owner: true,
+      email: true,
+    },
   });
   return student;
 }

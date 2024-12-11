@@ -19,6 +19,9 @@ const fetchStudentsAndCompanies = async (): Promise<SearchPageProps> => {
       name: true,
       skills: true,
       location: true,
+      aboutMe: true,
+      education: true,
+      email: true,
       profileImage: true,
       professionalPage: true,
     },
@@ -33,6 +36,7 @@ const fetchStudentsAndCompanies = async (): Promise<SearchPageProps> => {
       profileImage: true,
       links: true,
       emails: true,
+      owner: true,
       positions: {
         select: {
           id: true,

@@ -14,6 +14,8 @@ const onSubmit = async (data: {
   name: string;
   location: string;
   aboutMe: string;
+  education: string;
+  email: string;
   skills: string;
   professionalPage: string;
   profileImage: string;
@@ -30,6 +32,8 @@ const onSubmit = async (data: {
 const AddStudentForm: React.FC = () => {
   const { data: session, status } = useSession();
   const currentUser = session?.user?.email || '';
+  const name = session?.user?.email?.substring(0, currentUser.indexOf('@')) || '';
+  const profImg = `https://placehold.co/800x800?text=${name}`;
   const {
     register,
     handleSubmit,
@@ -54,7 +58,7 @@ const AddStudentForm: React.FC = () => {
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" {...register('name')} isInvalid={!!errors.name} />
+              <Form.Control type="text" {...register('name')} isInvalid={!!errors.name} placeholder="Name" />
               <Form.Control.Feedback type="invalid">{errors.name?.message}</Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -62,7 +66,12 @@ const AddStudentForm: React.FC = () => {
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Location</Form.Label>
-              <Form.Control type="text" {...register('location')} isInvalid={!!errors.location} />
+              <Form.Control
+                type="text"
+                {...register('location')}
+                isInvalid={!!errors.location}
+                placeholder="Location"
+              />
               <Form.Control.Feedback type="invalid">{errors.location?.message}</Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -71,35 +80,75 @@ const AddStudentForm: React.FC = () => {
         {/* About Me Input */}
         <Form.Group className="mb-3">
           <Form.Label>About Me</Form.Label>
-          <Form.Control type="text" {...register('aboutMe')} isInvalid={!!errors.aboutMe} />
+          <Form.Control type="text" {...register('aboutMe')} isInvalid={!!errors.aboutMe} placeholder="About Me" />
           <Form.Control.Feedback type="invalid">{errors.aboutMe?.message}</Form.Control.Feedback>
+        </Form.Group>
+
+        {/* Education Input */}
+        <Form.Group className="mb-3">
+          <Form.Label>Education</Form.Label>
+          <Form.Control
+            type="text"
+            {...register('education')}
+            isInvalid={!!errors.education}
+            placeholder="Example: BS in Computer Science, University of Hawaii at Manoa"
+          />
+          <Form.Control.Feedback type="invalid">{errors.education?.message}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Skills Input */}
         <Form.Group className="mb-3">
-          <Form.Label>Skills</Form.Label>
-          <Form.Control type="text" {...register('skills')} isInvalid={!!errors.skills} />
+          <Form.Label>Skills (separate using commas)</Form.Label>
+          <Form.Control type="text" {...register('skills')} isInvalid={!!errors.skills} placeholder="Math, English" />
           <Form.Control.Feedback type="invalid">{errors.skills?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        {/* Professional Page URL Input */}
-        <Form.Group className="mb-3">
-          <Form.Label>Professional Page</Form.Label>
-          <Form.Control type="url" {...register('professionalPage')} isInvalid={!!errors.professionalPage} />
-          <Form.Control.Feedback type="invalid">{errors.professionalPage?.message}</Form.Control.Feedback>
-        </Form.Group>
+        <Row>
+          {/* Professional Page URL Input */}
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Professional Page</Form.Label>
+              <Form.Control
+                type="url"
+                {...register('professionalPage')}
+                isInvalid={!!errors.professionalPage}
+                placeholder="Professional Page URL"
+              />
+              <Form.Control.Feedback type="invalid">{errors.professionalPage?.message}</Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+
+          {/* Email Input */}
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Contact Email</Form.Label>
+              <Form.Control
+                type="email"
+                {...register('email')}
+                isInvalid={!!errors.email}
+                defaultValue={currentUser}
+              />
+              <Form.Control.Feedback type="invalid">{errors.email?.message}</Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
 
         {/* Profile Image URL Input */}
         <Form.Group className="mb-3">
-          <Form.Label>Profile Image URL</Form.Label>
-          <Form.Control type="url" {...register('profileImage')} isInvalid={!!errors.profileImage} />
+          <Form.Label>Optional: Profile Image URL</Form.Label>
+          <Form.Control
+            type="url"
+            {...register('profileImage')}
+            isInvalid={!!errors.profileImage}
+            defaultValue={profImg}
+          />
           <Form.Control.Feedback type="invalid">{errors.profileImage?.message}</Form.Control.Feedback>
         </Form.Group>
 
         <input type="hidden" {...register('owner')} value={currentUser} />
 
         {/* Submit Button */}
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="mb-5">
           Submit
         </Button>
       </Form>
