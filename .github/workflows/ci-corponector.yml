@@ -1,4 +1,4 @@
-name: Corponector
+name: corponector
 on:
   push:
     branches:
