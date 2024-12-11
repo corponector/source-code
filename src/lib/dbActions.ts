@@ -164,10 +164,32 @@ export async function editCompany(company: {
           salaryRange: position.salaryRange,
         })),
       },
+      // positions: {
+      //   deleteMany: {},
+      //   create: company.positions.map((position) => ({
+      //     title: position.title,
+      //     description: position.description,
+      //     skills: position.skills,
+      //     jobType: position.jobType,
+      //     numberOfHires: position.numberOfHires,
+      //     salaryRange: position.salaryRange,
+      //   })),
+      // },
+      // positions: {
+      //   create: company.positions.map((position) => ({
+      //     title: position.title,
+      //     description: position.description,
+      //     skills: position.skills,
+      //     jobType: position.jobType,
+      //     numberOfHires: position.numberOfHires,
+      //     salaryRange: position.salaryRange,
+      //   })),
+      // },
     },
   });
 
   // After updating, redirect to the list page
+  redirect('/company');
   redirect('/company');
 }
 /**
