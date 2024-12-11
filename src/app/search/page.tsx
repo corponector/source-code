@@ -36,6 +36,7 @@ const fetchStudentsAndCompanies = async (): Promise<SearchPageProps> => {
       profileImage: true,
       links: true,
       emails: true,
+      owner: true,
       positions: {
         select: {
           id: true,
