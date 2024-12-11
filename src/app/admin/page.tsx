@@ -5,6 +5,7 @@ import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 import { getUserCount, getJobPostingCount, editUserRole} from '@/lib/dbActions';
 import EditRoleButton from '@/components/RoleEditButton';
+import DeleteUserButton from '@/components/DeleteUserButton';
 
 
 const AdminPage = async () => {
@@ -96,15 +97,15 @@ const AdminPage = async () => {
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>
-                      <EditRoleButton user={user}/>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                          <EditRoleButton user={user} />
+                          <DeleteUserButton userId={user.id} />
+                        </div>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
-              <Button className="mt-3" variant="info">
-                Add New User
-              </Button>
             </section>
           </div>
         </Col>

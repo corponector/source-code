@@ -263,3 +263,19 @@ export async function editUserRole(userId: number, newRole: string): Promise<voi
     throw error;  // Rethrow the error if necessary or handle it according to your application's needs
   }
 }
+
+/**
+ * Deletes a user from the database.
+ * @param userId - The unique ID of the user to be deleted.
+ */
+export async function deleteUser(userId: number): Promise<void> {
+  try {
+    await prisma.user.delete({
+      where: { id: userId },
+    });
+    console.log(`User with ID ${userId} deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;  // Handle errors appropriately
+  }
+}
