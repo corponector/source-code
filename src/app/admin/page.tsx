@@ -1,9 +1,13 @@
 import { getServerSession } from 'next-auth';
-import { Col, Row, Table, Button } from 'react-bootstrap';
+import { Col, Row, Table } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { getUserCount, getJobPostingCount } from '@/lib/dbActions';
+import { getUserCount, getJobPostingCount, getJobListings } from '@/lib/dbActions';
+import EditRoleButton from '@/components/RoleEditButton';
+import DeleteUserButton from '@/components/DeleteUserButton';
+import DeleteJobButton from '@/components/DeleteJobButton';
+import NotificationForm from '@/components/NotificationForm';
 
 const AdminPage = async () => {
   const session = await getServerSession(authOptions);
@@ -16,24 +20,23 @@ const AdminPage = async () => {
   const users = await prisma.user.findMany({});
   const activeUsers = await getUserCount();
   const jobs = await getJobPostingCount();
-  // filler data
+  const jobListings = await getJobListings();
 
-  const recentActivities = [
-    { type: 'job', text: 'New job posted: Senior Developer', timestamp: '2 minutes ago' },
-    { type: 'login', text: 'User login: john.doe@example.com', timestamp: '5 minutes ago' },
-    { type: 'flag', text: 'Content flagged for review: inappropriate language', timestamp: '10 minutes ago' },
-    { type: 'job', text: 'New job posted: UX/UI Designer', timestamp: '12 minutes ago' },
-    { type: 'login', text: 'User login: jane.smith@example.com', timestamp: '20 minutes ago' },
-  ];
+  const sendNotification = async (message: string) => {
+    const response = await fetch('/api/notifications', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
+    });
 
-  const jobListings = [
-    { id: '1',
-      title: 'Software Engineer',
-      companyName: 'Tech Corp',
-      location: 'San Francisco',
-      userEmail: 'admin@tech.com' },
-    { id: '2', title: 'Product Manager', companyName: 'Biz Inc.', location: 'New York', userEmail: 'manager@biz.com' },
-  ];
+    if (response.ok) {
+      alert('Notification sent!');
+    } else {
+      alert('Failed to send notification');
+    }
+  };
 
   return (
     <main>
@@ -71,26 +74,41 @@ const AdminPage = async () => {
         </div>
       </div>
 
-      {/* Activity Feed Section */}
-      <div className="mt-4">
-        <div className="shadow-sm p-4 bg-white rounded">
-          <div className="bg-info text-white p-3 rounded">
-            <h3>Recent Activities</h3>
+      {/* Permissions and Roles Section */}
+      <Row className="mb-4">
+        <Col>
+          <div className="shadow-sm p-4 bg-white rounded">
+            <header className="bg-info text-white p-3 rounded">
+              <h3>Permissions and Roles</h3>
+            </header>
+            <section className="p-3">
+              <Table responsive striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.email}</td>
+                      <td>{user.role}</td>
+                      <td>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                          <EditRoleButton user={user} />
+                          <DeleteUserButton userId={user.id} />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </section>
           </div>
-          <div className="p-3">
-            <div>
-              {recentActivities.map((activity) => (
-                <div key={activity.text} className="d-flex align-items-center mb-3">
-                  <div>
-                    <p>{activity.text}</p>
-                    <span className="text-muted">{activity.timestamp}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
       {/* Job Listings Management Section */}
       <Row className="mb-4">
@@ -114,237 +132,14 @@ const AdminPage = async () => {
                   {jobListings.map((listing) => (
                     <tr key={listing.id}>
                       <td>{listing.title}</td>
-                      <td>{listing.companyName}</td>
-                      <td>{listing.location}</td>
-                      <td>{listing.userEmail}</td>
+                      <td>{listing.company.name}</td>
+                      <td>{listing.company.location}</td>
+                      <td>{listing.company.emails}</td>
                       <td>
-                        <Button variant="danger">Delete</Button>
+                        <DeleteJobButton jobId={listing.id} />
                       </td>
                     </tr>
                   ))}
-                </tbody>
-              </Table>
-              <Button className="mt-3" variant="success">
-                Add New Job Listing
-              </Button>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
-      {/* Users Management Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-success text-white p-3 rounded">
-              <h3>List of Users</h3>
-            </header>
-            <section className="p-3">
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>Role</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.email}</td>
-                      <td>{user.role}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-              <Button className="mt-3" variant="info">
-                Add New User
-              </Button>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
-      {/* Permissions and Roles Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-info text-white p-3 rounded">
-              <h3>Permissions and Roles</h3>
-            </header>
-            <section className="p-3">
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.email}</td>
-                      <td>{user.role}</td>
-                      <td><Button variant="warning">Edit Role</Button></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
-      {/* Content Moderation Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-warning text-white p-3 rounded">
-              <h3>Content Moderation</h3>
-            </header>
-            <section className="p-3">
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Content</th>
-                    <th>Flagged By</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Example Post 1</td>
-                    <td>User1</td>
-                    <td><Button variant="danger">Delete</Button></td>
-                  </tr>
-                  <tr>
-                    <td>Example Post 2</td>
-                    <td>User2</td>
-                    <td><Button variant="danger">Delete</Button></td>
-                  </tr>
-                </tbody>
-              </Table>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
-      {/* Category Management Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-dark text-white p-3 rounded">
-              <h3>Category and Tag Management</h3>
-            </header>
-            <section className="p-3">
-              <div className="d-flex justify-content-between mb-3">
-                <Button className="mt-3" variant="primary">
-                  Add New Category
-                </Button>
-                <Button className="mt-3 ms-3" variant="secondary">
-                  Manage Tags
-                </Button>
-              </div>
-
-              {/* Categories List (Example) */}
-              <h5>Existing Categories</h5>
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Category Name</th>
-                    <th>Posts Count</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Skills</td>
-                    <td>10 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Geographic Locations</td>
-                    <td>5 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Position Types</td>
-                    <td>8 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Industries</td>
-                    <td>12 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  {/* More categories */}
-                </tbody>
-              </Table>
-
-              {/* Tags List (Example) */}
-              <h5>Existing Tags</h5>
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Tag Name</th>
-                    <th>Assigned Posts</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>JavaScript</td>
-                    <td>4 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Python</td>
-                    <td>3 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>React</td>
-                    <td>2 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>AWS</td>
-                    <td>5 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Data Science</td>
-                    <td>6 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  {/* More tags */}
                 </tbody>
               </Table>
             </section>
@@ -356,26 +151,7 @@ const AdminPage = async () => {
       <Row className="mb-4">
         <Col>
           <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-danger text-white p-3 rounded">
-              <h3>Send Notifications</h3>
-            </header>
-            <section className="p-3">
-              {/* Notification Content Input Field */}
-              <div className="mb-3">
-                {/* <label htmlFor="notificationMessage" className="form-label">Notification Message</label> */}
-                <p>Notification Message</p>
-                <textarea
-                  id="notificationMessage"
-                  className="form-control"
-                  placeholder="Enter your notification message here"
-                />
-              </div>
-
-              {/* Send Notification Button */}
-              <Button className="mt-3" variant="danger">
-                Send Site-Wide Notification
-              </Button>
-            </section>
+            <NotificationForm />
           </div>
         </Col>
       </Row>
