@@ -10,6 +10,7 @@ import { deleteJobPosting } from '@/lib/dbActions'; // Ensure this function is p
  */
 const DeleteJobButton: React.FC<{ jobId: number }> = ({ jobId }) => {
   const handleDelete = async () => {
+    // eslint-disable-next-line no-alert
     if (window.confirm('Are you sure you want to delete this job posting?')) {
       try {
         await deleteJobPosting(jobId);

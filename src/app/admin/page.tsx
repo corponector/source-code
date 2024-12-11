@@ -22,21 +22,21 @@ const AdminPage = async () => {
   const jobs = await getJobPostingCount();
   const jobListings = await getJobListings();
 
-  const sendNotification = async (message: string) => {
-    const response = await fetch('/api/notifications', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message }),
-    });
+  // const sendNotification = async (message: string) => {
+  //   const response = await fetch('/api/notifications', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ message }),
+  //   });
 
-    if (response.ok) {
-      alert('Notification sent!');
-    } else {
-      alert('Failed to send notification');
-    }
-  };
+  //   if (response.ok) {
+  //     alert('Notification sent!');
+  //   } else {
+  //     alert('Failed to send notification');
+  //   }
+  // };
 
   return (
     <main>

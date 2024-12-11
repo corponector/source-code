@@ -254,7 +254,7 @@ export async function editUserRole(userId: number, newRole: string): Promise<voi
     await prisma.user.update({
       where: { id: userId },
       data: {
-        role: role,
+        role,
       },
     });
     console.log('User role updated successfully');
@@ -282,7 +282,7 @@ export async function deleteUser(userId: number): Promise<void> {
 
 // Assuming you have a 'positions' table directly storing job listings
 export async function getJobListings() {
-  return await prisma.position.findMany({
+  return prisma.position.findMany({
     include: {
       company: true,
     },

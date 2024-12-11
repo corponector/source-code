@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form, Row, Col, Alert } from 'react-bootstrap';
 
 interface NotificationFormData {
   message: string;
@@ -10,24 +10,24 @@ interface NotificationFormData {
 
 const SendNotificationForm: React.FC = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<NotificationFormData>();
+  const [alertInfo, setAlertInfo] = React.useState<{ type: string; message: string } | null>(null);
 
-  const handleSendNotification = async (message: string) => {
+  const handleSendNotification = async (data: NotificationFormData) => {
+    console.log('Sending notification:', data.message);
     try {
-      // Here you would call your API or perform the action to send the notification
-      console.log('Sending notification:', message);
-      // Simulate API call with a timeout
+      // eslint-disable-next-line no-promise-executor-return
       await new Promise(resolve => setTimeout(resolve, 1000));
-      alert('Notification sent successfully!');
-    } catch (error) {
+      setAlertInfo({ type: 'success', message: 'Notification sent successfully!' });
+    } catch (error: any) {
       console.error('Error sending notification:', error);
-      alert('Failed to send notification');
+      setAlertInfo({ type: 'danger', message: 'Failed to send notification' });
     } finally {
       reset();
     }
   };
 
   const onSubmit = (data: NotificationFormData) => {
-    handleSendNotification(data.message);
+    handleSendNotification(data);
   };
 
   return (
@@ -39,6 +39,11 @@ const SendNotificationForm: React.FC = () => {
               <h3>Send Notifications</h3>
             </header>
             <section className="p-3">
+              {alertInfo && (
+                <Alert variant={alertInfo.type}>
+                  {alertInfo.message}
+                </Alert>
+              )}
               <Form.Group className="mb-3">
                 <Form.Label>Notification Message</Form.Label>
                 <Form.Control

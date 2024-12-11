@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import { editUserRole } from '@/lib/dbActions';
 
 interface User {
@@ -14,15 +14,16 @@ const roles = ['user', 'admin', 'company', 'student'];
 const EditRoleButton: React.FC<{ user: User }> = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string>(user.role);
+  const [alertInfo, setAlertInfo] = useState<{ type: string; message: string } | null>(null);
 
   const handleSave = async () => {
     try {
       await editUserRole(user.id, selectedRole);
-      alert('Role updated successfully!');
-      window.location.reload(); // Add this line to reload the page
+      setAlertInfo({ type: 'success', message: 'Role updated successfully!' });
+      window.location.reload(); // Consider using state management instead of reloading
     } catch (error) {
       console.error('Error updating role:', error);
-      alert('Failed to update role');
+      setAlertInfo({ type: 'danger', message: 'Failed to update role' });
     } finally {
       setIsEditing(false);
     }
@@ -35,6 +36,11 @@ const EditRoleButton: React.FC<{ user: User }> = ({ user }) => {
 
   return (
     <div>
+      {alertInfo && (
+        <Alert variant={alertInfo.type} onClose={() => setAlertInfo(null)} dismissible>
+          {alertInfo.message}
+        </Alert>
+      )}
       {isEditing ? (
         <>
           <Form.Control
