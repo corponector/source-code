@@ -279,3 +279,12 @@ export async function deleteUser(userId: number): Promise<void> {
     throw error;  // Handle errors appropriately
   }
 }
+
+// Assuming you have a 'positions' table directly storing job listings
+export async function getJobListings() {
+  return await prisma.position.findMany({
+    include: {
+      company: true,  // Assuming there's a relation to a 'company' table
+    }
+  });
+}

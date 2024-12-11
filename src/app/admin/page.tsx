@@ -3,9 +3,10 @@ import { Col, Row, Table, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { getUserCount, getJobPostingCount, editUserRole} from '@/lib/dbActions';
+import { getUserCount, getJobPostingCount} from '@/lib/dbActions';
 import EditRoleButton from '@/components/RoleEditButton';
 import DeleteUserButton from '@/components/DeleteUserButton';
+import { getJobListings } from '@/lib/dbActions'; 
 
 
 const AdminPage = async () => {
@@ -19,25 +20,8 @@ const AdminPage = async () => {
   const users = await prisma.user.findMany({});
   const activeUsers = await getUserCount();
   const jobs = await getJobPostingCount();
+  const jobListings = await getJobListings();  
   
-  // filler data
-
-  const recentActivities = [
-    { type: 'job', text: 'New job posted: Senior Developer', timestamp: '2 minutes ago' },
-    { type: 'login', text: 'User login: john.doe@example.com', timestamp: '5 minutes ago' },
-    { type: 'flag', text: 'Content flagged for review: inappropriate language', timestamp: '10 minutes ago' },
-    { type: 'job', text: 'New job posted: UX/UI Designer', timestamp: '12 minutes ago' },
-    { type: 'login', text: 'User login: jane.smith@example.com', timestamp: '20 minutes ago' },
-  ];
-
-  const jobListings = [
-    { id: '1',
-      title: 'Software Engineer',
-      companyName: 'Tech Corp',
-      location: 'San Francisco',
-      userEmail: 'admin@tech.com' },
-    { id: '2', title: 'Product Manager', companyName: 'Biz Inc.', location: 'New York', userEmail: 'manager@biz.com' },
-  ];
 
   return (
     <main>
@@ -133,9 +117,9 @@ const AdminPage = async () => {
                   {jobListings.map((listing) => (
                     <tr key={listing.id}>
                       <td>{listing.title}</td>
-                      <td>{listing.companyName}</td>
-                      <td>{listing.location}</td>
-                      <td>{listing.userEmail}</td>
+                      <td>{listing.company.name}</td>
+                      <td>{listing.company.location}</td>
+                      <td>{listing.company.emails}</td> 
                       <td>
                         <Button variant="danger">Delete</Button>
                       </td>
