@@ -117,18 +117,45 @@ export async function editCompany(company: {
   owner: string;
   positions: Position[];
 }) {
+  const { id, positions, ...companyData } = company;
+
+  // Separate existing positions from new positions
+  const existingPositions = positions.filter((position) => position.id);
+  const newPositions = positions.filter((position) => !position.id);
+
   await prisma.company.update({
-    where: { id: company.id },
+    where: { id },
     data: {
-      name: company.name,
-      overview: company.overview,
-      location: company.location,
-      links: company.links.split(','),
-      emails: company.emails.split(','),
-      profileImage: company.profileImage,
-      owner: company.owner,
+      ...companyData,
+      links: company.links.split(',').map((link) => link.trim()),
+      emails: company.emails.split(',').map((email) => email.trim()),
       positions: {
-        create: company.positions.map((position) => ({
+        deleteMany: {
+          companyId: id,
+          id: {
+            notIn: existingPositions.map((position) => position.id),
+          },
+        },
+        upsert: existingPositions.map((position) => ({
+          where: { id: position.id },
+          update: {
+            title: position.title,
+            description: position.description,
+            skills: position.skills,
+            jobType: position.jobType,
+            numberOfHires: position.numberOfHires,
+            salaryRange: position.salaryRange,
+          },
+          create: {
+            title: position.title,
+            description: position.description,
+            skills: position.skills,
+            jobType: position.jobType,
+            numberOfHires: position.numberOfHires,
+            salaryRange: position.salaryRange,
+          },
+        })),
+        create: newPositions.map((position) => ({
           title: position.title,
           description: position.description,
           skills: position.skills,
@@ -141,7 +168,7 @@ export async function editCompany(company: {
   });
 
   // After updating, redirect to the list page
-  redirect('/student');
+  redirect('/company');
 }
 /**
  * Creates a new user in the database.
