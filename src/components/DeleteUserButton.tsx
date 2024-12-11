@@ -10,6 +10,7 @@ import { deleteUser } from '@/lib/dbActions';
  */
 const DeleteUserButton: React.FC<{ userId: number }> = ({ userId }) => {
   const handleDelete = async () => {
+    // eslint-disable-next-line no-alert
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         await deleteUser(userId);
@@ -22,7 +23,7 @@ const DeleteUserButton: React.FC<{ userId: number }> = ({ userId }) => {
   };
 
   return (
-    <Button variant='danger' onClick={handleDelete}>
+    <Button variant="danger" onClick={handleDelete}>
       Delete
     </Button>
   );
