@@ -11,10 +11,10 @@ interface CompanyProfileProps {
 }
 
 const CompanyProfile: React.FC<CompanyProfileProps> = ({ company }) => (
-  <Container fluid className="d-flex justify-content-center align-items-center vh-100">
+  <Container fluid className="d-flex justify-content-center align-items-center py-5">
     <Card className="w-75 h-75" style={{ backgroundColor: 'rgba(999, 999, 999, 0.5)', border: 'none', height: 'auto' }}>
       <Card.Body>
-        <Row className="h-100">
+        <Row>
           <Col md={3} className="d-flex flex-column justify-content-center align-items-center">
             <Image
               src={company.profileImage || '/default-company.svg'}
@@ -52,11 +52,13 @@ const CompanyProfile: React.FC<CompanyProfileProps> = ({ company }) => (
             <ul className="list-unstyled">
               {company.positions.map((position) => (
                 <li key={position.id} className="mb-3">
-                  <strong>
-                    •
-                    {' '}
-                    {position.title}
-                  </strong>
+                  <p className="fs-5">
+                    <strong>
+                      •
+                      {' '}
+                      {position.title}
+                    </strong>
+                  </p>
                   <p>{position.description}</p>
                   <p>
                     <strong>

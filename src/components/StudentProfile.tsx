@@ -13,7 +13,7 @@ interface ProfilePageProps {
 }
 
 const ProfilePage: React.FC<ProfilePageProps> = ({ student }) => (
-  <Container fluid className="d-flex justify-content-center align-items-center vh-100">
+  <Container fluid className="d-flex justify-content-center align-items-center py-5">
     <Card className="w-75 h-75" style={{ backgroundColor: 'rgba(999, 999, 999, 0.5)', border: 'none', height: 'auto' }}>
       <Card.Body>
         <Row className="h-100">
