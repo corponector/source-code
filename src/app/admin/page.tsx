@@ -7,7 +7,6 @@ import { getUserCount, getJobPostingCount, getJobListings } from '@/lib/dbAction
 import EditRoleButton from '@/components/RoleEditButton';
 import DeleteUserButton from '@/components/DeleteUserButton';
 import DeleteJobButton from '@/components/DeleteJobButton';
-import NotificationForm from '@/components/NotificationForm';
 
 const AdminPage = async () => {
   const session = await getServerSession(authOptions);
@@ -21,22 +20,6 @@ const AdminPage = async () => {
   const activeUsers = await getUserCount();
   const jobs = await getJobPostingCount();
   const jobListings = await getJobListings();
-
-  // const sendNotification = async (message: string) => {
-  //   const response = await fetch('/api/notifications', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ message }),
-  //   });
-
-  //   if (response.ok) {
-  //     alert('Notification sent!');
-  //   } else {
-  //     alert('Failed to send notification');
-  //   }
-  // };
 
   return (
     <main>
@@ -147,14 +130,14 @@ const AdminPage = async () => {
         </Col>
       </Row>
 
-      {/* Notifications Section */}
+      {/* Notifications Section
       <Row className="mb-4">
         <Col>
           <div className="shadow-sm p-4 bg-white rounded">
             <NotificationForm />
           </div>
         </Col>
-      </Row>
+      </Row> */}
 
     </main>
   );
