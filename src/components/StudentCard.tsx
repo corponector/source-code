@@ -14,7 +14,7 @@ interface StudentCardProps {
 
 const StudentCard: React.FC<StudentCardProps> = ({ student }) => (
   <Link href={`/student/profile/${student.id}`} style={{ textDecoration: 'none' }} passHref>
-    <Card className="mb-3" style={{ backgroundColor: 'rgba(999, 999, 999, 0.5)', border: 'none', cursor: 'pointer' }}>
+    <Card className="mb-3" style={{ backgroundColor: 'rgba(999, 999, 999, 0.5)', border: 'none', cursor: 'pointer', height: 'auto' }}>
       <Card.Body>
         <Row>
           <Col md={4}>
