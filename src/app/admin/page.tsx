@@ -71,26 +71,39 @@ const AdminPage = async () => {
         </div>
       </div>
 
-      {/* Activity Feed Section */}
-      <div className="mt-4">
-        <div className="shadow-sm p-4 bg-white rounded">
-          <div className="bg-info text-white p-3 rounded">
-            <h3>Recent Activities</h3>
+      {/* Permissions and Roles Section */}
+      <Row className="mb-4">
+        <Col>
+          <div className="shadow-sm p-4 bg-white rounded">
+            <header className="bg-info text-white p-3 rounded">
+              <h3>Permissions and Roles</h3>
+            </header>
+            <section className="p-3">
+              <Table responsive striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.email}</td>
+                      <td>{user.role}</td>
+                      <td><Button variant="warning" >Edit Role</Button></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Button className="mt-3" variant="info">
+                Add New User
+              </Button>
+            </section>
           </div>
-          <div className="p-3">
-            <div>
-              {recentActivities.map((activity) => (
-                <div key={activity.text} className="d-flex align-items-center mb-3">
-                  <div>
-                    <p>{activity.text}</p>
-                    <span className="text-muted">{activity.timestamp}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
       {/* Job Listings Management Section */}
       <Row className="mb-4">
@@ -132,69 +145,6 @@ const AdminPage = async () => {
         </Col>
       </Row>
 
-      {/* Users Management Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-success text-white p-3 rounded">
-              <h3>List of Users</h3>
-            </header>
-            <section className="p-3">
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>Role</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.email}</td>
-                      <td>{user.role}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-              <Button className="mt-3" variant="info">
-                Add New User
-              </Button>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
-      {/* Permissions and Roles Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-info text-white p-3 rounded">
-              <h3>Permissions and Roles</h3>
-            </header>
-            <section className="p-3">
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.email}</td>
-                      <td>{user.role}</td>
-                      <td><Button variant="warning">Edit Role</Button></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
       {/* Content Moderation Section */}
       <Row className="mb-4">
         <Col>
@@ -228,6 +178,56 @@ const AdminPage = async () => {
           </div>
         </Col>
       </Row>
+
+
+      {/* Notifications Section */}
+      <Row className="mb-4">
+        <Col>
+          <div className="shadow-sm p-4 bg-white rounded">
+            <header className="bg-danger text-white p-3 rounded">
+              <h3>Send Notifications</h3>
+            </header>
+            <section className="p-3">
+              {/* Notification Content Input Field */}
+              <div className="mb-3">
+                {/* <label htmlFor="notificationMessage" className="form-label">Notification Message</label> */}
+                <p>Notification Message</p>
+                <textarea
+                  id="notificationMessage"
+                  className="form-control"
+                  placeholder="Enter your notification message here"
+                />
+              </div>
+
+              {/* Send Notification Button */}
+              <Button className="mt-3" variant="danger">
+                Send Site-Wide Notification
+              </Button>
+            </section>
+          </div>
+        </Col>
+      </Row>
+
+       {/* Activity Feed Section */}
+       <div className="mt-4">
+        <div className="shadow-sm p-4 bg-white rounded">
+          <div className="bg-info text-white p-3 rounded">
+            <h3>Recent Activities</h3>
+          </div>
+          <div className="p-3">
+            <div>
+              {recentActivities.map((activity) => (
+                <div key={activity.text} className="d-flex align-items-center mb-3">
+                  <div>
+                    <p>{activity.text}</p>
+                    <span className="text-muted">{activity.timestamp}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Category Management Section */}
       <Row className="mb-4">
@@ -347,34 +347,6 @@ const AdminPage = async () => {
                   {/* More tags */}
                 </tbody>
               </Table>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
-      {/* Notifications Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-danger text-white p-3 rounded">
-              <h3>Send Notifications</h3>
-            </header>
-            <section className="p-3">
-              {/* Notification Content Input Field */}
-              <div className="mb-3">
-                {/* <label htmlFor="notificationMessage" className="form-label">Notification Message</label> */}
-                <p>Notification Message</p>
-                <textarea
-                  id="notificationMessage"
-                  className="form-control"
-                  placeholder="Enter your notification message here"
-                />
-              </div>
-
-              {/* Send Notification Button */}
-              <Button className="mt-3" variant="danger">
-                Send Site-Wide Notification
-              </Button>
             </section>
           </div>
         </Col>

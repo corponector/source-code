@@ -233,3 +233,10 @@ export async function getJobPostingCount(): Promise<number> {
   const count = await prisma.position.count();
   return count;
 }
+
+/**
+ * Updates the role of an existing user in the database 
+ * @param 
+ * @param 
+ */
+export async function editRole(credentials: { })
