@@ -3,7 +3,9 @@ import { Col, Row, Table, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { getUserCount, getJobPostingCount } from '@/lib/dbActions';
+import { getUserCount, getJobPostingCount, editUserRole} from '@/lib/dbActions';
+import EditRoleButton from '@/components/RoleEditButton';
+
 
 const AdminPage = async () => {
   const session = await getServerSession(authOptions);
@@ -16,6 +18,7 @@ const AdminPage = async () => {
   const users = await prisma.user.findMany({});
   const activeUsers = await getUserCount();
   const jobs = await getJobPostingCount();
+  
   // filler data
 
   const recentActivities = [
@@ -92,7 +95,9 @@ const AdminPage = async () => {
                     <tr key={user.id}>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
-                      <td><Button variant="warning" >Edit Role</Button></td>
+                      <td>
+                      <EditRoleButton user={user}/>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -208,150 +213,7 @@ const AdminPage = async () => {
         </Col>
       </Row>
 
-       {/* Activity Feed Section */}
-       <div className="mt-4">
-        <div className="shadow-sm p-4 bg-white rounded">
-          <div className="bg-info text-white p-3 rounded">
-            <h3>Recent Activities</h3>
-          </div>
-          <div className="p-3">
-            <div>
-              {recentActivities.map((activity) => (
-                <div key={activity.text} className="d-flex align-items-center mb-3">
-                  <div>
-                    <p>{activity.text}</p>
-                    <span className="text-muted">{activity.timestamp}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Category Management Section */}
-      <Row className="mb-4">
-        <Col>
-          <div className="shadow-sm p-4 bg-white rounded">
-            <header className="bg-dark text-white p-3 rounded">
-              <h3>Category and Tag Management</h3>
-            </header>
-            <section className="p-3">
-              <div className="d-flex justify-content-between mb-3">
-                <Button className="mt-3" variant="primary">
-                  Add New Category
-                </Button>
-                <Button className="mt-3 ms-3" variant="secondary">
-                  Manage Tags
-                </Button>
-              </div>
-
-              {/* Categories List (Example) */}
-              <h5>Existing Categories</h5>
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Category Name</th>
-                    <th>Posts Count</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Skills</td>
-                    <td>10 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Geographic Locations</td>
-                    <td>5 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Position Types</td>
-                    <td>8 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Industries</td>
-                    <td>12 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  {/* More categories */}
-                </tbody>
-              </Table>
-
-              {/* Tags List (Example) */}
-              <h5>Existing Tags</h5>
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Tag Name</th>
-                    <th>Assigned Posts</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>JavaScript</td>
-                    <td>4 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Python</td>
-                    <td>3 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>React</td>
-                    <td>2 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>AWS</td>
-                    <td>5 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Data Science</td>
-                    <td>6 Posts</td>
-                    <td>
-                      <Button variant="warning" size="sm">Edit</Button>
-                      <Button variant="danger" size="sm" className="ms-2">Delete</Button>
-                    </td>
-                  </tr>
-                  {/* More tags */}
-                </tbody>
-              </Table>
-            </section>
-          </div>
-        </Col>
-      </Row>
-
+    
     </main>
   );
 };

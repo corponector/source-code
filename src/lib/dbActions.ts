@@ -235,8 +235,31 @@ export async function getJobPostingCount(): Promise<number> {
 }
 
 /**
- * Updates the role of an existing user in the database 
- * @param 
- * @param 
+ * Updates the role of an existing user in the database.
+ * @param userId - The unique ID of the user whose role is to be updated.
+ * @param newRole - The new role to assign to the user.
  */
-export async function editRole(credentials: { })
+export async function editUserRole(userId: number, newRole: string): Promise<void> {
+  let role: Role = Role.USER; // Default to USER if the role is not recognized
+
+  if (newRole === 'student') {
+    role = Role.STUDENT;
+  } else if (newRole === 'company') {
+    role = Role.COMPANY;
+  } else if (newRole === 'admin') {
+    role = Role.ADMIN;
+  }
+
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        role: role,
+      },
+    });
+    console.log('User role updated successfully');
+  } catch (error) {
+    console.error('Error updating user role:', error);
+    throw error;  // Rethrow the error if necessary or handle it according to your application's needs
+  }
+}
