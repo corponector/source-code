@@ -117,18 +117,26 @@ export async function editCompany(company: {
   owner: string;
   positions: Position[];
 }) {
+  const { id, positions, ...companyData } = company;
+
+  // Separate existing positions from new positions
+  const existingPositions = positions.filter((position) => position.id);
+  const newPositions = positions.filter((position) => !position.id);
+
   await prisma.company.update({
-    where: { id: company.id },
+    where: { id },
     data: {
-      name: company.name,
-      overview: company.overview,
-      location: company.location,
-      links: company.links.split(','),
-      emails: company.emails.split(','),
-      profileImage: company.profileImage,
-      owner: company.owner,
+      ...companyData,
+      links: company.links.split(',').map((link) => link.trim()),
+      emails: company.emails.split(',').map((email) => email.trim()),
       positions: {
-        upsert: company.positions.map((position) => ({
+        deleteMany: {
+          companyId: id,
+          id: {
+            notIn: existingPositions.map((position) => position.id),
+          },
+        },
+        upsert: existingPositions.map((position) => ({
           where: { id: position.id },
           update: {
             title: position.title,
@@ -146,6 +154,14 @@ export async function editCompany(company: {
             numberOfHires: position.numberOfHires,
             salaryRange: position.salaryRange,
           },
+        })),
+        create: newPositions.map((position) => ({
+          title: position.title,
+          description: position.description,
+          skills: position.skills,
+          jobType: position.jobType,
+          numberOfHires: position.numberOfHires,
+          salaryRange: position.salaryRange,
         })),
       },
       // positions: {
@@ -173,6 +189,7 @@ export async function editCompany(company: {
   });
 
   // After updating, redirect to the list page
+  redirect('/company');
   redirect('/company');
 }
 /**
@@ -232,4 +249,71 @@ export async function getUserCount(): Promise<number> {
 export async function getJobPostingCount(): Promise<number> {
   const count = await prisma.position.count();
   return count;
+}
+
+/**
+ * Updates the role of an existing user in the database.
+ * @param userId - The unique ID of the user whose role is to be updated.
+ * @param newRole - The new role to assign to the user.
+ */
+export async function editUserRole(userId: number, newRole: string): Promise<void> {
+  let role: Role = Role.USER; // Default to USER if the role is not recognized
+
+  if (newRole === 'student') {
+    role = Role.STUDENT;
+  } else if (newRole === 'company') {
+    role = Role.COMPANY;
+  } else if (newRole === 'admin') {
+    role = Role.ADMIN;
+  }
+
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        role,
+      },
+    });
+    console.log('User role updated successfully');
+  } catch (error) {
+    console.error('Error updating user role:', error);
+    throw error;
+  }
+}
+
+/**
+ * Deletes a user from the database.
+ * @param userId - The unique ID of the user to be deleted.
+ */
+export async function deleteUser(userId: number): Promise<void> {
+  try {
+    await prisma.user.delete({
+      where: { id: userId },
+    });
+    console.log(`User with ID ${userId} deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
+}
+
+// Assuming you have a 'positions' table directly storing job listings
+export async function getJobListings() {
+  return prisma.position.findMany({
+    include: {
+      company: true,
+    },
+  });
+}
+
+export async function deleteJobPosting(jobId: number): Promise<void> {
+  try {
+    await prisma.position.delete({
+      where: { id: jobId },
+    });
+    console.log(`Job posting with ID ${jobId} deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting job posting:', error);
+    throw error;
+  }
 }

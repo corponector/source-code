@@ -13,7 +13,7 @@ const CompanyPositions: React.FC<CompanyPositionsProps> = ({ positions }) => (
   <Container className="mt-5">
     <Card className="p-3" style={{ backgroundColor: 'rgba(999, 999, 999, 0.5)', border: 'none' }}>
       <Card.Body>
-        <h3 className="mb-3">Positions</h3>
+        <h3 className="mb-3">Open Positions</h3>
         <Row className="g-4 flex-nowrap overflow-auto">
           {positions.map((position: Position) => (
             <Col key={position.id} xs={12} md={6} lg={4}>

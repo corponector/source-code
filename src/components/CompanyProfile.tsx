@@ -5,6 +5,7 @@
 import React from 'react';
 import { Container, Card, Image, Row, Col } from 'react-bootstrap';
 import { Company } from './Interface';
+import CompanyPositions from './CompanyPositions';
 
 interface CompanyProfileProps {
   company: Company;
@@ -29,7 +30,7 @@ const CompanyProfile: React.FC<CompanyProfileProps> = ({ company }) => (
               Apply Now on Our Website!
             </a>
           </Col>
-          <Col md={6} className="d-flex flex-column justify-content-center">
+          <Col md={9} className="d-flex flex-column justify-content-center">
             <h1 className="display-4">{company.name}</h1>
             <p>
               <strong>Location:</strong>
@@ -47,49 +48,10 @@ const CompanyProfile: React.FC<CompanyProfileProps> = ({ company }) => (
               {Array.isArray(company.emails) ? company.emails.join(', ') : company.emails}
             </p>
           </Col>
-          <Col md={3} className="d-flex flex-column justify-content-center">
-            <h3 className="display-7">Open Positions:</h3>
-            <ul className="list-unstyled">
-              {company.positions.map((position) => (
-                <li key={position.id} className="mb-3">
-                  <p className="fs-5">
-                    <strong>
-                      •
-                      {' '}
-                      {position.title}
-                    </strong>
-                  </p>
-                  <p>{position.description}</p>
-                  <p>
-                    <strong>
-                      -
-                      Skills:
-                    </strong>
-                    {' '}
-                    {Array.isArray(position.skills) ? position.skills.join(', ') : position.skills}
-                  </p>
-                  <p>
-                    <strong>
-                      -
-                      Job Type:
-                    </strong>
-                    {' '}
-                    {Array.isArray(position.jobType) ? position.jobType.join(', ') : position.jobType}
-                  </p>
-                  <p>
-                    <strong> - Number of Hires:</strong>
-                    {' '}
-                    {position.numberOfHires}
-                  </p>
-                  <p>
-                    <strong> - Salary Range:</strong>
-                    {' '}
-                    $
-                    {position.salaryRange}
-                  </p>
-                </li>
-              ))}
-            </ul>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            <CompanyPositions positions={company.positions} />
           </Col>
         </Row>
       </Card.Body>

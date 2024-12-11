@@ -68,3 +68,5 @@ model Company {
   positions    Position[]
 
 }
+
+
