@@ -30,7 +30,7 @@ const StudentInfo = ({
       <Row xs={1} md={2} lg={4} className="g-4">
         {skills.map((skill: string) => (
           <Col>
-            <SkillItem skill={skill} />
+            <SkillItem skill={skill.trim()} />
           </Col>
         ))}
       </Row>
