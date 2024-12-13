@@ -64,13 +64,13 @@ footer a {
 
 .custom-welcome-section h1 {
   font-family: 'Open-sans', cursive;
-  font-size: 6rem;
+  font-size: clamp(2rem, 5vw, 6rem);
   color: black;
 }
 
 .custom-welcome-section h4 {
   font-family: 'Parkinsans', sans-serif;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
   margin-top: 25px;
   color: black;
 }
@@ -88,21 +88,28 @@ footer a {
 
 #about-us-section .section-title {
   font-family: 'Parkinsans', sans-serif;
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   color: var(--nat-navbar-text-highlight);
   margin-bottom: 20px;
 }
 
 .description-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #ffffff;
   border-radius: 15px;
-  padding: 50px;
+  padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
   margin-top: 30px;
   color: black;
   text-align: center;
   line-height: 1.6;
-  height: 200px;
+  min-height: 200px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  height: auto;
 }
 
 #get-started-section {
@@ -114,12 +121,12 @@ footer a {
 
 #get-started-section .section-title {
   font-family: 'Parkinsans', sans-serif;
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 20px;
 }
 
 #get-started-section p {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   margin-bottom: 20px;
 }
 
@@ -136,6 +143,7 @@ footer a {
   border-radius: 15px;
   margin: 20px;
 }
+
 .white-text {
   color: white !important;
 }
